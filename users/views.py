@@ -4,8 +4,8 @@ from django.http import HttpResponse
 # Create your views here.
 
 def student_form(request):
-    return HttpResponse("this is the student form")
-
+    return render(request, 'users/student_form.html')
+    
 
 def manager_form(request):
-    return HttpResponse("this is the manager form")
+    return render(request, 'users/manager_form.html')

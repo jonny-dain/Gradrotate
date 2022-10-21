@@ -4,4 +4,5 @@ from django.http import HttpResponse
 # Create your views here.
 
 def preference(request):
-    return HttpResponse("this is the student preference page")
+    return render(request, 'dashboard/dashboard.html')
+    

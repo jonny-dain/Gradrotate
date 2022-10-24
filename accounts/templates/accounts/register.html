@@ -1,11 +1,36 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Register page</title>
-    </head>
-    <body>
-        <h1> This is the Register page</h1>
-    </body>
+{% extends "base.html" %}
 
 
-</html>
+{% block content %}
+
+<h3>Registration page</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.username.label}}
+    {{form.username}}
+
+    {{form.email.label}}
+    {{form.email}}
+
+    {{form.password1.label}}
+    {{form.password1}}
+
+    {{form.password2.label}}
+    {{form.password2}}
+
+    {{form.role_selection.label}}
+    {{form.role_selection}}
+    <input type="Submit" name ="Register">
+
+    {{form.errors}}
+
+    <a href="../login">Login here</a>
+
+</form>
+
+
+
+
+
+{% endblock %}

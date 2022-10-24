@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login page</title>
-    </head>
-    <body>
-        <h1> This is the login-page</h1>
-    </body>
+{% extends "base.html" %}
 
+{% block content %}
 
-</html>
+{% for message in messages %}
+    <p> {{message}} </p>
+{% endfor %}
+<form method="POST" action="">
+    
+    {% csrf_token %}
+    <p>username</p>
+    <input type="text" name="username">
+
+    <p>password</p>
+    <input type="text" name="password">
+
+    <input type="Submit" name ="Submit" value="Login">
+
+    <a href="../register">register here</a>
+
+</form>
+
+{% endblock %}

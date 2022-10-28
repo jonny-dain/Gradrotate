@@ -23,7 +23,7 @@ def allowed_users(allowed_roles=[]):
             
             else:
                 if group == 'Admin':
-                    return redirect('../../interface')
+                    return redirect('../../admin_interface')
                 
                 if group == 'Manager':
                     return redirect('../form/manager_form')

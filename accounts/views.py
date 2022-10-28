@@ -26,7 +26,26 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
+
+            if request.user.groups.exists():
+                group = request.user.groups.all()[0].name
+
+                if group == 'Admin':
+                    return redirect('../../admin_interface')
+                
+                if group == 'Manager':
+                    return redirect('../form/manager_form')
+                
+                if group == 'Intern':
+                    return redirect('../form/student_form')
+                else:
+                    return HttpResponse('You are not authorized to view this page')
+            
             return redirect('../dashboard')
+
+
+
+
         else:
             messages.info(request, 'Username or password is incorrect')
             return render(request, 'accounts/login.html')
@@ -41,10 +60,7 @@ def logout(request):
       
 @authenticated_user
 def register(request):
-
-
     form = CreateUserForm()
-
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -57,7 +73,18 @@ def register(request):
             auth_login(request, user)
             request.user.groups.add(group)
             #want to redirect user to each place
-            return redirect('../dashboard')
+            if role == 'Admin':
+                return redirect('../../interface')
+            if role == 'Manager':
+                Job.objects.create(
+                    user = user
+                )
+                return redirect('../form/manager_form')
+            else:
+                Intern.objects.create(
+                    user = user
+                )
+                return redirect('../form/student_form')
 
     context = {
         'form' : form

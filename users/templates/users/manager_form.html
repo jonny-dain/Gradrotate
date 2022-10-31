@@ -5,4 +5,38 @@
 
 <p> This is the manager form page</p>
 
+<form method="POST" action="">
+
+    {% csrf_token %}
+    {{form.as_p}}
+
+    
+    <p> Coding:</p>
+    <input type="range" value="{{job.coding}}" name="coding" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue.innerText = this.value">
+    <p id="rangeValue">{{job.coding}}</p> 
+
+    <p> Project Management:</p>
+    <input type="range" value="{{job.project_management}}" name="project_management" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue1.innerText = this.value">
+    <p id="rangeValue1">{{job.project_management}}</p> 
+
+    <p> Marketing Skills:</p>
+    <input type="range" value="{{job.marketing_skills}}" name="marketing_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
+    <p id="rangeValue2">{{job.marketing_skills}}</p> 
+
+    <p> Web Skills:</p>
+    <input type="range" value="{{job.web_skills}}" name="web_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue3.innerText = this.value">
+    <p id="rangeValue3">{{job.web_skills}}</p> 
+
+
+
+
+    <input type="Submit" name ="Register">
+
+    {{form.errors}}
+ 
+</form>   
+
+
+
+
 {% endblock %}

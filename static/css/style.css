@@ -5,12 +5,66 @@
     box-sizing: border-box;
     padding: 0;
     
-
 }
+
+.card-container{
+    width: 80%;
+    display: inline-block;
+}
+
 body{
     background-color: #F9F6EE;
 }
 
+/* JOB CARD */
+
+.job-card{
+    padding: 1rem;
+    border: 1px solid #777;
+    border-radius: .25rem;
+    min-width: 70%;
+
+    
+}
+
+
+.job-card-body{
+    font-size: .8rem;
+}
+
+
+.job-card-title{
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+
+.job-card-text{
+    font-size: .8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60ch;
+}
+
+.job-card-footer{
+    margin-top: 1rem;
+}
+
+.job-card-deck{
+    display: grid;
+    align-items: flex-start;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+}
+
+
+
+
+
+
+/* NAV BAR */ 
+ 
 nav{
     background: #223843;
     height: 80px;

@@ -8,3 +8,13 @@ class Skills(models.Model):
     def __str__(self):
         return self.name
 
+
+
+#Intern preferences displayed here
+class InternPreference(models.Model):
+
+    date_created = models.DateTimeField(auto_now_add = True, null = True)
+    preference = models.IntegerField(default = 1)
+
+
+#class JobPreference

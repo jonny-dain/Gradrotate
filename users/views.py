@@ -30,6 +30,11 @@ def student_form(request):
     context = {'form': form, 'intern': intern}
     return render(request, 'users/student_form.html', context)
     
+
+
+
+
+    
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Manager'])
 def manager_form(request):

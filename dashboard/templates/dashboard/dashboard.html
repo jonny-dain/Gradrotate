@@ -7,7 +7,10 @@
 <div class="card-container">
     <div class="job-card-deck" >
         
+       
             {% for i in jobs %}
+            
+                
                 <div class="job-card" >
                     
                     <div class="job-card-body">
@@ -17,6 +20,7 @@
                     <div class="job-card-footer">
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-project-{{i.pk}}" >Learn more</button>
                     </div>
+
                     <select class="form-select" aria-label="Default select example">
                         <option selected>-</option>
                         {% for j in jobs_count %}
@@ -26,11 +30,7 @@
 
 
                   </div>
-        
 
-
-
-                  
                   <div class="modal fade" id="modal-project-{{i.pk}}" tabindex="-1"
                   aria-labelledby="modal-project-{{project.pk}}-label" aria-hidden="true">
                   <div class="modal-dialog">
@@ -52,8 +52,39 @@
                       </div>
                   </div>
                 </div>
+            </form>
             {% endfor %}
         
+
+            <!-- for job in jobs -> create a form number with a number and using the name.. views will take this and add it into the form?--> 
+
+
+            
+            <form action ="" method = "POST"> 
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {% for form, i in zippedlist %}
+                
+                    {{i.name}}
+                    <p hidden> hey </p>
+                    <!--{{form.job.as_hidden}} -->
+                    {{form.preference}}
+
+                {% endfor %}
+                
+                <input type = "submit" name = "submit">
+            </form>
+          
+            {% if errorlist %}
+                {% for error in errorlist %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+
         </div>
     </div>
 </div>

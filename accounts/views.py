@@ -76,7 +76,6 @@ def register(request):
             if role == 'Admin':
                 return redirect('../../interface')
             if role == 'Manager':
-                print("new-Job")
                 Job.objects.create(
                     user = user
                 )

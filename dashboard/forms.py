@@ -8,7 +8,7 @@ class InternPreferenceForm(ModelForm):
     class Meta:
         model = InternPreference
         fields = '__all__'
-        #fields = ['preference']
+        #fields = ['preference'] yes
 
     def set_job(self, job):
         data = self.data.copy()

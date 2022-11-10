@@ -9,9 +9,9 @@ variables:
 test:
   before_script:
     - pip install -r requirements.txt -v # install required pip packages
-    - python3 manage.py collectstatic --settings=SuperDjangoApp.local --noinput 
-    - python3 manage.py makemigrations Heroes --settings=SuperDjangoApp.local --noinput 
-    - python3 manage.py migrate --settings=SuperDjangoApp.local --noinput 
-    - python3 manage.py createsuperuser --noinput --username admin --email $EMAIL --settings=SuperDjangoApp.local
+    - python3 manage.py collectstatic --settings=gradRotate.local --noinput 
+    - python3 manage.py makemigrations Heroes --settings=gradRotate.local --noinput 
+    - python3 manage.py migrate --settings=gradRotate.local--noinput 
+    - python3 manage.py createsuperuser --noinput --username admin --email $EMAIL --settings=gradRotate.local
   script:
     - echo "run the tests here"

@@ -18,3 +18,13 @@ test:
     - python3 manage.py createsuperuser --noinput --username admin --email $EMAIL --settings=gradRotate.local
   script:
     - echo "run the tests here"
+
+artifact:
+  script:
+    - echo "creating artifact"    
+  artifacts:
+    name: "SuperDjangoCICD"
+    paths:
+      - $CI_PROJECT_DIR
+    exclude:
+      - $CI_PROJECT_DIR/deploy/*

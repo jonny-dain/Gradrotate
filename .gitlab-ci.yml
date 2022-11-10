@@ -14,7 +14,7 @@ test:
     - python3 manage.py makemigrations users --settings=gradRotate.local --noinput 
     - python3 manage.py makemigrations dashboard --settings=gradRotate.local --noinput 
     - python3 manage.py makemigrations interface --settings=gradRotate.local --noinput 
-    - python3 manage.py migrate --settings=gradRotate.local--noinput 
+    - python3 manage.py migrate --settings=gradRotate.local --noinput 
     - python3 manage.py createsuperuser --noinput --username admin --email $EMAIL --settings=gradRotate.local
   script:
     - echo "run the tests here"

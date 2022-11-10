@@ -3,7 +3,7 @@ image: python:latest
 variables:
   PROJECT_DIR: "gradRotate" # location of settings.py
   #assumption- PROJECT_DIR is also the name of the manage.py location
-  DOMAIN: "masterclass.bham.team" # the DNS A record must point to the ip of $UBUNTU_SERVER... need to see this
+  DOMAIN: "gradrotate.uk" # the DNS A record must point to the ip of $UBUNTU_SERVER... need to see this
   EMAIL: "admin@$DOMAIN"
 
 test:

@@ -47,7 +47,7 @@ DEBUG = False
 
 
 #ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['gradrotate.uk','*']
 
 
 # Application definition
@@ -108,7 +108,7 @@ DATABASES = {
 'ENGINE': 'django.db.backends.postgresql_psycopg2',
 'NAME': env('DATABASE_NAME'),
 'USER': env('DATABASE_USER'),
-'PASSWORD ': env('DATABASE_PASS'),
+'PASSWORD': 'mypassword',
 'HOST': env('DATABASE_HOST'),
 'PORT': '5432',
 }
@@ -118,7 +118,9 @@ DATABASES = {
 
 
 
-#if DEVELOPMENT_MODE is True:
+#'PASSWORD ': env('DATABASE_PASS'),
+
+# if DEVELOPMENT_MODE is True:
 #    DATABASES = {
 #        "default": {
 #            "ENGINE": "django.db.backends.sqlite3",

@@ -28,3 +28,25 @@ artifact:
       - $CI_PROJECT_DIR
     exclude:
       - $CI_PROJECT_DIR/deploy/*
+
+deploy:
+  before_script:
+    - 'command -v ssh-agent >/dev/null || (apt install -y openssh)' 
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-add 
+    - echo "Host $UBUNTU_SERVER" >> ~/.ssh/config
+    - echo "    StrictHostKeyChecking no" >> ~/.ssh/config
+    - chmod 400 ~/.ssh/config
+    - ssh root@$UBUNTU_SERVER "ufw allow ssh"
+    #postgres
+    - ssh root@$UBUNTU_SERVER "pg_isready -h localhost -p 5432 || (apt update && apt install -y postgresql postgresql-contrib && service postgresql restart)"
+    - apt update && apt install -y gettext-base
+    - envsubst < deploy/db.template > deploy/db.create.script
+    - scp deploy/db.create.script root@$UBUNTU_SERVER:/tmp/db.create.script
+    - ssh root@$UBUNTU_SERVER "cd /tmp && sudo -u postgres psql -f /tmp/db.create.script"
+  script:
+    - echo "hello, deploy"

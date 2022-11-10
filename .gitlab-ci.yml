@@ -1,0 +1,17 @@
+image: python:latest
+
+variables:
+  PROJECT_DIR: "gradRotate" # location of settings.py
+  #assumption- PROJECT_DIR is also the name of the manage.py location
+  DOMAIN: "masterclass.bham.team" # the DNS A record must point to the ip of $UBUNTU_SERVER... need to see this
+  EMAIL: "admin@$DOMAIN"
+
+test:
+  before_script:
+    - pip install -r requirements.txt -v # install required pip packages
+    - python3 manage.py collectstatic --settings=SuperDjangoApp.local --noinput 
+    - python3 manage.py makemigrations Heroes --settings=SuperDjangoApp.local --noinput 
+    - python3 manage.py migrate --settings=SuperDjangoApp.local --noinput 
+    - python3 manage.py createsuperuser --noinput --username admin --email $EMAIL --settings=SuperDjangoApp.local
+  script:
+    - echo "run the tests here"

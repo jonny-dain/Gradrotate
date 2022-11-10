@@ -106,10 +106,10 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 DATABASES = {
 'default' : {
 'ENGINE ': 'django.db.backends.postgresql_psycopg2 ',
-'NAME': env('DATABASE_NAME '),
-'USER': env('DATABASE_USER '),
-'PASSWORD ': env('DATABASE_PASS '),
-'HOST': env('DATABASE_HOST '),
+'NAME': env('DATABASE_NAME'),
+'USER': env('DATABASE_USER'),
+'PASSWORD ': env('DATABASE_PASS'),
+'HOST': env('DATABASE_HOST'),
 'PORT': '5432',
 }
 }

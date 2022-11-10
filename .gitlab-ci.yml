@@ -49,5 +49,13 @@ deploy:
     - envsubst < deploy/db.template > deploy/db.create.script
     - scp deploy/db.create.script root@$UBUNTU_SERVER:/tmp/db.create.script
     - ssh root@$UBUNTU_SERVER "cd /tmp && sudo -u postgres psql -f /tmp/db.create.script"
+    #scp project
+    - ssh root@$UBUNTU_SERVER "rm -rf ~/$PROJECT_DIR/"
+    - envsubst < deploy/env.template > $PROJECT_DIR/.env
+    - scp -r $(pwd) root@$UBUNTU_SERVER:~/$PROJECT_DIR/
+    - ssh root@$UBUNTU_SERVER "apt update && apt install -y python3-pip && cd $PROJECT_DIR && pip install -r requirements.txt && python3 manage.py collectstatic --noinput && python3 manage.py makemigrations accounts && python3 manage.py makemigrations users && python3 manage.py makemigrations dashboard && python3 manage.py makemigrations interface && python3 manage.py migrate"
+    - ssh root@$UBUNTU_SERVER "cd $PROJECT_DIR && source $PROJECT_DIR/.env  && (python3 manage.py createsuperuser --noinput --username admin --email $EMAIL || true)"
+
+
   script:
     - echo "hello, deploy"

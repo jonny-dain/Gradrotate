@@ -58,7 +58,10 @@ deploy:
     - ssh root@$UBUNTU_SERVER "cd $PROJECT_DIR && python3 manage.py migrate"
     - echo "is this working?"
     - ssh root@$UBUNTU_SERVER "cd $PROJECT_DIR && source $PROJECT_DIR/.env  && (python3 manage.py createsuperuser --noinput --username admin --email $EMAIL || true)"
-
+    #gunicorn
+    - envsubst < deploy/gunicorn.service.template > deploy/gunicorn.service
+    - scp deploy/gunicorn.socket deploy/gunicorn.service root@$UBUNTU_SERVER:/etc/systemd/system/
+    - ssh root@$UBUNTU_SERVER "systemctl enable --now gunicorn.socket && systemctl daemon-reload && systemctl restart gunicorn"
 
   script:
     - echo "hello, deploy"

@@ -65,5 +65,9 @@ deploy:
     #nginx and letsencrypt
     - ssh root@$UBUNTU_SERVER "test -d /etc/nginx/ || ( apt update && apt install -y nginx && systemctl restart nginx && ufw allow 'Nginx Full')"
     - ssh root@$UBUNTU_SERVER "test -d /etc/letsencrypt/live/$DOMAIN || ( apt update && apt install -y python3-certbot-nginx && certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL )"
+    # https nginx
+    - envsubst < deploy/nginx.template > deploy/$PROJECT_DIR
+    - scp deploy/$PROJECT_DIR root@$UBUNTU_SERVER:/etc/nginx/sites-available/
+    - ssh root@$UBUNTU_SERVER "rm -f /etc/nginx/sites-enabled/* && ln -s /etc/nginx/sites-available/$PROJECT_DIR /etc/nginx/sites-enabled/$PROJECT_DIR && systemctl restart nginx && ufw allow 'Nginx Full' && chmod +x+r -R /root/"
   script:
-    - echo "hello, deploy"
+    - echo "now open the server at http://$UBUNTU_SERVER or if we have https https://$DOMAIN"

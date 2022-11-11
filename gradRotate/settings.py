@@ -60,9 +60,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'users',
     'dashboard',
     'interface',
-    'users',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +113,8 @@ DATABASES = {
     'PORT': '5432',
 }
 }
+
+
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',

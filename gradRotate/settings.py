@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env()
 
-environ.Env.read_env(os.path.join(BASE_DIR , '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 
@@ -104,14 +104,14 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 
 DATABASES = {
-'default' : {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': env('DATABASE_NAME'),
-    'USER': env('DATABASE_USER'),
-    'PASSWORD ': env('DATABASE_PASS'),
-    'HOST': env('DATABASE_HOST'),
-    'PORT': '5432',
-}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DATABASE_NAME'), 
+        'USER': env('DATABASE_USER'), 
+        'PASSWORD': env('DATABASE_PASS'),
+        'HOST': env('DATABASE_HOST'), 
+        'PORT': '5432',
+    }
 }
 
 

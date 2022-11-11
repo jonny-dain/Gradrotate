@@ -62,6 +62,8 @@ deploy:
     - envsubst < deploy/gunicorn.service.template > deploy/gunicorn.service
     - scp deploy/gunicorn.socket deploy/gunicorn.service root@$UBUNTU_SERVER:/etc/systemd/system/
     - ssh root@$UBUNTU_SERVER "systemctl enable --now gunicorn.socket && systemctl daemon-reload && systemctl restart gunicorn"
-
+    #nginx and letsencrypt
+    - ssh root@$UBUNTU_SERVER "test -d /etc/nginx/ || ( apt update && apt install -y nginx && systemctl restart nginx && ufw allow 'Nginx Full')"
+    - ssh root@$UBUNTU_SERVER "test -d /etc/letsencrypt/live/$DOMAIN || ( apt update && apt install -y python3-certbot-nginx && certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL )"
   script:
     - echo "hello, deploy"

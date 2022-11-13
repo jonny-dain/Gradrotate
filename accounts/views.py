@@ -43,9 +43,6 @@ def login(request):
             
             return redirect('../dashboard')
 
-
-
-
         else:
             messages.info(request, 'Username or password is incorrect')
             return render(request, 'accounts/login.html')
@@ -66,25 +63,19 @@ def register(request):
         if form.is_valid():
             role = form.cleaned_data.get('role_selection')
             group = Group.objects.get(name = role)
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            auth_login(request, user)
-            request.user.groups.add(group)
-            #want to redirect user to each place
-            if role == 'Admin':
-                return redirect('../../interface')
+            user = form.save()
+            user.groups.add(group)
+            #if role == 'Admin':
+            #    return redirect('../../interface')
             if role == 'Manager':
                 Job.objects.create(
                     user = user
                 )
-                return redirect('../form/manager_form')
-            else:
+            if role == 'Intern':
                 Intern.objects.create(
                     user = user
                 )
-                return redirect('../form/student_form')
+            return redirect('../login')
 
     context = {
         'form' : form

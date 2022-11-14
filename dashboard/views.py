@@ -33,7 +33,7 @@ def preference(request):
     jobs_count = jobs.count()  
 
     #only show one form , formset= BaseCheckFormSet
-    OrderFormSet = inlineformset_factory(Intern, InternPreference, fields = ('job', 'preference'), extra = 4,max_num=jobs_count)
+    OrderFormSet = inlineformset_factory(Intern, InternPreference, fields = ('job', 'preference'), extra = jobs_count,max_num=jobs_count)
     intern = request.user.intern
     
     formset = OrderFormSet(instance = intern)

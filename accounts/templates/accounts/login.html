@@ -2,22 +2,46 @@
 
 {% block content %}
 
+
+
+
+
+
+
 {% for message in messages %}
     <p> {{message}} </p>
 {% endfor %}
-<form method="POST" action="">
-    
-    {% csrf_token %}
-    <p>username</p>
-    <input type="text" name="username">
-
-    <p>password</p>
-    <input type="text" name="password">
-
-    <input type="Submit" name ="Submit" value="Login">
-
-    <a href="../register">register here</a>
-
-</form>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-0 shadow rounded-3 my-5">
+            <div class="card-body p-4 p-sm-5">
+              <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+              <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
+                  <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-block mb-4" type="submit" name ="Submit" value="Login">Sign in</button>
+                </div>
+                <hr class="my-4">
+                <div class="text-center">
+                <p>Not a user? <a href="../register">Register here</a></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 
 {% endblock %}
+

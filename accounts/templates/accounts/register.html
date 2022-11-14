@@ -3,34 +3,58 @@
 
 {% block content %}
 
-<h3>Registration page</h3>
-
-<form method="POST" action="">
-    {% csrf_token %}
-    {{form.username.label}}
-    {{form.username}}
-
-    {{form.email.label}}
-    {{form.email}}
-
-    {{form.password1.label}}
-    {{form.password1}}
-
-    {{form.password2.label}}
-    {{form.password2}}
-
-    {{form.role_selection.label}}
-    {{form.role_selection}}
-    <input type="Submit" name ="Register">
-
-    {{form.errors}}
-
-    <a href="../login">Login here</a>
-
-</form>
-
-
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-0 shadow rounded-3 my-5">
+            <div class="card-body p-4 p-sm-5">
+              <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+              <form method="POST" action="">
+                {% csrf_token %}
+                
+                    
+                {{form.username}}
+                
+                
+                    
+                {{form.email}}
+                
+                
+                    
+                {{form.password1}}
+                
+                {{form.password2}}
+                <h5 class="card-title text-center mb-2 fw-light fs-14">What role are you?</h5>
+                
+                <div class="form-check">
+                    {{form.role_selection}}
+                </div>
+                <hr class="my-3">
+                 <!-- 
+                <div class="col">
+                    
+                    <a href="#!">Forgot password?</a>
+                  </div>
+                 -->
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-block mb-4" type="submit" name ="Register" value="Login">Sign up</button>
+                </div>
+                {{form.errors}}
+                <hr class="my-2">
+                <div class="text-center">
+                <p>Already a user? <a href="../login">Login here</a></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 
 
 
 {% endblock %}
+
+

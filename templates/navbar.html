@@ -18,17 +18,24 @@
 
             <label class="logo">Gradrotate</label>
             <ul>
-                <li><a class = "active" href="#">Login</a></li>
-                <li><a href="#">Student form</a></li>
-                <li><a href="#">Manager form</a></li>
-                <li><a href="#">Admin interface</a></li>
+                
+                
+                
+                {% if request.user.is_authenticated %}
+                
                 <li><a href="../../logout">Logout</a></li>
+
+                {% else %}
+
+                <li><a href="/">Login</a></li>
+
+                {% endif %}
             </ul>
-            <span class="message" > hello, {{request.user}}</span>
+            
         </nav>
 
       
-        <hr>
+        
         {% block content %} 
 
 

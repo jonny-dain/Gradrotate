@@ -4,7 +4,48 @@
 
 {% block content %}
 
-<p> This is the interface-page for the admin</p>
+    <div class = "row tbl-fixed">
+        <div class="col-12 col-md-4 col-lg-2">
+        <div class = "card card-body">
+        <table class="table">
+            <tr>
+                <th>Intern</th>
+                <th>Delete</th>
+            </tr>
+                {% for intern in interns %}
+                    <tr>
+                        <td>{{intern.name}}</td>
+                        <td><a href="{% url 'deleteIntern' intern.id %}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+        </table>
+                
+        </div>
+        </div>
+    </div>
+    <div class = "row tbl-fixed">
+            
+   
+        <div class="col-12 col-md-4 col-lg-2">
+        
+        <div class = "card card-body">
+            <div class="table-responsive"></div>
+            <table class = "table">
+                <tr>
+                    <th>Job</th>
+                    <th>Delete</th>
+                </tr>
+                {% for job in jobs %}
+                    <tr>
+                        <td>{{job.name}}</td>
+                        <td><a href="">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            <table>
+        </div>
+        </div>
+    </row>
+   
 
 {% endblock %}
 

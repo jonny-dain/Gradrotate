@@ -158,3 +158,16 @@ a.active, a:hover{
         left: 0;
     }
 }
+
+.tbl-fixed{
+    overflow-y:scroll;
+    overflow-x:scroll;
+    padding-top: 2vh;
+    height: 30%;
+    max-height: 35vh;
+}
+
+
+
+
+

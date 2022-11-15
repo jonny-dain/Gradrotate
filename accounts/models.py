@@ -40,6 +40,7 @@ class Job(models.Model):
         ('London Paddington', 'London Paddington'),
         ('Speechmark','Speechmark'),
     )
+    email = models.CharField(max_length = 200, null = True)
     manager_name = models.CharField(max_length = 200, null = True)
     name = models.CharField(max_length = 200, null = True)
     location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)

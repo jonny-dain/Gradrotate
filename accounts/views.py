@@ -61,8 +61,8 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            role = form.cleaned_data.get('role_selection')
-            username = form.cleaned_data.get('username')
+            role = request.POST['role_selection']
+            username = request.POST['username']
             group = Group.objects.get(name = role)
             user = form.save()
             user.groups.add(group)
@@ -76,7 +76,7 @@ def register(request):
             if role == 'Intern':
                 Intern.objects.create(
                     user = user,
-                    name=user.username,
+                    name= user.username,
                 )
             
             messages.success(request, 'Account was greated for '+ str(username) )

@@ -61,26 +61,26 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            #role = request.POST['role_selection']
+            role = request.POST['role_selection']
             username = request.POST['username'] 
             user = form.save()
-            #group = Group.objects.get(name = role)
-            #user.groups.add(group)
-            #if role == 'Admin':
-            #    return redirect('../../interface')
-            #if role == 'Manager':
-            #    Job.objects.create(
-            #        user = user,
-            #        manager_name=user.username,
-            #        email = user.email,
-            #        
-            #    )
-            #if role == 'Intern':
-            #    Intern.objects.create(
-            #        user = user,
-            #        name= user.username,
-            #        email = user.email,
-            #    )
+            group = Group.objects.get(name = role)
+            user.groups.add(group)
+            if role == 'Admin':
+                return redirect('../../interface')
+            if role == 'Manager':
+                Job.objects.create(
+                    user = user,
+                    manager_name=user.username,
+                    email = user.email,
+                    
+                )
+            if role == 'Intern':
+                Intern.objects.create(
+                    user = user,
+                    name= user.username,
+                    email = user.email,
+                )
             
             messages.success(request, 'Account was greated for '+ str(username) )
             return redirect('../login')

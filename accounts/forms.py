@@ -8,13 +8,15 @@ class CreateUserForm(UserCreationForm):
     ROLE= [
     ('Intern','Intern/Graduate'), ('Manager','Manager')
     ]
-    role_selection= forms.ChoiceField(choices = ROLE, widget=forms.RadioSelect)
+    role_selection= forms.CharField(label='What role are you?', widget=forms.Select(choices=ROLE))
+    role_selection.widget.attrs.update({'class': 'form-select'})
 # choicefiled
 
     class Meta:
         model = User
         fields = ['username','email','password1','password2','role_selection']
 
+        
         
         
     def __init__(self, *args, **kwargs):
@@ -46,8 +48,8 @@ class CreateUserForm(UserCreationForm):
             }) 
         #self.fields['role_selection'].widget = widgets.Select(
         #    attrs={
-        #
-        #        'class': 'form-check-input'
-        #        
+        
+        #        'class': 'bootstrap-select'
+                
         #    }) 
     

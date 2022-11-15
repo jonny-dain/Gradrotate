@@ -13,7 +13,11 @@
 }
 
 body{
-    background-color: #F9F6EE;
+    background-color: #f3f2f1;
+}
+main{
+    background-color: #f3f2f1;
+    height:92vh;
 }
 
 /* JOB CARD */
@@ -67,7 +71,7 @@ body{
  
 nav{
     background: #223843;
-    height: 80px;
+    height: 8vh;
     width: 100%;
 }
 

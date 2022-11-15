@@ -23,6 +23,7 @@ def student_form(request):
             intern.project_management = form.data['project_management']
             intern.marketing_skills = form.data['marketing_skills']
             intern.web_skills = form.data['web_skills']
+            intern.progress = 2
             form.save()
             return redirect('../../dashboard')
 
@@ -51,6 +52,7 @@ def manager_form(request):
             job.marketing_skills = form.data['marketing_skills']
             job.web_skills = form.data['web_skills']
             form.save()
+            job.progress = 2
             return HttpResponse("done")
 
 

@@ -62,19 +62,24 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             role = form.cleaned_data.get('role_selection')
+            username = form.cleaned_data.get('username')
             group = Group.objects.get(name = role)
             user = form.save()
             user.groups.add(group)
-            #if role == 'Admin':
-            #    return redirect('../../interface')
+            if role == 'Admin':
+                return redirect('../../interface')
             if role == 'Manager':
                 Job.objects.create(
-                    user = user
+                    user = user,
+                    manager_name=user.username,
                 )
             if role == 'Intern':
                 Intern.objects.create(
-                    user = user
+                    user = user,
+                    name=user.username,
                 )
+            
+            messages.success(request, 'Account was greated for '+ str(username) )
             return redirect('../login')
 
     context = {

@@ -2,7 +2,7 @@
 
 
 {% block content %}
-
+<main>
 <body>
     <div class="container">
       <div class="row">
@@ -13,7 +13,14 @@
               <form method="POST" action="">
                 {% csrf_token %}
                 
+                
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div class="alert alert-dark" role="alert">{{field.errors}}</div>
+                    {% endif %}    
+                 {% endfor %}
                     
+            
                 {{form.username}}
                 
                 
@@ -27,9 +34,10 @@
                 {{form.password2}}
                 <h5 class="card-title text-center mb-2 fw-light fs-14">What role are you?</h5>
                 
-                <div class="form-check">
-                    {{form.role_selection}}
-                </div>
+                
+                
+                {{form.role_selection}}
+                
                 <hr class="my-3">
                  <!-- 
                 <div class="col">
@@ -40,7 +48,7 @@
                 <div class="d-grid">
                   <button class="btn btn-primary btn-block mb-4" type="submit" name ="Register" value="Login">Sign up</button>
                 </div>
-                {{form.errors}}
+                
                 <hr class="my-2">
                 <div class="text-center">
                 <p>Already a user? <a href="../login">Login here</a></p>
@@ -52,7 +60,7 @@
       </div>
     </div>
   </body>
-
+</main>
 
 
 {% endblock %}

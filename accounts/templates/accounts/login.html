@@ -8,9 +8,7 @@
 
 
 
-{% for message in messages %}
-    <p> {{message}} </p>
-{% endfor %}
+<main>
 <body>
     <div class="container">
       <div class="row">
@@ -20,6 +18,7 @@
               <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
               <form method="POST" action="">
                 {% csrf_token %}
+                
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
                   <label for="floatingInput">Username</label>
@@ -28,12 +27,16 @@
                   <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
                   <label for="floatingPassword">Password</label>
                 </div>
+                {% for message in messages %}
+                    <div class="alert alert-dark" role="alert"> {{message}} </div>
+                {% endfor %}
                 <div class="d-grid">
                   <button class="btn btn-primary btn-block mb-4" type="submit" name ="Submit" value="Login">Sign in</button>
                 </div>
                 <hr class="my-4">
+                
                 <div class="text-center">
-                <p>Not a user? <a href="../register">Register here</a></p>
+                <p>Not got an account? <a href="../register">Register here</a></p>
                 </div>
               </form>
             </div>
@@ -42,6 +45,7 @@
       </div>
     </div>
   </body>
+</main>
 
 {% endblock %}
 

@@ -32,7 +32,7 @@ def job_preference_dictionary():
 
         jobs_dictionary[job] = intern_list
 
-    print(jobs_dictionary)
+    #print(jobs_dictionary)
     return jobs_dictionary
 
 
@@ -58,7 +58,7 @@ def intern_preference_dictionary():
 
         interns_dictionary[intern] = job_list
 
-    print(interns_dictionary)
+    #print(interns_dictionary)
     return interns_dictionary
 
 

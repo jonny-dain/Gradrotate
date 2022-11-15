@@ -17,6 +17,8 @@ class Intern(models.Model):
     email = models.CharField(max_length = 200, null = True)
     date_created = models.DateTimeField(auto_now_add=True)
     skills = models.ManyToManyField(Skills)
+    #user progress
+    progress = models.IntegerField(default=1)
 
     #Skills
     coding = models.IntegerField(default = 5)
@@ -38,13 +40,15 @@ class Job(models.Model):
         ('London Paddington', 'London Paddington'),
         ('Speechmark','Speechmark'),
     )
-    
+    manager_name = models.CharField(max_length = 200, null = True)
     name = models.CharField(max_length = 200, null = True)
     location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
     description = models.CharField(max_length = 200, null = True, blank = True)
     date_created = models.DateTimeField(auto_now_add=True)
     skills = models.ManyToManyField(Skills)
-
+    #user progress
+    progress = models.IntegerField(default=1)
+    
     #Skills
     coding = models.IntegerField(default = 5)
     project_management = models.IntegerField(default = 5)
@@ -52,6 +56,6 @@ class Job(models.Model):
     web_skills = models.IntegerField(default = 5)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.manager_name)
 
 

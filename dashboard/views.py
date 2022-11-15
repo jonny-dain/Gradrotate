@@ -112,11 +112,21 @@ def preference(request):
                     obj.job = jobs[counter]
                     obj.save()
                     counter = counter + 1
+                    
                     #FORM.preference doesnt exist?!?
 
 
                     #print(form.preference)
                 #formset.save()
+                print("complete")
+                #check if done
+                print(intern.progress)
+                intern.progress = 3
+                
+                intern.save()
+
+                print(intern.progress)
+                return HttpResponse("done")
         else:
             
             print('failed')

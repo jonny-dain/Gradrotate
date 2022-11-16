@@ -1,52 +1,77 @@
 
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
 
 {% block content %}
 
-    <div class = "row tbl-fixed">
-        <div class="col-12 col-md-4 col-lg-2">
-        <div class = "card card-body">
-        <table class="table">
-            <tr>
-                <th>Intern</th>
-                <th>Delete</th>
-            </tr>
-                {% for intern in interns %}
-                    <tr>
-                        <td>{{intern.name}}</td>
-                        <td><a href="{% url 'deleteIntern' intern.id %}">Delete</a></td>
-                    </tr>
-                {% endfor %}
-        </table>
-                
-        </div>
-        </div>
+
+
+<main>
+    <!--
+    <div class = 'side-nav'>
+
+        <li class="side-nav-item">
+            here
+        </li>
+        <li class="side-nav-item">
+            here
+        </li><div class="col-xl-3 col-lg-4">
+        <li class="side-nav-item">
+            here
+        </li>
     </div>
-    <div class = "row tbl-fixed">
-            
-   
-        <div class="col-12 col-md-4 col-lg-2">
+-->
+
+    
+
+    
+    <div class="sidebar">
+        <a class="active">Dashboard</a>
+        <a href="../admin_interface/interns">Interns</a>
+        <a href="../admin_interface/jobs">Jobs</a>
         
-        <div class = "card card-body">
-            <div class="table-responsive"></div>
-            <table class = "table">
-                <tr>
-                    <th>Job</th>
-                    <th>Delete</th>
-                </tr>
-                {% for job in jobs %}
-                    <tr>
-                        <td>{{job.name}}</td>
-                        <td><a href="{% url 'deleteJob' job.id %}">Delete</a></td>
-                    </tr>
-                {% endfor %}
-            <table>
+    </div>
+
+    <div class="content">
+
+    <div class="container-fluid" style = "padding: 5px 5px 5px;">
+        <div class = "row">
+            <div class = "col-12">
+                <p class="h3" style = "padding: 5px 5px 5px; color:#6c757d;">Dashboard</p>
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body p-1 p-sm-5">
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Intern users</h5>
+                        <i class="fa fa-regular fa-user float-end fa-2x" style = "color:#d3d6d8"></i>
+                        <h2 class="my-2"style = "color:#6c757d;">{{interns.count}}</h2>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body p-1 p-sm-5">
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Jobs</h5>
+                        <i class="fa fa-solid fa-briefcase float-end fa-2x" style = "color:#d3d6d8"></i>
+                        <h2 class="my-2"style = "color:#6c757d;">{{jobs.count}}</h2>
+                    </div>
+                    
+                </div>
+                </div>
+            <div class="col-xl-9 col-lg-8">
+                <div class = "card card-body">
+                    <p> hey</p>
+                </div>
+            </div>
+
+                
+            
+
+            </div>
         </div>
         </div>
-    </row>
-   
+</div>
+    
+</main> 
 
 {% endblock %}
-
-

@@ -10,7 +10,7 @@ class StudentForm(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','progress','coding','project_management','marketing_skills','web_skills']
+        exclude = ['user','progress','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
 
 class ManagerForm(ModelForm):
     class Meta:

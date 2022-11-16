@@ -32,6 +32,32 @@ def admin_interface(request):
     context = {'jobs' :jobs , 'interns' : interns}
     return render(request, 'interface/interface.html', context)
 
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Admin'])
+def intern_interface(request):
+    
+    
+    interns = Intern.objects.all()
+    jobs = Job.objects.all()
+
+    intern_preference = intern_preference_dictionary()
+
+    context = {'interns' : interns, 'jobs' :jobs , 'intern_preference' : intern_preference}
+    return render(request, 'interface/interns.html', context)
+
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Admin'])
+def job_interface(request):
+    
+    jobs = Job.objects.all()
+    interns = Intern.objects.all()
+
+    context = {'jobs' :jobs , 'interns' : interns}
+    return render(request, 'interface/jobs.html', context)
+
+
+
+
 #This is to delete Interns from the system
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
@@ -43,7 +69,7 @@ def deleteIntern(request, pk):
     User.objects.get(intern = intern).delete()
     intern.delete()
     #need to delete all interns items
-    return redirect('../../../admin_interface/')
+    return redirect('../../../admin_interface/interns/')
 
 def deleteJob(request, pk):
 
@@ -51,7 +77,7 @@ def deleteJob(request, pk):
     InternPreference.objects.filter(job = job).delete()
     User.objects.get(job = job).delete()
     job.delete()
-    return redirect('../../../admin_interface/')
+    return redirect('../../../admin_interface/jobs/')
 
 
 

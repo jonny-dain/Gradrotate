@@ -17,6 +17,7 @@ class Intern(models.Model):
     email = models.CharField(max_length = 200, null = True)
     date_created = models.DateTimeField(auto_now_add=True)
     skills = models.ManyToManyField(Skills)
+    
     #user progress
     progress = models.IntegerField(default=1)
 
@@ -26,6 +27,7 @@ class Intern(models.Model):
     marketing_skills = models.IntegerField(default = 5)
     web_skills = models.IntegerField(default = 5)
 
+    
     
 
 

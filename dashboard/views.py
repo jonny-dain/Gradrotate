@@ -104,14 +104,26 @@ def preference(request):
                 #formset doesn't save job
                 counter = 0
                 for form in formset:
-                    print(form.job)
+                    preference_number = form.cleaned_data.get('preference')
+                    
+                    
 
                     #this might have fixed it....
 
                     obj = form.save(commit=False)
                     obj.job = jobs[counter]
+
+                    if preference_number == 1:
+                        intern.first_preference = str(obj.job.name)
+                    elif preference_number == 2:
+                        intern.second_preference = str(obj.job.name)
+                    elif preference_number == 3:
+                        intern.third_preference = str(obj.job.name)
+
                     obj.save()
                     counter = counter + 1
+
+                    
                     
                     #FORM.preference doesnt exist?!?
 
@@ -120,7 +132,7 @@ def preference(request):
                 #formset.save()
                 print("complete")
                 #check if done
-                print(intern.progress)
+                
                 intern.progress = 3
                 
                 intern.save()

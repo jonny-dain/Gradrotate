@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+
+
+{% block content %}
+
+
+
+<main>
+    <div class="sidebar">
+        <a href="../../admin_interface">Dashboard</a>
+        <a href="../../../admin_interface/interns">Interns</a>
+        <a class="active">Jobs</a>
+        
+    </div>
+    <div class="content">
+        <div class="container-fluid" style = "padding: 5px 5px 5px;">
+            <div class = "row">
+                <div class = "col-12">
+                    <p class="h3" style = "padding: 5px 5px 5px; color:#6c757d;">Job Dashboard</p>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "card card-body">
+                    <div class="table-responsive"></div>
+                    <table class = "table">
+                        <tr>
+                            <th>Job</th>
+                            <th>Delete</th>
+                        </tr>
+                        {% for job in jobs %}
+                            <tr>
+                                <td>{{job.name}}</td>
+                                <td><a href="{% url 'deleteJob' job.id %}">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    <table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main> 
+
+{% endblock %}

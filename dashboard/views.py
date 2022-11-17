@@ -112,14 +112,6 @@ def preference(request):
 
                     obj = form.save(commit=False)
                     obj.job = jobs[counter]
-
-                    if preference_number == 1:
-                        intern.first_preference = str(obj.job.name)
-                    elif preference_number == 2:
-                        intern.second_preference = str(obj.job.name)
-                    elif preference_number == 3:
-                        intern.third_preference = str(obj.job.name)
-
                     obj.save()
                     counter = counter + 1
 

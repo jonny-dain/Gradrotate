@@ -97,7 +97,7 @@ label.logo{
     line-height: 8vh;
     padding: 0 0px;
     font-weight: bold;
-    margin-left: 5%;
+    
 }
 
 nav ul{
@@ -140,42 +140,26 @@ a.active, a:hover{
 }
 
 
-@media (max-width: 1000px){
-    .checkbtn{
-        display: block;
-    }
-    ul{
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background:#223843;
-        top: 80px;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
-    }
-    nav ul li{
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-    }
-    nav ul li a{
-        font-size: 20px;
 
-    }
-    a:hover,a.active{
-        background: none;
-        color: #0082e6;
-    }
-    #check:checked ~ ul{
-        left: 0;
-    }
-}
+
 
 
 
 /* The side navigation menu */
 .sidebar {
+    margin: 0;
+    padding: 0;
+    width: 78px;
+    z-index: 9;
+    
+    background-color: #313a46;;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    transition: all 0.4s ease;
+  }
+
+  .sidebar.active {
     margin: 0;
     padding: 0;
     width: 180px;
@@ -184,16 +168,60 @@ a.active, a:hover{
     position: fixed;
     height: 100%;
     overflow: auto;
+    transition: all 0.4s ease;
+    
   }
-  
+
+  .sidebar .ul{
+    margin-top: 30px;
+    
+  }
+
+  .sidebar ul li{
+    height:50px;
+    position: relative;
+    width: 100%;
+
+    list-style: none;
+    line-height: 50px;
+  }
+
   /* Sidebar links */
-  .sidebar a {
-    display: block;
+  .sidebar ul li a {
+    display: flex;
     color: #8391a2;
-    font: Nunito,sans-serif;
-    padding: 16px;
-    top:0px;
+    align-items: center;
     text-decoration: none;
+    font: Nunito,sans-serif;
+     
+    transition: all 0.4s ease;
+    white-space: nowrap;
+
+  }
+  .sidebar ul li a i{
+    height: 50px;
+    min-width: 30px;
+    border-radius: 12px;
+    line-height: 50px;
+    text-align: center;
+    
+  }
+  .sidebar .links_name{
+    opacity: 0;
+    pointer-events:none;
+
+  }
+  .sidebar.active .links_name{
+    opacity: 1;
+    pointer-events:auto;
+
+  }
+
+
+
+
+  .sidebar ul li a:hover{
+    color: #bccee4;
   }
   
   /* Active/current link */
@@ -202,20 +230,47 @@ a.active, a:hover{
     color: white;
   }
   
-  /* Links on mouse-over */
-  .sidebar a:hover:not(.active) {
-    
-    color: #bccee4;
+
+  .btn1{
+    color: red;
+    position: absolute;
+    left: 90%;
+    top:6px;
+    font-size:20px;
+    height:50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px; 
+    transform: translateX(-50%);
   }
-  
+
+
+
+
+
+
+
   /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
   div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 88vh;
+    position:absolute;
+    height: 100%;
+    width: calc(100% - 78px);
+    left:78px;
+    transition: all 0.4s ease;
+
+  }
+  .sidebar.active ~ div.content{
+    position:absolute;
+    height: 100%;
+    width: calc(100% - 180px);
+    left:180px;
+    transition: all 0.4s ease;
   }
   
-  /* On screens that are less than 700px wide, make the sidebar into a topbar */
+
+
+
+  /* On screens that are less than 700px wide, make the sidebar into a topbar 
   @media screen and (max-width: 700px) {
     .sidebar {
       width: 100%;
@@ -226,14 +281,13 @@ a.active, a:hover{
     div.content {margin-left: 0;}
   }
   
-  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
   @media screen and (max-width: 400px) {
     .sidebar a {
       text-align: center;
       float: top;
     }
   }
-
+  */
 
 
 /* table */

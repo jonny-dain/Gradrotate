@@ -20,12 +20,12 @@ def admin_interface(request):
     
     job_set = set(jobs)
     intern_set = set(interns)
-    print(job_set)
-    print(intern_set)
+    #print(job_set)
+    #print(intern_set)
 
-    print(str(intern_preference))
-    print(str(job_preference))
-    print(" ")
+    #print(str(intern_preference))
+    #print(str(job_preference))
+    #print(" ")
 
     #Want to create a function that takes in interns, jobs, job preferences, intern preferences and formulates pairs?
 
@@ -52,7 +52,9 @@ def job_interface(request):
     jobs = Job.objects.all()
     interns = Intern.objects.all()
 
-    context = {'jobs' :jobs , 'interns' : interns}
+    job_preference = job_preference_dictionary()
+
+    context = {'jobs' :jobs , 'interns' : interns, 'job_preference' : job_preference}
     return render(request, 'interface/jobs.html', context)
 
 

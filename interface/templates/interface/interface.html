@@ -2,6 +2,7 @@
 {% extends "base.html" %} 
 
 
+
 {% block content %}
 
 
@@ -24,22 +25,71 @@
 
     
 
-    
+    <!--
     <div class="sidebar">
         <a class="active">Dashboard</a>
         <a href="../admin_interface/interns">Interns</a>
         <a href="../admin_interface/jobs">Jobs</a>
         
     </div>
+    -->
+    <div class = "sidebar">
+        <div class = "logo_content">
+            
+        </div>
+        <ul class="nav_list" style="padding-left:22px;">
+        <li>
+            <a href="" class="active"> 
+                <i class='bx bx-grid-alt bx-sm'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="../admin_interface/interns"> 
+                <i class='bx bx-user bx-sm'></i>
+                <span class="links_name">Interns</span>
+            </a>
+        </li>
+        <li>
+            <a href="../admin_interface/jobs"> 
+                <i class='bx bx-briefcase bx-sm'></i>
+                <span class="links_name">Jobs</span>
+            </a>
+        </li>
+        </ul>
+    </div>
+    
+    
+
+
+
+
+
 
     <div class="content">
 
     <div class="container-fluid" style = "padding: 5px 5px 5px;">
-        <div class = "row">
-            <div class = "col-12">
+        <div class = "row justify-content-start">
+            <div class = "col-1">
+                <p class="h3"style = "padding: 5px 5px 5px; color:#6c757d;">
+                <i class="fa fa-bars" id="btn1"></i>
+                </p>
+            </div>
+            <div class = "col-1">
                 <p class="h3" style = "padding: 5px 5px 5px; color:#6c757d;">Dashboard</p>
+            
             </div>
         </div>
+        
+        <script>
+            let btn = document.querySelector("#btn1");
+            let sidebar = document.querySelector(".sidebar");
+            btn.onclick = function() {
+                sidebar.classList.toggle("active");
+            }
+    
+        </script>
+    
         <div class = "row">
             <div class="col-xl-3 col-lg-4">
                 <div class="card border-0 shadow-sm mb-3">

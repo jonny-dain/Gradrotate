@@ -43,9 +43,10 @@ def preference(request):
 
     #Zipped the form and jobs
     form_job = zip(formset, jobs)
+    form_job2 = zip(formset, jobs)
 
     #remove the formset context
-    context = {'jobs' :jobs, 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job}
+    context = {'jobs' :jobs, 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job,'zippedlist2':form_job2}
     
     #formset.field['job'].initial = jobs[0]
 
@@ -74,6 +75,7 @@ def preference(request):
             counter = 0
 
             for form in formset:
+            
                 
                 #form.cleaned_data['job'] = jobs[counter]
                 #job = form.cleaned_data.get('job')

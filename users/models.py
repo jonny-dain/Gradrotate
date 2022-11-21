@@ -4,11 +4,18 @@ from django.db import models
 
 # Create your models here. from accounts.models import Intern, Job
 
+
+#Remove skills.......
 class Skills(models.Model):
     name = models.CharField(max_length = 200, null = True)
 
     def __str__(self):
         return self.name
+
+
+
+
+
 
 #Intern preferences displayed here
 class InternPreference(models.Model):
@@ -21,8 +28,14 @@ class InternPreference(models.Model):
     #first preference .. second preference
     #(default=10, validators=[MinValueValidator(1), MaxValueValidator(100)])
   
-    preference = models.PositiveSmallIntegerField(default = 0)
+    
 
+
+
+
+    #6 needs to be job count but cant be stuck in import loop
+    preference = models.IntegerField(choices=[(i, i) for i in range(1, 6)], blank=True)
+    #models.PositiveSmallIntegerField(default = 0)
 
 
 

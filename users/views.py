@@ -18,20 +18,50 @@ def student_form(request):
     if request.method == 'POST':
         form = StudentForm(request.POST, instance= intern)        
         if form.is_valid():
-            #gathers all the skills
-            intern.coding = form.data['coding']
-            intern.project_management = form.data['project_management']
-            intern.marketing_skills = form.data['marketing_skills']
-            intern.web_skills = form.data['web_skills']
+            
             intern.progress = 2
             form.save()
-            return redirect('../../dashboard')
+            return redirect('../../form/student_form/requirements')
 
 
     context = {'form': form, 'intern': intern}
     return render(request, 'users/student_form.html', context)
     
 
+def student_form_requirements(request):
+    intern = request.user.intern
+    form = StudentForm2(instance= intern)
+
+    if request.method == "POST":
+        form = StudentForm2(request.POST, instance= intern) 
+        if form.is_valid():
+            intern.progress = 2
+            intern.location = request.POST['pref_location']
+            intern.remote = request.POST['remote_option']
+            form.save()
+            return redirect('../../form/student_form/skills')
+
+    context = {'form': form, 'intern': intern}
+    return render(request, 'users/student_form2.html', context)
+
+def student_form_skills(request):
+    intern = request.user.intern
+    form = StudentForm3(instance= intern)
+
+    if request.method == "POST":
+        form = StudentForm3(request.POST, instance= intern) 
+        if form.is_valid():
+            intern.progress = 2
+            #gathers all the skills
+            intern.coding = form.data['coding']
+            intern.project_management = form.data['project_management']
+            intern.marketing_skills = form.data['marketing_skills']
+            intern.web_skills = form.data['web_skills']
+            form.save()
+            return redirect('../../dashboard')
+
+    context = {'form': form, 'intern': intern}
+    return render(request, 'users/student_form3.html', context)
 
 
 

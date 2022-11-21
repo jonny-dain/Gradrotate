@@ -1,0 +1,75 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<main>
+    <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+
+
+
+<form method="POST" action="">
+
+
+{% csrf_token %}
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                <h1>Skills</h1>
+            </div>
+            
+        </div>
+
+    </row>
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                <p> Coding:</p>
+                <input type="range" value="{{intern.coding}}" name="coding" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue.innerText = this.value">
+                <p id="rangeValue">{{intern.coding}}</p> 
+        
+                <p> Project Management:</p>
+                <input type="range" value="{{intern.project_management}}" name="project_management" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue1.innerText = this.value">
+                <p id="rangeValue1">{{intern.project_management}}</p> 
+        
+                <p> Marketing Skills:</p>
+                <input type="range" value="{{intern.marketing_skills}}" name="marketing_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
+                <p id="rangeValue2">{{intern.marketing_skills}}</p> 
+        
+                <p> Web Skills:</p>
+                <input type="range" value="{{intern.web_skills}}" name="web_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue3.innerText = this.value">
+                <p id="rangeValue3">{{intern.web_skills}}</p> 
+            </div>
+        </div>
+    </row>
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-2 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                <button class="btn btn-primary btn-block float-end" type="submit" name ="Submit" value="Next">Save and continue</button>
+                <!--<input type="Submit" name ="Next" value="Next">-->
+                <button class="btn btn-primary btn-block float-start" ><a href="../../form/student_form/requirements">Back</a></button>
+             </div>
+            
+        </div>
+
+    </row>
+    
+
+    
+
+        
+
+        
+
+  </div>
+  {{form.errors}}
+
+  
+
+</form>   
+</main>
+
+{% endblock %}

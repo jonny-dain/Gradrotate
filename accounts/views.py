@@ -24,6 +24,8 @@ def login(request):
 
         user = authenticate(request, username = username, password = password)
 
+        admin = Admin.objects.all().first()
+
         if user is not None:
             auth_login(request, user)
 
@@ -33,15 +35,15 @@ def login(request):
                 if group == 'Admin':
                     return redirect('../../admin_interface')
                 
-                if group == 'Manager':
-                    return redirect('../form/manager_form')
-                
-                if group == 'Intern':
-                    return redirect('../form/student_form')
-                else:
-                    return HttpResponse('You are not authorized to view this page')
-            
-            return redirect('../dashboard')
+                if (admin.phase == 'Job creation'):
+                    if group == 'Manager':
+                        return redirect('../form/manager_form')
+                if (admin.phase == 'Intern collection'):
+                    if group == 'Intern':
+                        return redirect('../form/student_form')
+                messages.info(request, 'We are currently in the '+ str(admin.phase)+ ' phase, please try again later')
+
+                return render(request, 'accounts/login.html')
 
         else:
             messages.info(request, 'Username or password is incorrect')

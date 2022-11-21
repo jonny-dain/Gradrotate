@@ -8,32 +8,10 @@
 
 
 <main>
-    <!--
-    <div class = 'side-nav'>
 
-        <li class="side-nav-item">
-            here
-        </li>
-        <li class="side-nav-item">
-            here
-        </li><div class="col-xl-3 col-lg-4">
-        <li class="side-nav-item">
-            here
-        </li>
-    </div>
--->
 
-    
-
-    <!--
-    <div class="sidebar">
-        <a class="active">Dashboard</a>
-        <a href="../admin_interface/interns">Interns</a>
-        <a href="../admin_interface/jobs">Jobs</a>
         
-    </div>
-    -->
-    <div class = "sidebar">
+    <div class = "sidebar active">
         <div class = "logo_content">
             
         </div>
@@ -58,10 +36,8 @@
         </li>
         </ul>
     </div>
-    
-    
 
-
+    
 
 
 
@@ -87,8 +63,14 @@
             btn.onclick = function() {
                 sidebar.classList.toggle("active");
             }
-    
         </script>
+
+
+
+
+
+
+
     
         <div class = "row">
             <div class="col-xl-3 col-lg-4">
@@ -105,12 +87,34 @@
                         <i class="fa fa-solid fa-briefcase float-end fa-2x" style = "color:#d3d6d8"></i>
                         <h2 class="my-2"style = "color:#6c757d;">{{jobs.count}}</h2>
                     </div>
-                    
                 </div>
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body p-1 p-sm-5">
+                        <button><a href="../admin_interface/allocate"> Allocate Jobs </a></button>
+                        
+                    </div>
+                </div>
+
+
+
+
+
+
                 </div>
             <div class="col-xl-9 col-lg-8">
                 <div class = "card card-body">
-                    <p> hey</p>
+                    <form method="POST" action="">
+
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="Submit" name ="Submit">
+                        {{form.errors}}
+                        {% for message in messages %}
+                            <div class="alert alert-dark" role="alert"> {{message}} </div>
+                        {% endfor %}
+
+                    </form>
+                    
                 </div>
             </div>
 
@@ -119,7 +123,9 @@
 
             </div>
         </div>
+        
         </div>
+
 </div>
     
 </main> 

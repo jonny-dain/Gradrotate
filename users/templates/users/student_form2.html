@@ -1,0 +1,73 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<main>
+    <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+
+
+
+<form method="POST" action="">
+
+
+    {% csrf_token %}
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                <h1>Job requirements</h1>
+            </div>
+            
+        </div>
+
+    </row>
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+            Preferred office location *
+  
+            {{form.pref_location}}
+            </div>
+        </div>
+    </row>
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+            Preferred amount of days in the office a week *
+            <!--{{form.email.label}} -->
+            {{form.remote_option}}
+            </div>
+            
+        </div>
+
+    </row>
+    
+    
+    
+
+
+
+
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-2 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                <button class="btn btn-primary btn-block float-end" type="submit" name ="Submit" value="Next">Save and continue</button>
+                <!--<input type="Submit" name ="Next" value="Next">-->
+                <button class="btn btn-primary btn-block float-start" ><a href="../../form/student_form">Back</a></button>
+                
+            </div>
+            
+        </div>
+
+    </row>
+    
+
+    {{form.errors}}
+ 
+</form>   
+</main>
+
+{% endblock %}

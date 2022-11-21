@@ -3,78 +3,46 @@
 
 {% block content %}
 
+<main>
+    
 
-<div class="card-container">
-    <div class="job-card-deck" >
-        
-       
-            {% for i in jobs %}
-            
+
+<!-- Want to have a sidenav bar with all the options on the left -->
+
+    <div class = "sidebarchoice active">
+        <form action ="" method = "POST"> 
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form, i in zippedlist %}
+            <ul class="nav_list" style="padding-left:22px;">
+                <li>
+                {{i.name}}
+                <p hidden> hey </p>
+                <!--{{form.job.as_hidden}} -->
+
+
+                {{form.preference}}
+
+
+                <!--
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>-</option>
+                    {% for j in jobs_count %}
+                    <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                    {% endfor %}
+                </select>
+                -->
                 
-                <div class="job-card" >
-                    
-                    <div class="job-card-body">
-                      <h5 class="job-card-title">{{i.name}}</h5>   
-                            {{i.description}} 
-                    </div>
-                    <div class="job-card-footer">
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-project-{{i.pk}}" >Learn more</button>
-                    </div>
-
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>-</option>
-                        {% for j in jobs_count %}
-                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-                        {% endfor %}
-                    </select>
 
 
-                  </div>
-
-                  <div class="modal fade" id="modal-project-{{i.pk}}" tabindex="-1"
-                  aria-labelledby="modal-project-{{project.pk}}-label" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <h5 class="modal-title" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
-                          </div>
-                          <div class="modal-body">
-                            
-                                {{i.description}}
-                      
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-            </form>
-            {% endfor %}
-        
-
-            <!-- for job in jobs -> create a form number with a number and using the name.. views will take this and add it into the form?--> 
 
 
-            
-            <form action ="" method = "POST"> 
-                {% csrf_token %}
-                {{ formset.management_form }}
-                {% for form, i in zippedlist %}
-                
-                    {{i.name}}
-                    <p hidden> hey </p>
-                    <!--{{form.job.as_hidden}} -->
-                    {{form.preference}}
 
-                {% endfor %}
-                
-                <input type = "submit" name = "submit">
-            </form>
-          
+            </li>
+            </ul>
+
+            {% endfor %}    
+
             {% if errorlist %}
                 {% for error in errorlist %}
                     <div class="alert alert-danger">
@@ -82,12 +50,128 @@
                     </div>
                 {% endfor %}
             {% endif %}
+            
+            <input type = "submit" name = "submit">
+        </form>
+        
+        
+    </div>
+
+
+
+
+
+
+    
+<!-- Main content here-->
+
+
+<div class="content1">
+    
+    
+    <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+      <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body ">
+                <p class="h3 float-start"style = "padding: 5px 5px 5px; color:#6c757d;">
+                    <i class="fa fa-bars" id="btn1"></i>
+                </p>
+                
+                <h1 class="float-end">List your Job preferences</h1>
+            </div>
+            <button><a href="../../form/student_form/skills">Back</a></button>
+            
+        </div>
+
+    </row>
+
+
+      
+        
+   
+
+    <script>
+        let btn = document.querySelector("#btn1");
+        let sidebar = document.querySelector(".sidebarchoice");
+        btn.onclick = function() {
+            sidebar.classList.toggle("active");
+        }
+    </script>  
+
+
+
+<div class="card-container m-4">
+    <div class="job-card-deck p-2" >
+        
+            {% for form, i in zippedlist2 %}
+
+            
+                
+                <div class="job-card shadow-sm border-0 rounded" >
+                    
+                    <div class="job-card-body">
+                      <h5 class="job-card-title">{{i.name}}</h5>   
+                            {{i.description}} 
+                    </div>
+
+                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
+                        Read more
+                    </button>
+                    
+
+                
+
+                  </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal{{ i.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        
+    
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              
+                                  {{i.description}}
+                        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+
+
+            
+            {% endfor %}
+        
+        
+
+            <!-- for job in jobs -> create a form number with a number and using the name.. views will take this and add it into the form?--> 
+
+
+            
+            
+          
+            
 
 
 
         </div>
     </div>
 </div>
+</div>
+</main>
+
 
 
 </section>

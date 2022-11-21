@@ -7,10 +7,7 @@
     
 }
 
-.card-container{
-    width: 80%;
-    display: inline-block;
-}
+
 
 body{
     background-color: #fafbfe;;
@@ -25,12 +22,15 @@ main{
 }
 
 /* JOB CARD */
+.card-container{
+  display: inline-block;
+  
+}
 
 .job-card{
     padding: 1rem;
-    border: 1px solid #777;
-    border-radius: .25rem;
     min-width: 70%;
+    background-color:white
 
     
 }
@@ -62,8 +62,11 @@ main{
     display: grid;
     align-items: flex-start;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(410px,1fr));
 }
+
+
+
 
 
 
@@ -217,9 +220,6 @@ a.active, a:hover{
 
   }
 
-
-
-
   .sidebar ul li a:hover{
     color: #bccee4;
   }
@@ -231,29 +231,136 @@ a.active, a:hover{
   }
   
 
-  .btn1{
-    color: red;
-    position: absolute;
-    left: 90%;
-    top:6px;
-    font-size:20px;
-    height:50px;
-    width: 50px;
-    text-align: center;
-    line-height: 50px; 
-    transform: translateX(-50%);
+
+
+
+
+
+/* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 78px;
+  z-index: 9;
+  
+  background-color: #313a46;;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  transition: all 0.4s ease;
+}
+
+.sidebar.active {
+  margin: 0;
+  padding: 0;
+  width: 180px;
+  z-index: 9;
+  background-color: #313a46;;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  transition: all 0.4s ease;
+  
+}
+
+.sidebar .ul{
+  margin-top: 30px;
+  
+}
+
+.sidebar ul li{
+  height:50px;
+  position: relative;
+  width: 100%;
+
+  list-style: none;
+  line-height: 50px;
+}
+
+
+
+
+
+
+/* The side choice menu */
+.sidebarchoice {
+  margin: 0;
+  padding: 0;
+  width: 0;
+  z-index: 9;
+  
+  background-color: #313a46;;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebarchoice.active {
+  margin: 0;
+  padding: 0;
+  width: 220px;
+  z-index: 9;
+  background-color: #313a46;;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  
+}
+
+.sidebarchoice.ul{
+  margin-top: 30px;
+  
+}
+
+.sidebarchoice ul li{
+  height:50px;
+  position: relative;
+  width: 100%;
+
+  list-style: none;
+  line-height: 50px;
+}
+
+/* Sidebar choices */
+.sidebarchoice ul li a {
+  display: flex;
+  color: #8391a2;
+  align-items: center;
+  text-decoration: none;
+  font: Nunito,sans-serif;
+   
+  transition: all 0.4s ease;
+  white-space: nowrap;
+
+}
+.sidebarchoice ul li a i{
+  height: 50px;
+  min-width: 30px;
+  border-radius: 12px;
+  line-height: 50px;
+  text-align: center;
+  
+}
+/* Page content for the dashboard*/
+
+  .sidebarchoice.active ~ div.content1{
+    position:absolute;
+    height: 100%;
+    width: calc(100% - 220px);
+    left:220px;
   }
 
-
-
-
-
-
+  div.content1 {
+    position:absolute;
+    height: 92vh;
+    width: calc(100%);
+    left:0px;
+  }
 
   /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
   div.content {
     position:absolute;
-    height: 100%;
+    height: 92vh;
     width: calc(100% - 78px);
     left:78px;
     transition: all 0.4s ease;
@@ -269,25 +376,6 @@ a.active, a:hover{
   
 
 
-
-  /* On screens that are less than 700px wide, make the sidebar into a topbar 
-  @media screen and (max-width: 700px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
-  }
-  
-  @media screen and (max-width: 400px) {
-    .sidebar a {
-      text-align: center;
-      float: top;
-    }
-  }
-  */
 
 
 /* table */
@@ -336,3 +424,7 @@ progress {
   table.dataTable thead .sorting_desc_disabled:before {
     bottom: .5em;
   }
+
+
+
+ 

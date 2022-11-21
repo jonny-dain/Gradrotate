@@ -8,7 +8,7 @@
 <main>
 
 
-    <div class = "sidebar">
+    <div class = "sidebar active">
         <div class = "logo_content">
             
         </div>
@@ -65,6 +65,7 @@
                     <table class = "table">
                         <tr>
                             <th class="table-light">Job</th>
+                            <th class="table-light">Manager Name</th>
                             <th class="table-light">Manager Email</th>
 
                             {% for intern in interns %}
@@ -79,6 +80,7 @@
                             {% for job, interns in job_preference.items %}
                                 <tr>
                                     <td style="min-width:100px">{{job.name}}</td>
+                                    <td style="min-width:100px">{{job.manager_name}}</td>
                                     <td style="min-width:100px">{{job.email}}</td>
 
                                     {% for intern in interns %}

@@ -6,4 +6,5 @@ from .models import *
 
 admin.site.register(Intern)
 admin.site.register(Job)
+admin.site.register(Admin)
 

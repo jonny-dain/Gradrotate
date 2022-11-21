@@ -1,8 +1,23 @@
 from django.forms import ModelForm
 from accounts.models import Job
 from users.models import InternPreference
+from django import forms
 
 class InternPreferenceForm(ModelForm):
+
+    jobs = Job.objects.all()
+
+    #PREFS = ((1,1),)
+    #for i in range(2,jobs.count()+1):
+    #    PREFS = PREFS + ((i,i),)
+    
+    #pref_option= forms.CharField(label='mp', widget=forms.Select(choices=PREFS))
+    #pref_option.widget.attrs.update({'class': 'form-select'})
+
+
+
+
+
 
 
     class Meta:

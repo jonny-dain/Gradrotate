@@ -2,35 +2,39 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import *
+from interface.forms import AdminForm
+from interface.gale_shapely import gale_allocation
 from interface.preferences import *
 from users.models import *
-from collections import deque
+from django.contrib import messages
 
 # Create your views here.
 
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
 def admin_interface(request):
+
+    #admin = request.user.admin
+    admin = Admin.objects.all().first()
+    form = AdminForm(instance= admin)
+
     
     jobs = Job.objects.all()
     interns = Intern.objects.all()
 
-    intern_preference = intern_preference_dictionary()
-    job_preference = job_preference_dictionary()
-    
-    job_set = set(jobs)
-    intern_set = set(interns)
-    #print(job_set)
-    #print(intern_set)
+    #Want to make a settings dashboard to allocate jobs
 
-    #print(str(intern_preference))
-    #print(str(job_preference))
-    #print(" ")
+    if request.method == 'POST':
+        form = AdminForm(request.POST, instance= admin)        
+        if form.is_valid():
+            #gathers all the skills
+            form.save()
+            return redirect('../../../admin_interface')
 
-    #Want to create a function that takes in interns, jobs, job preferences, intern preferences and formulates pairs?
-
-    context = {'jobs' :jobs , 'interns' : interns}
+    context = {'jobs' :jobs , 'interns' : interns, 'form': form}
     return render(request, 'interface/interface.html', context)
+
+
 
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
@@ -57,9 +61,6 @@ def job_interface(request):
     context = {'jobs' :jobs , 'interns' : interns, 'job_preference' : job_preference}
     return render(request, 'interface/jobs.html', context)
 
-
-
-
 #This is to delete Interns from the system
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
@@ -81,7 +82,61 @@ def deleteJob(request, pk):
     job.delete()
     return redirect('../../../admin_interface/jobs/')
 
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Admin'])
+def allocate_interface(request):
+    admin = Admin.objects.all().first()
 
+    if (admin.phase == 'Allocation'):
+        jobs = Job.objects.all()
+        interns = Intern.objects.all()
+
+            #if jobs.count() != interns.count():
+            #Add error messages here.. 
+        #    return redirect('../../../admin_interface')
+
+        intern_preference = intern_preference_dictionary()
+        job_preference = job_preference_dictionary()
+        
+        job_set = set(jobs)
+        intern_set = set(interns)
+
+        allocated_pairs = gale_allocation(
+            intern_set=intern_set,
+            job_set=job_set,
+            intern_preference=intern_preference,
+            job_preference=job_preference,
+        )  
+        
+
+        first_preference = 0
+        second_preference = 0
+        third_preference = 0
+
+        #works out how many interns got their first,second and third choices
+        for pair in allocated_pairs:
+            for intern, jobs in intern_preference.items():
+                if pair[0] == intern:
+                    if pair[1] == jobs[0]:
+                        first_preference += 1
+                    elif pair[1] == jobs[1]:
+                        second_preference += 1
+                    elif pair[1] == jobs[3]:
+                        third_preference += 1
+
+
+            
+
+
+
+
+        context = {'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs, 'first_preference' : first_preference, 'second_preference' : second_preference, 'third_preference' : third_preference}
+        return render(request, 'interface/allocate.html', context)
+
+    else:
+        messages.info(request, 'You must be in the allocate phase to allocate positions')
+
+        return redirect('../../../admin_interface')
 
 
 

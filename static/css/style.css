@@ -62,7 +62,7 @@ main{
     display: grid;
     align-items: flex-start;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill,minmax(410px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(500px,1fr));
 }
 
 
@@ -142,9 +142,31 @@ a.active, a:hover{
     display: none;
 }
 
+/* Mini nav bar for dashboard*/
 
+.mini-nav-bar{
+  background: #e4e7eb;
+  height: 6vh;
+  left:0px;
+  width: 100%;
 
-
+  box-shadow: 0px 0px 35px 0px rgba(255, 255, 255, 0.15);
+  position: fixed;
+  display: inline-block;
+  z-index: 9;
+}
+.sidebarchoice.active ~ .mini-nav-bar{
+  background: #e4e7eb;
+  height: 6vh;
+  left:260px;
+  width: calc(100% - 260px);
+  box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
+  position: fixed;
+  display: inline-block;
+  z-index: 9;
+  width: calc(100% - 260px);
+  left:260px;
+}
 
 
 
@@ -298,7 +320,7 @@ a.active, a:hover{
 .sidebarchoice.active {
   margin: 0;
   padding: 0;
-  width: 220px;
+  width: 260px;
   z-index: 9;
   background-color: #313a46;;
   position: fixed;
@@ -307,55 +329,52 @@ a.active, a:hover{
   
 }
 
-.sidebarchoice.ul{
-  margin-top: 30px;
-  
+.choiceselection{
+  margin-top:10px;
+  background-color: #414b58;
+  border-radius: 10px;
+  color: white;
 }
 
-.sidebarchoice ul li{
-  height:50px;
-  position: relative;
-  width: 100%;
+.choiceselectiontitle{
 
-  list-style: none;
-  line-height: 50px;
+  background-color: #414b58;
+  border-radius: 10px;
+  color: white;
 }
 
-/* Sidebar choices */
-.sidebarchoice ul li a {
-  display: flex;
-  color: #8391a2;
-  align-items: center;
-  text-decoration: none;
-  font: Nunito,sans-serif;
-   
-  transition: all 0.4s ease;
-  white-space: nowrap;
 
-}
-.sidebarchoice ul li a i{
-  height: 50px;
-  min-width: 30px;
-  border-radius: 12px;
-  line-height: 50px;
-  text-align: center;
-  
-}
 /* Page content for the dashboard*/
 
   .sidebarchoice.active ~ div.content1{
     position:absolute;
     height: 100%;
-    width: calc(100% - 220px);
-    left:220px;
+    width: calc(100% - 260px);
+    top:14vh;
+    left:260px;
   }
 
   div.content1 {
     position:absolute;
     height: 92vh;
-    width: calc(100%);
+    top:14vh;
+    width: 100%;
     left:0px;
   }
+
+  .sidebarchoice.active ~ .progress-with-nav{
+    position: fixed;
+    width: calc(100% - 260px);
+    left:260px
+  }
+  .progress-with-nav{
+    position: fixed;
+    width: 100%;
+    left:0px;
+  }
+
+
+
 
   /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
   div.content {
@@ -387,22 +406,7 @@ a.active, a:hover{
     max-height: 35vh;
 }
 
-/* progress bar */
-progress {
-    border-radius: 7px; 
-    width: 90%;
-    height: 10px;
-    margin-left: -11.5%;
-    box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
-  }
-  progress::-webkit-progress-bar {
-    background-color: #bbc3c9;
-    border-radius: 7px;
-  }
-  progress::-webkit-progress-value {
-    background-color: #6a994e;
-    border-radius: 7px;
-  }
+
  
 
   .dtHorizontalVerticalExampleWrapper {

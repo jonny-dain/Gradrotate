@@ -1,7 +1,7 @@
 import email
 from sre_constants import CATEGORY
 from django.db import models
-from users.models import Skills
+#from users.models import Skills
 from django.contrib.auth.models import User
 from django import forms
 
@@ -32,7 +32,7 @@ class Intern(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     #not sure I want skills
-    skills = models.ManyToManyField(Skills)
+    #skills = models.ManyToManyField(Skills)
 
     #Job preferences
     location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
@@ -76,7 +76,7 @@ class Job(models.Model):
     location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
     description = models.CharField(max_length = 200, null = True, blank = True)
     date_created = models.DateTimeField(auto_now_add=True)
-    skills = models.ManyToManyField(Skills)
+    #skills = models.ManyToManyField(Skills)
     #user progress
     progress = models.IntegerField(default=1)
     

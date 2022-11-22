@@ -3,6 +3,8 @@
 
 {% block content %}
 
+
+
 <main>
     
 
@@ -11,18 +13,22 @@
 
     <div class = "sidebarchoice active">
         <form action ="" method = "POST"> 
+            <div class = "choiceselectiontitle p-1 m-2 mb-3 mt-3">
+                Select your preferences
+            </div>
             {% csrf_token %}
             {{ formset.management_form }}
             {% for form, i in zippedlist %}
-            <ul class="nav_list" style="padding-left:22px;">
+            <div class = "choiceselection p-1 m-2 ">
                 <li>
                 {{i.name}}
                 <p hidden> hey </p>
                 <!--{{form.job.as_hidden}} -->
 
-
-                {{form.preference}}
-
+                <div class="float-end">
+                    {{form.preference}}
+                 
+                </div>
 
                 <!--
                 <select class="form-select" aria-label="Default select example">
@@ -32,14 +38,9 @@
                     {% endfor %}
                 </select>
                 -->
-                
-
-
-
-
 
             </li>
-            </ul>
+            </div>
 
             {% endfor %}    
 
@@ -51,10 +52,36 @@
                 {% endfor %}
             {% endif %}
             
-            <input type = "submit" name = "submit">
+                <div class="col text-center">
+                    <button class="btn btn-secondary btn-block text-center mt-2" type="submit" name ="Submit">Submit</button>
+
+                </div>
+
+           
+            
         </form>
         
         
+    </div>
+
+    <!-- Want another mini nav bar -->
+    <div class="mini-nav-bar">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-2">
+                <p class="h3"style = "padding: 5px 5px 5px; color:#6c757d;">
+                    <i class="fa fa-bars" id="btn1"></i>
+                </p>
+            </div>
+            <div class="col">
+                <h1 class ="text-center">Job Preferences</h1>
+            </div>
+            <div class="col col-lg-2">
+                <button class="btn btn-secondary btn-block text-center m-2 float-end"><a href="../../form/student_form/skills">Back</a></button>
+            </div>
+
+          </div>
+        
+
     </div>
 
 
@@ -68,11 +95,13 @@
 
 <div class="content1">
     
-    
+    <div class = "progress-with-nav">
     <div class="progress">
-        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar " role="progressbar" style="width: 80%; background-color: #5A9B95;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
+    </div>
 
+        <!--
       <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body ">
@@ -87,11 +116,8 @@
         </div>
 
     </row>
+    -->
 
-
-      
-        
-   
 
     <script>
         let btn = document.querySelector("#btn1");

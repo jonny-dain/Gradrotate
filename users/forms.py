@@ -20,7 +20,7 @@ class StudentForm(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','email','progress','skills','location','remote','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','email','progress','location','remote','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
     
         
 
@@ -59,14 +59,14 @@ class StudentForm2(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','name','location','remote','email','progress','skills','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','name','location','remote','email','progress','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
     
 
 class StudentForm3(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','name','email','progress','location','remote','skills','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','name','email','progress','location','remote','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
     
 
 
@@ -77,7 +77,7 @@ class ManagerForm(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','progress','location','skills','email','coding','project_management','marketing_skills','web_skills']
+        exclude = ['user','progress','location','email','coding','project_management','marketing_skills','web_skills']
 
 
     def __init__(self, *args, **kwargs):
@@ -111,11 +111,11 @@ class ManagerForm2(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','progress','name','manager_name','description','skills','email','coding','project_management','marketing_skills','web_skills']
+        exclude = ['user','progress','name','manager_name','description','email','coding','project_management','marketing_skills','web_skills']
 
 class ManagerForm3(ModelForm):
 #skills
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','progress','name','manager_name','location','description','skills','email','coding','project_management','marketing_skills','web_skills']
+        exclude = ['user','progress','name','manager_name','location','description','email','coding','project_management','marketing_skills','web_skills']

@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here. from accounts.models import Intern, Job
 
 
-#Remove skills.......
+#Remove skills.........
 class Skills(models.Model):
     name = models.CharField(max_length = 200, null = True)
 
@@ -33,7 +33,7 @@ class InternPreference(models.Model):
 
 
 
-    #6 needs to be job count but cant be stuck in import loop
+    #6 needs to be job count but cant be stuck in import loop - should be job
     preference = models.IntegerField(choices=[(i, i) for i in range(1, 6)], blank=True)
     #models.PositiveSmallIntegerField(default = 0)
 

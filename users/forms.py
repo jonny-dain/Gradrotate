@@ -35,7 +35,6 @@ class StudentForm(ModelForm):
                 'style': 'margin-bottom: 10px'
             })
 
-
 class StudentForm2(ModelForm):
 
     LOCATIONS=[('Newbury','Newbury'),
@@ -63,11 +62,6 @@ class StudentForm2(ModelForm):
         exclude = ['user','name','location','remote','email','progress','skills','coding','project_management','marketing_skills','web_skills','first_preference', 'second_preference', 'third_preference']
     
 
-
-
-
-
-
 class StudentForm3(ModelForm):
     class Meta:
         model = Intern
@@ -79,9 +73,49 @@ class StudentForm3(ModelForm):
 
 
 class ManagerForm(ModelForm):
+#name, manager name, job name, job description, day in the life
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','progress','email','coding','project_management','marketing_skills','web_skills']
+        exclude = ['user','progress','location','skills','email','coding','project_management','marketing_skills','web_skills']
 
 
+    def __init__(self, *args, **kwargs):
+        super(ManagerForm, self).__init__(*args, **kwargs)
+
+        self.fields['name'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Job Name',
+                'class': 'form-control',
+                'style': 'margin-bottom: 10px'
+            })
+
+        self.fields['manager_name'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Manager Name',
+                'class': 'form-control',
+                'style': 'margin-bottom: 10px'
+            })
+    
+        self.fields['description'].widget = widgets.Textarea(
+            attrs={
+                'placeholder': 'Job Description',
+                'class': 'form-control',
+                'rows':'5',
+                'style': 'margin-bottom: 10px'
+            })
+
+class ManagerForm2(ModelForm):
+#location, remote balance, pay
+
+    class Meta:
+        model = Job
+        fields = '__all__'
+        exclude = ['user','progress','name','manager_name','description','skills','email','coding','project_management','marketing_skills','web_skills']
+
+class ManagerForm3(ModelForm):
+#skills
+    class Meta:
+        model = Job
+        fields = '__all__'
+        exclude = ['user','progress','name','manager_name','location','description','skills','email','coding','project_management','marketing_skills','web_skills']

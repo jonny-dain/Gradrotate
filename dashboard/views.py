@@ -45,6 +45,7 @@ def preference(request):
     form_job = zip(formset, jobs)
     form_job2 = zip(formset, jobs)
 
+
     #remove the formset context
     context = {'jobs' :jobs, 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job,'zippedlist2':form_job2}
     

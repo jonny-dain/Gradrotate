@@ -1,24 +1,23 @@
-3*{
+*{
     margin: 0;
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
     padding: 0;
-    
 }
 
 
 
 body{
-    background-color: #fafbfe;;
+    background-color: #fafbfe;
 }
 main{
     margin-top: 8vh;
     margin-right: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 90px;
     margin-left: 0px;
     background-color: #fafbfe;;
-    height:92vh;
+    display: flex;
 }
 
 /* JOB CARD */
@@ -310,15 +309,16 @@ a.active, a:hover{
 .sidebarchoice {
   margin: 0;
   padding: 0;
-  width: 0;
-  z-index: 9;
+  width: 260px;
+
+  top: 14vh;
   
   background-color: #313a46;;
   position: fixed;
   height: 100%;
   overflow: auto;
 }
-
+/*
 .sidebarchoice.active {
   margin: 0;
   padding: 0;
@@ -330,12 +330,16 @@ a.active, a:hover{
   overflow: auto;
   
 }
+*/
 
 .choiceselection{
   margin-top:10px;
   background-color: #414b58;
   border-radius: 10px;
   color: white;
+
+  display: block;
+  text-decoration: none;
 }
 
 .choiceselectiontitle{
@@ -345,39 +349,29 @@ a.active, a:hover{
   color: white;
 }
 
-@media (max-width:700px){
-  .sidebarchoice.active {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-
-    z-index: 9;
-    background-color: #313a46;;
-    position: fixed;
-    height: 800px;
-    overflow: auto;
-    
-  }
-  
-}
-
-
-/* Page content for the dashboard*/
-
-  .sidebarchoice.active ~ div.content1{
-    position:absolute;
-    height: 100%;
+  div.content1 {
+    position:relative;
+    display: block;
     width: calc(100% - 260px);
-    top:14vh;
+    top:6vh;
+
     left:260px;
   }
 
-  div.content1 {
-    position:absolute;
-    height: 92vh;
-    top:14vh;
-    width: 100%;
-    left:0px;
+  @media screen and (max-width: 700px) {
+    .sidebarchoice {
+      width: 100%;
+      height: auto;
+      float: none;
+      top: 0vh;
+      position: relative;
+      display: block;
+    }
+    .choiceselection{
+      text-align: center;
+      float: none;
+    }
+    div.content1 {left: 0px; width: 100%;height: auto;}
   }
 
   .sidebarchoice.active ~ .progress-with-nav{

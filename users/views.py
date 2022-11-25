@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.permissions import allowed_users
 from .forms import *
+from django.contrib import messages
+
+
 
 
 # Create your views here.
@@ -14,6 +17,7 @@ from .forms import *
 def student_form(request):
     intern = request.user.intern
     form = StudentForm(instance= intern)
+    
 
     if request.method == 'POST':
         form = StudentForm(request.POST, instance= intern)        
@@ -48,17 +52,35 @@ def student_form_skills(request):
     intern = request.user.intern
     form = StudentForm3(instance= intern)
 
+    computing_skills = ComputingSkills.objects.all()
+
     if request.method == "POST":
         form = StudentForm3(request.POST, instance= intern) 
-        if form.is_valid():
+        if form.is_valid() and 'Submit' in request.POST:
             intern.progress = 2
             #gathers all the skills
-            intern.coding = form.data['coding']
-            intern.project_management = form.data['project_management']
-            intern.marketing_skills = form.data['marketing_skills']
-            intern.web_skills = form.data['web_skills']
-            form.save()
-            return redirect('../../dashboard')
+
+            computing_skills = form.cleaned_data['computing_skills']
+            analytic_skills = form.cleaned_data['analytic_skills']
+            marketing_skills = form.cleaned_data['marketing_skills']
+            management_skills = form.cleaned_data['management_skills']
+            leadership_skills = form.cleaned_data['leadership_skills']
+            business_skills = form.cleaned_data['business_skills']
+            admin_skills = form.cleaned_data['admin_skills']
+
+            if (len(computing_skills) + len(analytic_skills) + len(marketing_skills) + len(management_skills) + len(leadership_skills) +len(business_skills)+len(admin_skills)) > 5:
+                messages.info(request, '5 Skill maximum')
+                context = {'form': form, 'intern': intern}
+                return render(request, 'users/student_form3.html', context)
+            else:
+                
+                intern.coding = form.data['coding']
+                intern.project_management = form.data['project_management']
+                intern.marketing1_skills = form.data['marketing1_skills']
+                intern.web_skills = form.data['web_skills']
+                form.save()
+                return redirect('../../dashboard')
+
 
     context = {'form': form, 'intern': intern}
     return render(request, 'users/student_form3.html', context)
@@ -73,9 +95,13 @@ def manager_form(request):
     #.job
     form = ManagerForm(instance= job)
 
+
     if request.method == 'POST':
-        form = ManagerForm(request.POST, instance= job)        
-        if form.is_valid():
+        
+        form = ManagerForm(request.POST, instance= job)     
+ 
+
+        if form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
             form.save()
             job.progress = 2
@@ -84,6 +110,11 @@ def manager_form(request):
 
     context = {'form': form, 'job': job}
     return render(request, 'users/manager_form.html', context)
+
+
+
+
+
 
 def manager_form_requirements(request):
     job = request.user.job
@@ -107,14 +138,58 @@ def manager_form_skills(request):
     job = request.user.job
     #.job
     form = ManagerForm3(instance= job)
+    additional_skills = ManagerCreateSkills()
 
     if request.method == 'POST':
-        form = ManagerForm3(request.POST, instance= job)        
-        if form.is_valid():
+        form = ManagerForm3(request.POST, instance= job)      
+
+        additional_skills =ManagerCreateSkills(request.POST)
+        if 'Submit_skills' in request.POST:
+
+            if additional_skills.is_valid():
+                skill_category = form.data['skill_category']
+                skill_name = form.data['name']
+
+
+                if skill_category == 'Computing':
+                    skills = ComputingSkills.objects.filter()
+                elif skill_category == 'Analytic':
+                    skills = AnalyticSkills.objects.filter()
+                elif skill_category == 'Marketing':
+                    skills = MarketingSkills.objects.filter()
+                elif skill_category == 'Management':
+                    skills = ManagementSkills.objects.filter()
+                elif skill_category == 'Leadership':
+                    skills = LeadershipSkills.objects.filter()
+                elif skill_category == 'Business':
+                    skills = BusinessSkills.objects.filter()
+                elif skill_category == 'Admin':
+                    skills = AdminSkills.objects.filter()
+                
+                skills.create(name = skill_name)
+
+
+
+                
+            context = {'form': form, 'job': job, 'additional_skills' : additional_skills}
+            return render(request, 'users/manager_form3.html', context)
+
+
+        elif form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
             form.save()
             job.progress = 2
-            return HttpResponse("done")
+            return redirect('../../form/manager_form/requirements')
 
-    context = {'form': form, 'job': job}
+
+
+
+
+        #if form.is_valid():
+            #gathers all the skills
+        #    form.save()
+        #    job.progress = 2
+        #    return HttpResponse("done")
+
+    context = {'form': form, 'job': job, 'additional_skills' : additional_skills}
     return render(request, 'users/manager_form3.html', context)

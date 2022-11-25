@@ -1,12 +1,50 @@
 
 {% extends "base.html" %}
 
+<head>
+
+
+    
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+
+
+   
+
+    </head>
 
 {% block content %}
 <main>
-    <div class="progress">
-        <div class="progress-bar bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
+    <div class = "progress-with-nav">
+        <div class="progress">
+            <div class="progress-bar " role="progressbar" style="width: 60%; background-color: #5A9B95;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+    </div>
+
+
+
+    
+
+
+
+
+
+<div class="container-fluid p-0 m-0">
+    <div class = 'title-bar text-center'>
+        <div class = "row justify-content-center">
+        <h3 style="margin-top: 50px;">Skills</h3>
+        </div>
+    </div>
+
 
 
 
@@ -15,49 +53,246 @@
 
 
 {% csrf_token %}
-    <row>
-        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
-            <div class="card-body">
-                <h1>Skills</h1>
-            </div>
-            
-        </div>
-
-    </row>
+    
+    
+    <!-- Remove this stuff-->
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
                 <p> Coding:</p>
-                <input type="range" value="{{intern.coding}}" name="coding" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue.innerText = this.value">
+                <input type="range" value="{{intern.coding}}" name="coding" min="0" max="10"  class="slider" step="1" oninput= "rangeValue.innerText = this.value">
                 <p id="rangeValue">{{intern.coding}}</p> 
+
+                <p id="demo"></p>
         
                 <p> Project Management:</p>
-                <input type="range" value="{{intern.project_management}}" name="project_management" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue1.innerText = this.value">
+                <input type="range" value="{{intern.project_management}}" name="project_management" min="0" max="10"  class="slider" step="1" oninput= "rangeValue1.innerText = this.value">
                 <p id="rangeValue1">{{intern.project_management}}</p> 
         
                 <p> Marketing Skills:</p>
-                <input type="range" value="{{intern.marketing_skills}}" name="marketing_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
-                <p id="rangeValue2">{{intern.marketing_skills}}</p> 
+                <input type="range" value="{{intern.marketing1_skills}}" name="marketing1_skills" min="0" max="10" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
+                <p id="rangeValue2">{{intern.marketing1_skills}}</p> 
         
                 <p> Web Skills:</p>
-                <input type="range" value="{{intern.web_skills}}" name="web_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue3.innerText = this.value">
+                <input type="range" value="{{intern.web_skills}}" name="web_skills" min="0" max="10"  class="slider" step="1" oninput= "rangeValue3.innerText = this.value">
                 <p id="rangeValue3">{{intern.web_skills}}</p> 
+
             </div>
         </div>
     </row>
+    
+
+
+
+    <style>
+        .btn.btn-warning{
+            transition: none;
+            border: none;
+            outline: none;
+            background-color: white;
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
+        }
+        .btn.btn-warning.active{
+            background-color: #ffcd3a;
+            transition: none;
+            outline: none;
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
+        }
+        .btn-check:active+.btn-warning:focus, .btn-check:checked+.btn-warning:focus, .btn-warning.active:focus, .btn-warning:active:focus, .show>.btn-warning.dropdown-toggle:focus {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        }
+        .btn-check:focus+.btn-warning, .btn-warning:focus {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        }
+
+        .btn-outline-warning{
+            border: none;
+            color: black;
+            background-color: white;
+            transition: none;
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+            width: 25vw;
+        
+        }
+        .btn-outline-warning:hover{
+            color: black;
+            background-color: white;
+        }
+        .btn-outline-warning.btn-check:active{
+            color: black;
+            background-color: #ffcd3a;
+        }
+        .btn-check:checked+.btn-outline-warning{
+            color: black;
+            background-color: #ffcd3a;
+            transition: none;
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        
+        }
+        .btn-check:active+.btn-outline-warning:focus, .btn-check:checked+.btn-outline-warning:focus, .btn-outline-warning.active:focus, .btn-outline-warning:active:focus, .show>.btn-outline-warning.dropdown-toggle:focus {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        }
+        .btn-check:focus+.btn-outline-warning, .btn-outline-warning:focus {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        }
+
+
+        
+
+
+
+
+    </style>
+
+    <div class = "row justify-content-center">
+        <div class="col-6 text-center">
+        
+            
+
+                {% for message in messages %}
+                    <div class="alert alert-dark" role="alert"> {{message}} </div>
+                {% endfor %}
+
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('coding_skills')">Coding</button>
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('analytic_skills')">Analytic</button>
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('marketing_skills')">Marketing</button>
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('management_skills')">Management</button>
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('leadership_skills')">Leadership</button>
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('business_skills')">Business</button>
+                <button type="button" class="btn btn-warning m-1" data-bs-toggle="button" autocomplete="off" onclick="toggleDiv('admin_skills')">Admin</button>
+        </div>
+            
+    </div>
+    <div class = "row justify-content-center mt-4">
+        <div class="col-5 text-center">
+            Select the most relevant for you (max 5)
+            
+        </div>
+    </div>
+
+
+    <div class = "row justify-content-center mt-4">
+        <div class="col-5 text-center">
+
+                
+
+                <div id="coding_skills" style = "display: none;">
+                    
+                        {% for checkbox in form.computing_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_computing_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                                   
+                </div>
+                <div id="analytic_skills" style = "display: none;">
+                    <div class="btn-group" > 
+                        {% for checkbox in form.analytic_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_analytic_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="marketing_skills" style = "display: none;">
+                    <div class="btn-group" > 
+                        {% for checkbox in form.marketing_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_marketing_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="management_skills" style = "display: none;">
+                    <div class="btn-group" > 
+                        {% for checkbox in form.management_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_management_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="leadership_skills" style = "display: none;">
+                    <div class="btn-group" > 
+                        {% for checkbox in form.leadership_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_leadership_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="business_skills" style = "display: none;">
+                    <div class="btn-group" > 
+                        {% for checkbox in form.business_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_business_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="admin_skills" style = "display: none;">
+                    <div class="btn-group" > 
+                        {% for checkbox in form.admin_skills %}
+                            {{ checkbox.tag }}
+
+                            <label class="btn btn-outline-warning m-1" for="id_admin_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
+                        
+                        {% endfor %}
+                    </div>
+                </div>
+                
+
+
+            </div>
+        </div>
+        
+    </row>
+
+
+
+    <div class="save-bar">
+        <div style = "display: flex;
+        justify-content: center; ">
+
+            
+                <a href="../../form/student_form/requirements" class="back-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Back</a>
+                
+        
+                
+            
+                <button class="save-button p-2 m-2" type="submit" name ="Submit" value="Next">Save and continue</button>
+                
+              
+        </div>
+    </div>
+        
+                
+
+
+
+
+
+    {% if form.errors %}
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-2 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
-                <button class="btn btn-primary btn-block float-end" type="submit" name ="Submit" value="Next">Save and continue</button>
-                <!--<input type="Submit" name ="Next" value="Next">-->
-                <button class="btn btn-primary btn-block float-start" ><a href="../../form/student_form/requirements">Back</a></button>
-             </div>
-            
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div class="alert alert-dark" role="alert">{{field.errors}}</div>
+                    {% endif %}    
+                {% endfor %}
+            </div>
         </div>
-
     </row>
-    
-
+    {% endif %}
     
 
         
@@ -65,11 +300,25 @@
         
 
   </div>
-  {{form.errors}}
+
 
   
 
-</form>   
+</form>
+</div>   
+
+<script>
+    function toggleDiv(DivID) {
+    var x = document.getElementById(DivID);
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+    }
+</script>
+
 </main>
 
 {% endblock %}
+

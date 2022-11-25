@@ -85,13 +85,15 @@
                         <tr>
                             <th class="table-light">Name</th>
                             <th class="table-light">Email</th>
+
+                            <th class="table-light">Progress</th>
+                            <th class="table-light">Delete</th>
                             
                             {% for job in jobs %}
                                 <th class="table-light">Pref. {{forloop.counter}}</th>
                             {% endfor %}
 
-                            <th class="table-light">Progress</th>
-                            <th class="table-light">Delete</th>
+                            
                         </tr>
                     
                     <tbody>
@@ -99,10 +101,6 @@
                                 <tr>
                                     <td style="min-width:100px">{{intern.name}}</td>
                                     <td style="min-width:100px">{{intern.email}}</td>
-
-                                    {% for job in jobs %}
-                                        <td style="min-width:100px">{{job}}</td>
-                                    {% endfor %}
 
                                     <td style="min-width:150px">
                                         {% if intern.progress == 3 %}
@@ -113,6 +111,12 @@
 
                                         </td>
                                     <td style="min-width:100px"><a href="{% url 'deleteIntern' intern.id %}">Delete</a></td>
+
+                                    {% for job in jobs %}
+                                        <td style="min-width:100px">{{job}}</td>
+                                    {% endfor %}
+
+                                    
                                     
       
                                 </tr>

@@ -310,7 +310,7 @@ a.active, a:hover{
   margin: 0;
   padding: 0;
   width: 260px;
-
+  z-index: 9;
   top: 14vh;
   
   background-color: #313a46;;
@@ -337,6 +337,7 @@ a.active, a:hover{
   background-color: #414b58;
   border-radius: 10px;
   color: white;
+  z-index: 9;
 
   display: block;
   text-decoration: none;
@@ -381,6 +382,7 @@ a.active, a:hover{
   }
   .progress-with-nav{
     position: fixed;
+    z-index: 8;
     width: 100%;
     left:0px;
   }
@@ -442,5 +444,46 @@ a.active, a:hover{
   }
 
 
+/* 2nd bar */
+.save-bar{
+  background: white;
+  height: 7vh;
+  width: 100vw;
+  bottom: 0vh;
+  left: 0px;
+  box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
+  position: fixed;
+  display: inline-block;
+  z-index: 10;
+}
 
- 
+.title-bar{
+  background: #e5e8ec;
+  height: 110px;
+  width: 100%;
+  top: 0px;
+
+  box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
+
+
+
+
+}
+
+
+.save-button{
+  background-color: 
+  #294b63;
+  color: white;
+  width: 200px;
+  border: 1px solid rgb(240, 240, 237);
+  border-radius: 30px;
+}
+.back-button{
+  background-color: #dbdee4;
+  color: rgb(0, 0, 0);
+  width: 200px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 30px;
+}
+

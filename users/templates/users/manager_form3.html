@@ -5,6 +5,17 @@
 
 <main>
 
+
+
+    <form method="POST" action="">
+
+        {% csrf_token %}
+        {{ additional_skills.as_p }}
+        <button class="btn btn-primary btn-block float-end" type="submit" name ="Submit_skills" value="Next">create new skill</button>
+    </form>
+    
+
+
 <form method="POST" action="">
 
     {% csrf_token %}
@@ -20,14 +31,23 @@
     <p id="rangeValue1">{{job.project_management}}</p> 
 
     <p> Marketing Skills:</p>
-    <input type="range" value="{{job.marketing_skills}}" name="marketing_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
-    <p id="rangeValue2">{{job.marketing_skills}}</p> 
+    <input type="range" value="{{job.marketing1_skills}}" name="marketing1_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
+    <p id="rangeValue2">{{job.marketing1_skills}}</p> 
 
     <p> Web Skills:</p>
     <input type="range" value="{{job.web_skills}}" name="web_skills" min="0" max="10" value="50" class="slider" step="1" oninput= "rangeValue3.innerText = this.value">
     <p id="rangeValue3">{{job.web_skills}}</p> 
 
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+            Job skills *
+            {{form.computing_skills}}
+            </div>
+            
+        </div>
 
+    </row>
 
 
     <input type="Submit" name ="Register">

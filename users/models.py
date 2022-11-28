@@ -38,6 +38,7 @@ class InternPreference(models.Model):
     preference = models.IntegerField(choices=[(i, i) for i in range(1, jobs.count() + 1)], blank=True)
 
 
+
     #models.PositiveSmallIntegerField(default = 0)
 
 

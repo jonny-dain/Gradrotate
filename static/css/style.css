@@ -4,6 +4,10 @@
     list-style: none;
     box-sizing: border-box;
     padding: 0;
+    font-family: 'DM Sans', sans-serif;
+                                                
+
+
 }
 
 
@@ -16,15 +20,17 @@ main{
     margin-right: 0px;
     margin-bottom: 90px;
     margin-left: 0px;
+    
     background-color: #fafbfe;;
     display: flex;
 }
 
-/* JOB CARD */
+/* JOB CARD 
 .card-container{
   display: inline-block;
   
 }
+*/
 
 .job-card{
     padding: 1rem;
@@ -61,7 +67,7 @@ main{
     display: grid;
     align-items: flex-start;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill,minmax(410px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(550px,1fr));
 }
 
 
@@ -166,6 +172,8 @@ a.active, a:hover{
   width: calc(100% - 260px);
   left:260px;
 }
+
+
 
 
 
@@ -311,7 +319,7 @@ a.active, a:hover{
   padding: 0;
   width: 260px;
   z-index: 9;
-  top: 14vh;
+  top: calc(8vh + 16px); 
   
   background-color: #313a46;;
   position: fixed;
@@ -354,23 +362,27 @@ a.active, a:hover{
     position:relative;
     display: block;
     width: calc(100% - 260px);
-    top:6vh;
+    top:0vh;
 
     left:260px;
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 870px) {
     .sidebarchoice {
       width: 100%;
       height: auto;
       float: none;
       top: 0vh;
-      position: relative;
+      position:relative;
       display: block;
     }
     .choiceselection{
       text-align: center;
       float: none;
+    }
+    .title-bar-dashboard{
+      left:0px;
+      
     }
     div.content1 {left: 0px; width: 100%;height: auto;}
   }
@@ -465,10 +477,18 @@ a.active, a:hover{
 
   box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
 
+}
 
-
+.title-bar-dashboard{
+  background: #e5e8ec;
+  height: 110px;
+  width: 100%;
+  top: 0px;
+  left:260px;
+  box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
 
 }
+
 
 
 .save-button{
@@ -478,6 +498,8 @@ a.active, a:hover{
   width: 200px;
   border: 1px solid rgb(240, 240, 237);
   border-radius: 30px;
+
+
 }
 .back-button{
   background-color: #dbdee4;

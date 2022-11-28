@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import Job, Intern
+from dashboard.dashboard_info import *
 from users.models import InternPreference
 from .forms import InternPreferenceForm
 from django.forms import inlineformset_factory, BaseFormSet
 from django.core.exceptions import ValidationError
+import json
 
 # Create your views here.
 
@@ -29,8 +31,12 @@ class BaseCheckFormSet(BaseFormSet):
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Intern'])
 def preference(request):
-    jobs = Job.objects.all()
-    jobs_count = jobs.count()  
+    #jobs = Job.objects.all()
+    jobs = job_ordered_list(request)
+    print(str(jobs))
+    jobs_count = len(jobs)
+
+
 
     #only show one form , formset= BaseCheckFormSet
     OrderFormSet = inlineformset_factory(Intern, InternPreference, fields = ('job', 'preference'), extra = jobs_count,max_num=jobs_count)
@@ -41,17 +47,33 @@ def preference(request):
 
     #some_formset = formset(initial=[{'id': x} for x in jobs])
 
+    
+
+
+
+
+
+
+    
+    #This gets all the skills for each of the jobs and gives a %
+    all_job_skills = job_skills(jobs = jobs)
+
+   
+
     #Zipped the form and jobs
     form_job = zip(formset, jobs)
-    form_job2 = zip(formset, jobs)
-
+    
+    form_job2 = zip(formset, jobs, all_job_skills)
+    
 
     #remove the formset context
-    context = {'jobs' :jobs, 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job,'zippedlist2':form_job2}
+    context = { 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job,'zippedlist2':form_job2}
     
     #formset.field['job'].initial = jobs[0]
 
-    
+
+
+
 
 
 

@@ -178,9 +178,43 @@ class ManagerForm2(ModelForm):
         fields = '__all__'
         exclude = ['user','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','name','manager_name','description','email','coding','project_management','marketing1_skills','web_skills']
 
+
 class ManagerForm3(ModelForm):
 #skills
     class Meta:
         model = Job
         fields = '__all__'
         exclude = ['user','progress','name','manager_name','location','description','email','coding','project_management','marketing1_skills','web_skills']
+
+    def __init__(self, *args, **kwargs):
+        super(ManagerForm3, self).__init__(*args, **kwargs)
+
+
+        self.fields["computing_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["computing_skills"].queryset = ComputingSkills.objects.all()
+        self.fields['computing_skills'].required = False
+
+        self.fields["analytic_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["analytic_skills"].queryset = AnalyticSkills.objects.all()
+        self.fields['analytic_skills'].required = False
+
+        self.fields["marketing_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["marketing_skills"].queryset = MarketingSkills.objects.all()
+        self.fields['marketing_skills'].required = False
+
+        self.fields["management_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["management_skills"].queryset = ManagementSkills.objects.all()
+        self.fields['management_skills'].required = False
+
+        self.fields["leadership_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["leadership_skills"].queryset = LeadershipSkills.objects.all()
+        self.fields['leadership_skills'].required = False
+
+        self.fields["business_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["business_skills"].queryset = BusinessSkills.objects.all()
+        self.fields['business_skills'].required = False
+
+        self.fields["admin_skills"].widget = CheckboxSelectMultiple(attrs={'class' : 'btn-check'})
+        self.fields["admin_skills"].queryset = AdminSkills.objects.all()
+        self.fields['admin_skills'].required = False
+

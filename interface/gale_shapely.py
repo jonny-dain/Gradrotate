@@ -17,7 +17,7 @@ def pref_rank(pref):
 def gale_allocation(*, intern_set, job_set, intern_preference, job_preference):
     
     job_rank = pref_rank(job_preference)
-    print(str(job_rank))
+
 
     #create a deque for the iterate list.. this will get apprended to and deleted and remove items in the list
     iterate_list ={}

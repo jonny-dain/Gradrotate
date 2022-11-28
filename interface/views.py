@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import *
 from interface.forms import AdminForm
-from interface.gale_shapely import gale_allocation
+from interface.gale_shapely import *
 from interface.preferences import *
 from users.models import *
 from django.contrib import messages
@@ -18,11 +18,16 @@ def admin_interface(request):
     admin = Admin.objects.all().first()
     form = AdminForm(instance= admin)
 
-    
     jobs = Job.objects.all()
     interns = Intern.objects.all()
 
     #Want to make a settings dashboard to allocate jobs
+
+
+
+    # tests
+    #print(job_preference)
+
 
     if request.method == 'POST':
         form = AdminForm(request.POST, instance= admin)        
@@ -33,6 +38,13 @@ def admin_interface(request):
 
     context = {'jobs' :jobs , 'interns' : interns, 'form': form}
     return render(request, 'interface/interface.html', context)
+
+
+
+
+
+
+
 
 
 
@@ -97,9 +109,12 @@ def allocate_interface(request):
 
         intern_preference = intern_preference_dictionary()
         job_preference = job_preference_dictionary()
-        
+
+
+
         job_set = set(jobs)
         intern_set = set(interns)
+
 
         allocated_pairs = gale_allocation(
             intern_set=intern_set,
@@ -107,11 +122,17 @@ def allocate_interface(request):
             intern_preference=intern_preference,
             job_preference=job_preference,
         )  
+
+
         
+
+        print(allocated_pairs)
 
         first_preference = 0
         second_preference = 0
         third_preference = 0
+
+
 
         #works out how many interns got their first,second and third choices
         for pair in allocated_pairs:
@@ -121,7 +142,7 @@ def allocate_interface(request):
                         first_preference += 1
                     elif pair[1] == jobs[1]:
                         second_preference += 1
-                    elif pair[1] == jobs[3]:
+                    elif pair[1] == jobs[2]:
                         third_preference += 1
 
 

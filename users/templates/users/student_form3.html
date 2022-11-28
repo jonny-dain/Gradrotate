@@ -55,7 +55,7 @@
 {% csrf_token %}
     
     
-    <!-- Remove this stuff-->
+    <!-- Remove this stuff
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
@@ -80,6 +80,7 @@
             </div>
         </div>
     </row>
+    -->
     
 
 
@@ -147,7 +148,7 @@
     </style>
 
     <div class = "row justify-content-center">
-        <div class="col-6 text-center">
+        <div class="col-4 text-center">
         
             
 
@@ -189,64 +190,64 @@
                                    
                 </div>
                 <div id="analytic_skills" style = "display: none;">
-                    <div class="btn-group" > 
+                    
                         {% for checkbox in form.analytic_skills %}
                             {{ checkbox.tag }}
 
                             <label class="btn btn-outline-warning m-1" for="id_analytic_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
                         
                         {% endfor %}
-                    </div>
+                    
                 </div>
                 <div id="marketing_skills" style = "display: none;">
-                    <div class="btn-group" > 
+                    
                         {% for checkbox in form.marketing_skills %}
                             {{ checkbox.tag }}
 
                             <label class="btn btn-outline-warning m-1" for="id_marketing_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
                         
                         {% endfor %}
-                    </div>
+                    
                 </div>
                 <div id="management_skills" style = "display: none;">
-                    <div class="btn-group" > 
+                    
                         {% for checkbox in form.management_skills %}
                             {{ checkbox.tag }}
 
                             <label class="btn btn-outline-warning m-1" for="id_management_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
                         
                         {% endfor %}
-                    </div>
+                    
                 </div>
                 <div id="leadership_skills" style = "display: none;">
-                    <div class="btn-group" > 
+                    
                         {% for checkbox in form.leadership_skills %}
                             {{ checkbox.tag }}
 
                             <label class="btn btn-outline-warning m-1" for="id_leadership_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
                         
                         {% endfor %}
-                    </div>
+                    
                 </div>
                 <div id="business_skills" style = "display: none;">
-                    <div class="btn-group" > 
+                    
                         {% for checkbox in form.business_skills %}
                             {{ checkbox.tag }}
 
                             <label class="btn btn-outline-warning m-1" for="id_business_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
                         
                         {% endfor %}
-                    </div>
+                   
                 </div>
                 <div id="admin_skills" style = "display: none;">
-                    <div class="btn-group" > 
+                    
                         {% for checkbox in form.admin_skills %}
                             {{ checkbox.tag }}
 
                             <label class="btn btn-outline-warning m-1" for="id_admin_skills_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>                    
                         
                         {% endfor %}
-                    </div>
+                    
                 </div>
                 
 

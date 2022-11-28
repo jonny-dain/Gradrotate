@@ -8,13 +8,19 @@
 </header>
 
 <main>
-    <div>
+    
+        <div class = "progress-with-nav">
+            <div class="progress">
+                <div class="progress-bar " role="progressbar" style="width: 80%; background-color: #5A9B95;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+        </div>
 
 
 <!-- Want to have a sidenav bar with all the options on the left -->
 
     
     <!-- Want another mini nav bar -->
+    <!--
     <div class="mini-nav-bar" style="position:fixed;">
         <div class="row ">
             
@@ -29,23 +35,16 @@
         
 
     </div>
-
-
-
-
-
-
+    -->
     
-<!-- Main content here-->
 
-
-<div class="content1" >
-    
+    <!--
     <div class = "progress-with-nav">
     <div class="progress">
         <div class="progress-bar " role="progressbar" style="width: 80%; background-color: #5A9B95;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
+    -->
 
         <!--
       <row>
@@ -75,19 +74,38 @@
     -->
 
 
-<div class="card-container m-4" >
+
+
+
+
+    <div>
+    
+    </div>  
+    
+<!-- Main content here-->
+
+
+<div class="content1"  >
+    <div class = 'title-bar-dashboard text-center'>
+        <div class = "row justify-content-center">
+        <h3 style="margin-top: 50px;">Provide basic information</h3>
+    </div>
+    
+
+
+<div class="card-container m-4" style="position:relative; display: block;" >
     <div class="job-card-deck p-2" >
         
-            {% for form, i in zippedlist2 %}
+            {% for form, i, jobs_skills in zippedlist2 %}
 
             
-                
                 <div class="job-card shadow-sm border-0 rounded" >
                     
                     <div class="job-card-body">
                       <h5 class="job-card-title">{{i.name}}</h5>   
                             {{i.description}} 
                     </div>
+                    
 
 
 
@@ -118,7 +136,18 @@
                                             {{i.description}}
                                         </div>
                                         <div class="col-md-6">
+                                            {% for skills in jobs_skills %}
+                                            <button type="button" class="btn btn-primary">{{skills}} </button>
+                                            {% endfor %}
+
+                                
+
+                                            <!--
                                             <div class="float-end" id="piechart-{{forloop.counter}}"></div>
+                                            
+                                            
+
+                                
 
                                             <script type="text/javascript">
                                                 // Load google charts
@@ -127,26 +156,22 @@
                                                 
                                                 // Draw the chart and set the chart values
                                                 function drawChart() {
-                                                  var data = google.visualization.arrayToDataTable([
-                                                  ['Skill', 'Rank'],
-                                                  ['Coding', parseInt('{{i.coding}}')],
-                                                  ['Management', parseInt('{{i.project_management}}')],
-                                                  ['Marketing Skills', parseInt('{{i.marketing1_skills}}')],
-                                                  ['Web skills', parseInt('{{i.web_skills}}')],
-                                                ]);
+                                                    var djangodata = {{job_skills|safe}};
+                                                    var data = google.visualization.arrayToDataTable(djangodata);
                                                 
-                                                  // Optional; add a title and set the width and height of the chart
-                                                  var options = {pieSliceText: 'none', 'chartArea': {'width': '600%', 'height': '60%'},'width':400, 'height':400, pieHole: 0.4,colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']};
-                                                
-                                                  // Display the chart inside the <div> element with id="piechart"
-                                                  //var = func_name = "container-{{forloop.counter}}"
+                                                    // Optional; add a title and set the width and height of the chart
+                                                    var options = {pieSliceText: 'none', 'chartArea': {'width': '600%', 'height': '60%'},'width':400, 'height':400, pieHole: 0.4,colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']};
+                                                    
+                                                    // Display the chart inside the <div> element with id="piechart"
+                                                    //var = func_name = "container-{{forloop.counter}}"
 
-                                                  //var func_name = "container-{{forloop.counter}}";
-                                            
-                                                  var chart = new google.visualization.PieChart(document.getElementById('piechart-{{forloop.counter}}'));
-                                                  chart.draw(data, options);
-                                                }
+                                                    //var func_name = "container-{{forloop.counter}}";
+                                                
+                                                    var chart = new google.visualization.PieChart(document.getElementById('piechart-{{forloop.counter}}'));
+                                                    chart.draw(data, options);
+                                                };
                                             </script>
+                                            -->
 
 
 
@@ -205,8 +230,9 @@
 </div>
 </main>
 
-<div class = "sidebarchoice">
+
     <form action ="" method = "POST"> 
+        <div class = "sidebarchoice">
         <div class = "choiceselectiontitle p-1 m-2 mb-3 mt-3">
             Select your preferences
         </div>
@@ -246,17 +272,39 @@
             {% endfor %}
         {% endif %}
         
+            <!--
             <div class="col text-center">
                 <button class="btn btn-secondary btn-block text-center mt-2" type="submit" name ="Submit">Submit</button>
 
             </div>
+            -->
 
        
-        
+        </div>
+
+
+        <div class="save-bar">
+            <div style = "display: flex;
+            justify-content: center; ">
+    
+                
+                    <a href="../../form/student_form/skills" class="back-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Back</a>
+                    
+            
+                    
+                
+                    <button class="save-button p-2 m-2" type="submit" name ="Submit" value="Next">Save and continue</button>
+                    
+                  
+            </div>
+        </div>
+            
+
+
+
     </form>
     
     
-</div>
 
 
 

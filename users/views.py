@@ -74,10 +74,10 @@ def student_form_skills(request):
                 return render(request, 'users/student_form3.html', context)
             else:
                 
-                intern.coding = form.data['coding']
-                intern.project_management = form.data['project_management']
-                intern.marketing1_skills = form.data['marketing1_skills']
-                intern.web_skills = form.data['web_skills']
+                #intern.coding = form.data['coding']
+                #intern.project_management = form.data['project_management']
+                #intern.marketing1_skills = form.data['marketing1_skills']
+                #intern.web_skills = form.data['web_skills']
                 form.save()
                 return redirect('../../dashboard')
 
@@ -167,19 +167,30 @@ def manager_form_skills(request):
                     skills = AdminSkills.objects.filter()
                 
                 skills.create(name = skill_name)
-
-
-
-                
-            context = {'form': form, 'job': job, 'additional_skills' : additional_skills}
-            return render(request, 'users/manager_form3.html', context)
+            
+            return redirect('../../form/manager_form/skills')
 
 
         elif form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
-            form.save()
-            job.progress = 2
-            return redirect('../../form/manager_form/requirements')
+
+            computing_skills = form.cleaned_data['computing_skills']
+            analytic_skills = form.cleaned_data['analytic_skills']
+            marketing_skills = form.cleaned_data['marketing_skills']
+            management_skills = form.cleaned_data['management_skills']
+            leadership_skills = form.cleaned_data['leadership_skills']
+            business_skills = form.cleaned_data['business_skills']
+            admin_skills = form.cleaned_data['admin_skills']
+
+            if (len(computing_skills) + len(analytic_skills) + len(marketing_skills) + len(management_skills) + len(leadership_skills) +len(business_skills)+len(admin_skills)) > 5:
+                messages.info(request, '5 Skill maximum')
+                context = {'form': form, 'job': job, 'additional_skills' : additional_skills}
+                return render(request, 'users/manager_form3.html', context)
+            else:
+
+                form.save()
+                job.progress = 2
+                return HttpResponse("done")
 
 
 

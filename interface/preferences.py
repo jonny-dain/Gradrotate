@@ -36,7 +36,7 @@ def job_preference_dictionary():
             business_skills_intern = intern.business_skills.all()
             admin_skills_intern = intern.admin_skills.all()
 
-            skill_difference1 = abs(job.coding - intern.coding) + abs(job.project_management - intern.project_management) + abs(job.marketing1_skills - intern.marketing1_skills) + abs(job.web_skills - intern.web_skills)
+            #skill_difference1 = abs(job.coding - intern.coding) + abs(job.project_management - intern.project_management) + abs(job.marketing1_skills - intern.marketing1_skills) + abs(job.web_skills - intern.web_skills)
             # save the skill difference with each of the jobs. if a job has a higher skill difference add to the end 
             #
 

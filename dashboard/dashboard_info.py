@@ -81,18 +81,28 @@ def job_ordered_list(request):
         similarity_weighting += len(list(set(business_skills_job).intersection(business_skills_intern)))
         similarity_weighting += len(list(set(admin_skills_job).intersection(admin_skills_intern)))
 
+        #This calculates the weighting...
+
+
        #If the locations are the same add one to the weighting - total max is now 6
         if job.location == intern.location:
             similarity_weighting += 1
 
-        
-            
+        #If remote is the same add one to the weighting - total max is now 7
+        if job.remote == intern.remote:
+            similarity_weighting += 1
+
+        #Section for preferred wage
+
+        similarity_weighting = round(similarity_weighting/7 * 100)
+
         job_dictionary[job] = similarity_weighting
+
 
     
     job_dictionary = sorted(job_dictionary.items(), key=lambda x:x[1], reverse=True)
-    print(job_dictionary)
+
     job_dictionary = dict(job_dictionary)
     
 
-    return list(job_dictionary.keys())
+    return job_dictionary

@@ -107,8 +107,8 @@ class Intern(models.Model):
     location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
     remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
     
-    
-    
+    #Expected wage
+    wage = models.IntegerField(default = 0)
 
 
     
@@ -116,10 +116,10 @@ class Intern(models.Model):
     progress = models.IntegerField(default=1)
 
     #Skills
-    coding = models.IntegerField(default = 5)
-    project_management = models.IntegerField(default = 5)
-    marketing1_skills = models.IntegerField(default = 5)
-    web_skills = models.IntegerField(default = 5)
+    #coding = models.IntegerField(default = 5)
+    #project_management = models.IntegerField(default = 5)
+    #marketing1_skills = models.IntegerField(default = 5)
+    #web_skills = models.IntegerField(default = 5)
 
     def __str__(self):
         return str(self.name)
@@ -139,12 +139,28 @@ class Job(models.Model):
         ('London Paddington', 'London Paddington'),
         ('Speechmark','Speechmark'),
     )
+
+    REMOTE_CHOICES = (
+        ('Everyday', 'Everyday'),
+        ('3-4', '3-4'),
+        ('1-2','1-2'),
+        ('Remote','Remote'),
+    )
+
+
     email = models.CharField(max_length = 200, null = True)
     manager_name = models.CharField(max_length = 200, null = True)
     name = models.CharField(max_length = 200, null = True)
-    location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
     description = models.CharField(max_length = 200, null = True, blank = True)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    #Location and remote balance
+    location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
+    remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
+
+    #Wage
+    wage = models.IntegerField(default = 0)
+
 
 
     #Skills
@@ -161,13 +177,16 @@ class Job(models.Model):
     progress = models.IntegerField(default=1)
     
     #Skills
-    coding = models.IntegerField(default = 5)
-    project_management = models.IntegerField(default = 5)
-    marketing1_skills = models.IntegerField(default = 5)
-    web_skills = models.IntegerField(default = 5)
+    #coding = models.IntegerField(default = 5)
+    #project_management = models.IntegerField(default = 5)
+    #marketing1_skills = models.IntegerField(default = 5)
+    #web_skills = models.IntegerField(default = 5)
 
     def __str__(self):
         return str(self.name)
+
+
+
 
 class Admin(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

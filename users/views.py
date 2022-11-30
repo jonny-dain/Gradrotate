@@ -79,7 +79,7 @@ def student_form_skills(request):
                 #intern.marketing1_skills = form.data['marketing1_skills']
                 #intern.web_skills = form.data['web_skills']
                 form.save()
-                return redirect('../../dashboard')
+                return redirect('../../form/student_form/complete')
 
 
     context = {'form': form, 'intern': intern}
@@ -170,7 +170,6 @@ def manager_form_skills(request):
             
             return redirect('../../form/manager_form/skills')
 
-
         elif form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
 
@@ -190,17 +189,43 @@ def manager_form_skills(request):
 
                 form.save()
                 job.progress = 2
-                return HttpResponse("done")
 
+                #redirect to done... 
+                return redirect('../../form/manager_form/complete')
 
-
-
-
-        #if form.is_valid():
-            #gathers all the skills
-        #    form.save()
-        #    job.progress = 2
-        #    return HttpResponse("done")
 
     context = {'form': form, 'job': job, 'additional_skills' : additional_skills}
     return render(request, 'users/manager_form3.html', context)
+
+
+
+
+def student_complete(request):
+    #Top choices
+    intern = request.user.intern
+
+    preferences = intern.internpreference_set.all()
+    intern_dictionary = {}
+
+    for preference in preferences:
+        intern_dictionary[preference.job] = preference.preference
+
+    intern_dictionary = sorted(intern_dictionary.items(), key=lambda x:x[1])
+    intern_dictionary = dict(intern_dictionary)
+    preference_list = list(intern_dictionary.keys())
+
+
+
+
+    context = {'preference_list' : preference_list}
+    return render(request, 'users/student_complete.html', context)
+
+
+
+
+
+def manager_complete(request):
+
+
+    context = {}
+    return render(request, 'users/manager_complete.html', context)

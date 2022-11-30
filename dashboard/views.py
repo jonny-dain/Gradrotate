@@ -32,8 +32,11 @@ class BaseCheckFormSet(BaseFormSet):
 #@allowed_users(allowed_roles=['Intern'])
 def preference(request):
     #jobs = Job.objects.all()
-    jobs = job_ordered_list(request)
-    print(str(jobs))
+    job_with_percentage = job_ordered_list(request)
+
+    jobs_percentage = list(job_with_percentage.values())
+    jobs = list(job_with_percentage.keys())
+
     jobs_count = len(jobs)
 
 
@@ -47,11 +50,6 @@ def preference(request):
 
     #some_formset = formset(initial=[{'id': x} for x in jobs])
 
-    
-
-
-
-
 
 
     
@@ -63,7 +61,7 @@ def preference(request):
     #Zipped the form and jobs
     form_job = zip(formset, jobs)
     
-    form_job2 = zip(formset, jobs, all_job_skills)
+    form_job2 = zip(formset, jobs, all_job_skills, jobs_percentage)
     
 
     #remove the formset context
@@ -147,14 +145,14 @@ def preference(request):
 
                     #print(form.preference)
                 #formset.save()
-                print("complete")
+
                 #check if done
                 
                 intern.progress = 3
                 
                 intern.save()
 
-                print(intern.progress)
+
                 return HttpResponse("done")
         else:
             

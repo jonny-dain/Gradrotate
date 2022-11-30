@@ -8,8 +8,8 @@ urlpatterns = [
     path('manager_form/', views.manager_form),
     path('manager_form/requirements', views.manager_form_requirements),
     path('manager_form/skills', views.manager_form_skills),
-
-
+    path('student_form/complete', views.student_complete),
+    path('manager_form/complete', views.manager_complete),
 
 
 ]

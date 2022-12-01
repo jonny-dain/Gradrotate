@@ -1,0 +1,27 @@
+
+
+
+
+
+
+{% csrf_token %}
+
+
+
+<form class="sortable" hx-post = "{% url 'sort' %}" hx-trigger="end" hx-target = "#dashboard-pref">
+    <div class="htmx-indicator">Updating...</div>
+ 
+
+    {% for intern_preference in intern_preferences %}
+    <div>
+        <div class = "choiceselection p-1 m-2 ">
+        
+            <input type='hidden' name='preference_order' value='{{ intern_preference.pk }}'/>
+            #{{intern_preference.preference}} {{intern_preference.job.name}}
+            <i class='bx bx-menu float-end'></i>
+        </div>
+    </div>
+
+
+    {% endfor %}
+  </form>

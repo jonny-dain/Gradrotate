@@ -79,7 +79,7 @@ def student_form_skills(request):
                 #intern.marketing1_skills = form.data['marketing1_skills']
                 #intern.web_skills = form.data['web_skills']
                 form.save()
-                return redirect('../../form/student_form/complete')
+                return redirect('../../dashboard')
 
 
     context = {'form': form, 'intern': intern}

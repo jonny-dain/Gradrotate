@@ -30,13 +30,10 @@ class InternPreference(models.Model):
     #(default=10, validators=[MinValueValidator(1), MaxValueValidator(100)])
   
     jobs = Job.objects.all()
-
-
-
-
+    
     #6 needs to be job count but cant be stuck in import loop - should be job
-    preference = models.IntegerField(choices=[(i, i) for i in range(1, jobs.count() + 1)], blank=True)
-
+    #preference = models.IntegerField(choices=[(i, i) for i in range(1, jobs.count() + 1)], blank=True)
+    preference = models.IntegerField(blank=True)
 
 
     #models.PositiveSmallIntegerField(default = 0)

@@ -7,7 +7,19 @@ from django.contrib.auth.models import AbstractBaseUser
 from accounts.models import *
 
 class AdminForm(ModelForm):
+
+    PHASES = (
+        ('Job creation','Job creation'),
+        ('Intern collection','Intern collection'),
+        ('Allocation','Allocation'),
+    )
+
+    phase = forms.ChoiceField(choices = PHASES , widget=forms.RadioSelect(attrs={'class' : 'btn-check'}))
+
     class Meta:
         model = Admin
         fields = '__all__'
         exclude = ['name','user']
+
+        
+    

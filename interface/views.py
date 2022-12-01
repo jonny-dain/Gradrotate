@@ -30,7 +30,8 @@ def admin_interface(request):
 
 
     if request.method == 'POST':
-        form = AdminForm(request.POST, instance= admin)        
+        form = AdminForm(request.POST, instance= admin)   
+        print('here')     
         if form.is_valid():
             #gathers all the skills
             form.save()

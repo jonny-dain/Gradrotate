@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import Job, Intern
@@ -28,6 +28,15 @@ class BaseCheckFormSet(BaseFormSet):
 
 
 
+
+
+
+
+
+
+
+
+
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Intern'])
 def preference(request):
@@ -39,16 +48,45 @@ def preference(request):
 
     jobs_count = len(jobs)
 
+    counter = 0
+    for job in jobs:
+        print("here")
+        counter += 1
+        if not InternPreference.objects.filter(intern = request.user.intern, job = job).exists():
+            InternPreference.objects.create(intern = request.user.intern, job = job, preference = counter)
+            print("created preferences")
 
 
-    #only show one form , formset= BaseCheckFormSet
+    #HAS TO CHANGE
+    intern_preferences = InternPreference.objects.filter(intern = request.user.intern)
+    
+    #Can be placed in function
+    
+    intern_preference_dictionary = {}
+    for intern_preference in intern_preferences:
+        
+        intern_preference_dictionary[intern_preference] = intern_preference.preference
+
+    intern_preference_dictionary = dict(sorted(intern_preference_dictionary.items(), key=lambda x:x[1]))
+
+
+    intern_preferences = list(intern_preference_dictionary.keys())
+    
+
+    #sort based on preferences..
+
+
+
+
+
+
+
+
     OrderFormSet = inlineformset_factory(Intern, InternPreference, fields = ('job', 'preference'), extra = jobs_count,max_num=jobs_count)
     intern = request.user.intern
     
     formset = OrderFormSet(instance = intern)
-    #form = InternPreferenceForm(initial={'intern': intern})
 
-    #some_formset = formset(initial=[{'id': x} for x in jobs])
 
 
 
@@ -60,14 +98,17 @@ def preference(request):
 
     #Zipped the form and jobs
     form_job = zip(formset, jobs)
+
+
+    form_job2 = zip(jobs, all_job_skills, jobs_percentage)
     
-    form_job2 = zip(formset, jobs, all_job_skills, jobs_percentage)
-    
+    print('here')
 
     #remove the formset context
-    context = { 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job,'zippedlist2':form_job2}
-    
-    #formset.field['job'].initial = jobs[0]
+    #context = { 'jobs_count': range(jobs_count), 'formset': formset, 'zippedlist': form_job,'zippedlist2':form_job2}
+    context = { 'jobs_count': range(jobs_count), 'formset': formset, 'intern_preferences': intern_preferences,'zippedlist2':form_job2}
+    return render(request, 'dashboard/dashboard.html', context)
+
 
 
 
@@ -160,3 +201,31 @@ def preference(request):
 
     return render(request, 'dashboard/dashboard.html', context)
     
+
+
+
+
+
+
+
+
+
+def sort(request):
+    preference_pks_order = request.POST.getlist('preference_order')
+    print(str(preference_pks_order))
+    intern_preferences = []
+
+    for idx, preference_pk in enumerate(preference_pks_order, start=1):
+        intern_preference = InternPreference.objects.get(pk = preference_pk)
+        intern_preference.preference = idx
+        intern_preference.save()
+        intern_preferences.append(intern_preference)
+
+
+
+    #return redirect('../../dashboard')
+    context = {'intern_preferences': intern_preferences}
+    
+    #return redirect('../../../dashboard')
+
+    return render(request, 'dashboard/dashboard-pref.html', context)

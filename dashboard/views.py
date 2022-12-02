@@ -50,11 +50,9 @@ def preference(request):
 
     counter = 0
     for job in jobs:
-        print("here")
         counter += 1
         if not InternPreference.objects.filter(intern = request.user.intern, job = job).exists():
             InternPreference.objects.create(intern = request.user.intern, job = job, preference = counter)
-            print("created preferences")
 
 
     #HAS TO CHANGE
@@ -212,7 +210,6 @@ def preference(request):
 
 def sort(request):
     preference_pks_order = request.POST.getlist('preference_order')
-    print(str(preference_pks_order))
     intern_preferences = []
 
     for idx, preference_pk in enumerate(preference_pks_order, start=1):

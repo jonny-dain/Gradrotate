@@ -23,7 +23,7 @@ def student_form(request):
         form = StudentForm(request.POST, instance= intern)        
         if form.is_valid():
             
-            intern.progress = 2
+            intern.progress = 1
             form.save()
             return redirect('../../form/student_form/requirements')
 
@@ -40,8 +40,8 @@ def student_form_requirements(request):
         form = StudentForm2(request.POST, instance= intern) 
         if form.is_valid():
             intern.progress = 2
-            intern.location = request.POST['pref_location']
-            intern.remote = request.POST['remote_option']
+            #intern.location = request.POST['pref_location']
+            #intern.remote = request.POST['remote_option']
             form.save()
             return redirect('../../form/student_form/skills')
 
@@ -57,7 +57,7 @@ def student_form_skills(request):
     if request.method == "POST":
         form = StudentForm3(request.POST, instance= intern) 
         if form.is_valid() and 'Submit' in request.POST:
-            intern.progress = 2
+            intern.progress = 3
             #gathers all the skills
 
             computing_skills = form.cleaned_data['computing_skills']
@@ -104,7 +104,7 @@ def manager_form(request):
         if form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
             form.save()
-            job.progress = 2
+            job.progress = 1
             return redirect('../../form/manager_form/requirements')
 
 
@@ -188,7 +188,7 @@ def manager_form_skills(request):
             else:
 
                 form.save()
-                job.progress = 2
+                job.progress = 3
 
                 #redirect to done... 
                 return redirect('../../form/manager_form/complete')
@@ -203,6 +203,10 @@ def manager_form_skills(request):
 def student_complete(request):
     #Top choices
     intern = request.user.intern
+    print(intern.progress)
+    intern.progress = 4
+    print(intern.progress)
+    intern.save()
 
     preferences = intern.internpreference_set.all()
     intern_dictionary = {}

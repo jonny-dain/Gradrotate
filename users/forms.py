@@ -50,9 +50,7 @@ class StudentForm2(ModelForm):
         ('Speechmark','Speechmark')]
 
 
-    pref_location = forms.ChoiceField(choices=LOCATIONS, widget=forms.RadioSelect(
-            attrs={'class': 'inline'}
-        ))
+    location = forms.ChoiceField(choices=LOCATIONS, widget=forms.RadioSelect())
 
 
     REMOTE_OPTIONS= [
@@ -61,13 +59,17 @@ class StudentForm2(ModelForm):
         ('1-2','1-2'),
         ('Remote','Remote')
     ]
-    remote_option= forms.CharField(label='Preferred number of days in the office *', widget=forms.Select(choices=REMOTE_OPTIONS))
-    remote_option.widget.attrs.update({'class': 'form-select'})
+    remote = forms.CharField(widget=forms.Select(choices=REMOTE_OPTIONS, attrs={'class': 'form-select'}))
+
+
+
+
+    #emote.widget.attrs.update({'class': 'form-select'})
 
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','name','location','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','remote','email','progress','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','name','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','email','progress','first_preference', 'second_preference', 'third_preference']
     
 
 class StudentForm3(ModelForm):

@@ -107,16 +107,18 @@
 
                         {% csrf_token %}
                         {{form.as_p}}
-                        <ul class="donate-now">
+                        <div class="switch-field">
                         {% for checkbox in form.phase %}
 
                             {{ checkbox.tag }}
+                            
 
-
-                            <label class="btn btn-outline-warning m-1" for="id_phase_{{ forloop.counter0 }}">{{ checkbox.choice_label }}</label><br>   
+                            <label for="id_phase_{{ forloop.counter0 }}">{{ checkbox.choice_label }} ></label> 
 
                         {% endfor %}
-                        </ul>
+
+                        
+                        </div>
 
 
                         <!--

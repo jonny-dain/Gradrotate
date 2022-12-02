@@ -86,11 +86,8 @@
                                     <td style="min-width:100px">{{job.email}}</td>
 
                                     <td style="min-width:150px">
-                                        {% if job.progress == 3 %}
                                         <progress value="{{intern.progress}}" max="3"> </progress>
-                                        {% else %}
-                                        <progress value="{{intern.progress}}" max="3"> </progress>
-                                        {% endif %}
+                                        
                                         </td>
                                     <td style="min-width:100px"><a href="{% url 'deleteJob' job.id %}">Delete</a></td>
 

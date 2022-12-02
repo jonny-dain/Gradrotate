@@ -14,7 +14,7 @@ class AdminForm(ModelForm):
         ('Allocation','Allocation'),
     )
 
-    phase = forms.ChoiceField(choices = PHASES , widget=forms.RadioSelect(attrs={'class' : 'btn-check'}))
+    phase = forms.ChoiceField(choices = PHASES , widget=forms.RadioSelect(attrs={'class' : 'btn-check', 'onchange': 'submit();'}))
 
     class Meta:
         model = Admin

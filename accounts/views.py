@@ -73,14 +73,12 @@ def register(request):
             if role == 'Manager':
                 Job.objects.create(
                     user = user,
-                    manager_name=user.username,
                     email = user.email,
                     
                 )
             if role == 'Intern':
                 Intern.objects.create(
                     user = user,
-                    name= user.username,
                     email = user.email,
                 )
             

@@ -119,18 +119,12 @@ class ManagerForm(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','location','email']
+        exclude = ['user','name','description','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','location','email']
 
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm, self).__init__(*args, **kwargs)
 
-        self.fields['name'].widget = widgets.TextInput(
-            attrs={
-                'placeholder': 'Job Name',
-                'class': 'form-control',
-                'style': 'margin-bottom: 10px'
-            })
 
         self.fields['manager_name'].widget = widgets.TextInput(
             attrs={
@@ -139,13 +133,6 @@ class ManagerForm(ModelForm):
                 'style': 'margin-bottom: 10px'
             })
     
-        self.fields['description'].widget = widgets.Textarea(
-            attrs={
-                'placeholder': 'Job Description',
-                'class': 'form-control',
-                'rows':'5',
-                'style': 'margin-bottom: 10px'
-            })
 
 class ManagerCreateSkills(forms.Form):
     CATEGORY_CHOICES =  [
@@ -159,12 +146,22 @@ class ManagerCreateSkills(forms.Form):
 
     ]
 
-    skill_category = forms.CharField(label='What category is the skill?', widget=forms.Select(choices=CATEGORY_CHOICES))
+    skill_category = forms.CharField(widget=forms.Select(choices=CATEGORY_CHOICES, attrs={'class': 'form-select', 'placeholder': 'Skill Category','style':'background-color: #fafbfe;'}))
     name = forms.CharField(max_length = 30)
     
     class Meta:
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super(ManagerCreateSkills, self).__init__(*args, **kwargs)
+
+        self.fields['name'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Skill name',
+                'class': 'form-control',
+                'style':'background-color: #fafbfe;',
+
+            })
 
 
 
@@ -178,7 +175,39 @@ class ManagerForm2(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','name','manager_name','description','email']
+        exclude = ['user','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
+
+    def __init__(self, *args, **kwargs):
+        super(ManagerForm2, self).__init__(*args, **kwargs)
+
+        self.fields['name'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Job Name',
+                'class': 'form-control',
+                'style': 'margin-bottom: 10px'
+            })
+    
+        self.fields['description'].widget = widgets.Textarea(
+            
+            attrs={
+                'placeholder': 'Job Description',
+                'class': 'form-control',
+                'rows':'7',
+                'style': 'margin-bottom: 10px'
+            })
+        
+        self.fields['daily_tasks'].widget = widgets.Textarea(
+            
+            attrs={
+                'placeholder': 'Daily tasks',
+                'class': 'form-control',
+                'rows':'5',
+                'style': 'margin-bottom: 10px'
+            })
+
+        
+
+
 
 
 class ManagerForm3(ModelForm):
@@ -186,7 +215,7 @@ class ManagerForm3(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','remote','progress','wage','name','manager_name','location','description','email']
+        exclude = ['user','remote','progress','wage','name','daily_tasks','manager_name','location','description','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm3, self).__init__(*args, **kwargs)

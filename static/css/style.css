@@ -618,3 +618,43 @@ a.active, a:hover{
 
 
 
+/* used for create skills in manager form */
+
+.create-skills{
+  max-width: 40rem;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+  background-color: #d2dadf;
+  max-height: 70px;
+
+}
+.create-skills-button {
+  background-color: #294b63;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+}
+.toggle-create-skills-button{
+  background-color: #294b63;
+  max-width: 40rem;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  margin: 5px;
+  border-radius: 10px;
+  color: white;
+  height: 50px;
+  border-width: 0px;
+  margin: 7px;
+  font-size: 16px;
+  align-items: center;
+}

@@ -151,7 +151,13 @@ class Job(models.Model):
     email = models.CharField(max_length = 200, null = True)
     manager_name = models.CharField(max_length = 200, null = True)
     name = models.CharField(max_length = 200, null = True)
+
     description = models.CharField(max_length = 200, null = True, blank = True)
+    daily_tasks = models.CharField(max_length = 200, null = True, blank = True)
+
+
+
+
     date_created = models.DateTimeField(auto_now_add=True)
 
     #Location and remote balance

@@ -115,7 +115,8 @@ def manager_form(request):
 
 
 
-
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Manager'])
 def manager_form_requirements(request):
     job = request.user.job
     #.job
@@ -133,7 +134,8 @@ def manager_form_requirements(request):
     return render(request, 'users/manager_form2.html', context)
 
     
-
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Manager'])
 def manager_form_skills(request):
     job = request.user.job
     #.job
@@ -199,7 +201,8 @@ def manager_form_skills(request):
 
 
 
-
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Manager'])
 def student_complete(request):
     #Top choices
     intern = request.user.intern
@@ -227,7 +230,8 @@ def student_complete(request):
 
 
 
-
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Manager'])
 def manager_complete(request):
 
 

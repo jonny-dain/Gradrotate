@@ -7,7 +7,7 @@
 
     <div class = "progress-with-nav">
         <div class="progress">
-            <div class="progress-bar " role="progressbar" style="width: 60%; background-color: #5A9B95;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar " role="progressbar" style="width: 75%; background-color: #5A9B95;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
     </div>
     <div class="container-fluid p-0 m-0">
@@ -17,14 +17,48 @@
             </div>
         </div>
 
+        <!--Toggle button to add New skills-->
+        <div class="row justify-content-center mb-3 mt-3">
+            <div style = "display: flex; justify-content: center;">
+                <button type="button" class="toggle-create-skills-button text-center" data-bs-toggle="button" autocomplete="off" id="add_skills_btn" onclick="toggleDiv('add_skills')">+ Add new skills</button>
+            </div>
+        </div>
+
+    <script>
+        const btn = document.getElementById('add_skills_btn');
+
+        btn.addEventListener('click', () => {
+        // 👇️ hide button
+            btn.style.display = 'none';
+        });
+
+    </script>
 
 
+    <div id="add_skills" style = "display: none;">
     <form method="POST" action="">
 
         {% csrf_token %}
-        {{ additional_skills.as_p }}
-        <button class="btn btn-primary btn-block" type="submit" name ="Submit_skills" value="Next">create new skill</button>
+        <div class="row justify-content-center mb-3">
+            <div class="create-skills">
+                <div class="col-6 p-1">
+                    {{additional_skills.name}}
+                </div>
+                <div class="col-5 p-1">
+                    {{additional_skills.skill_category}}
+                </div>
+                <div class="col-1 text-center">
+                    <button class="create-skills-button" type="submit" name ="Submit_skills" value="Next">+</button>
+                </div>
+    
+            </div>
+        </div>
+        
+
     </form>
+    </div>
+
+
     
 
 
@@ -121,7 +155,7 @@
     </style>
 
 <div class = "row justify-content-center">
-    <div class="col-6 text-center">
+    <div class="col-4 text-center">
     
         
 
@@ -262,6 +296,30 @@
     }
     }
 </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        var n = $("input:checked").length;
+        if (n >= 5)                                              
+        {
+            countCheckedCheckboxes();
+        }
+
+        function countCheckedCheckboxes() {                            
+            var n = $("input:checked").length;                       
+                                     
+            if (n >= 5)                                              
+            {                                                        
+                $(':checkbox:not(:checked)').prop('disabled', true);  
+            }                                                        
+            else                                                     
+            {                                                        
+                $(':checkbox:not(:checked)').prop('disabled', false); 
+            }                                                        
+        }                                                                                              
+        $(":checkbox").click(countCheckedCheckboxes);   
+    </script>
+
 
 </main>
 

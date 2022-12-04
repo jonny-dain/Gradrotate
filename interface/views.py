@@ -9,6 +9,8 @@ from users.models import *
 from django.contrib import messages
 
 # Create your views here.
+import openpyxl
+
 
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
@@ -33,7 +35,11 @@ def admin_interface(request):
         form = AdminForm(request.POST, instance= admin)   
    
         if form.is_valid():
-            #gathers all the skills
+        
+
+
+
+
             form.save()
             return redirect('../../../admin_interface')
 
@@ -61,6 +67,7 @@ def intern_interface(request):
 
     context = {'interns' : interns, 'jobs' :jobs , 'intern_preference' : intern_preference}
     return render(request, 'interface/interns.html', context)
+
 
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
@@ -159,6 +166,47 @@ def allocate_interface(request):
         messages.info(request, 'You must be in the allocate phase to allocate positions')
 
         return redirect('../../../admin_interface')
+
+
+
+
+
+#This allocates excel files 
+
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Admin'])
+def allocate_excel(request):
+
+
+    if "GET" == request.method:
+        context = {}
+        return render(request, 'interface/allocate_excel.html', context)
+    else:
+        excel_file = request.FILES["excel_file"]
+
+        #Validation of excel file needs to be complete...
+
+        workbook = openpyxl.load_workbook(excel_file)
+
+        intern_excel = workbook["Sheet1"]
+        job_excel = workbook["Sheet2"]
+        
+
+        intern_preference = excel_preferences(preferences = intern_excel)
+        job_preference = excel_preferences(preferences = job_excel)
+        intern_set = excel_set(model = intern_excel)
+        job_set = excel_set(model = job_excel)
+
+        allocated_pairs = gale_allocation(
+            intern_set=intern_set,
+            job_set=job_set,
+            intern_preference=intern_preference,
+            job_preference=job_preference,
+        )  
+
+
+        context = {'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference }
+        return render(request, 'interface/allocate_excel.html', context)
 
 
 

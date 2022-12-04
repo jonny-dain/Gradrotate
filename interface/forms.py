@@ -21,5 +21,5 @@ class AdminForm(ModelForm):
         fields = '__all__'
         exclude = ['name','user']
 
-        
+       
     

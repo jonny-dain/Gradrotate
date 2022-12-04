@@ -90,7 +90,13 @@
                 </div>
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body p-1 p-sm-5">
-                        <button><a href="../admin_interface/allocate"> Allocate Jobs </a></button>
+                        <button><a href="../admin_interface/allocate"> Allocate </a></button>
+                        
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body p-1 p-sm-5">
+                        <button><a href="../admin_interface/allocate/excel"> Allocate by Excel </a></button>
                         
                     </div>
                 </div>
@@ -121,19 +127,21 @@
                         </div>
 
 
+
+
                         <!--
                         <label for="id_phase_0" class="btn">Job Creation</label>
                         <label for="id_phase_1" class="btn">Intern Collection</label>
                         <label for="id_phase_2" class="btn">Allocation</label>
                         -->
 
-                        <!--
+                        
                         <input type="Submit" name ="Submit">
                         {{form.errors}}
                         {% for message in messages %}
                             <div class="alert alert-dark" role="alert"> {{message}} </div>
                         {% endfor %}
-                        -->
+                        
 
                     </form>
                     

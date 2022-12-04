@@ -1,0 +1,237 @@
+
+
+{% extends "base.html" %} 
+
+
+
+{% block content %}
+
+<main>
+    <div class = "sidebar active">
+        <div class = "logo_content">
+            
+        </div>
+        <ul class="nav_list" style="padding-left:22px;">
+        <li>
+            <a href="../../admin_interface" class="active"> 
+                <i class='bx bx-grid-alt bx-sm'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="../../admin_interface/interns"> 
+                <i class='bx bx-user bx-sm'></i>
+                <span class="links_name">Interns</span>
+            </a>
+        </li>
+        <li>
+            <a href="../../admin_interface/jobs"> 
+                <i class='bx bx-briefcase bx-sm'></i>
+                <span class="links_name">Jobs</span>
+            </a>
+        </li>
+        </ul>
+    </div>
+
+
+    <div class="content">
+        <div class="container-fluid" style = "padding: 5px 5px 5px;">
+            <div class = "row justify-content-start">
+                <div class = "col-1">
+                    <p class="h3"style = "padding: 5px 5px 5px; color:#6c757d;">
+                    <i class="fa fa-bars" id="btn1"></i>
+                    </p>
+                </div>
+                <div class = "col-auto">
+                    <p class="h3" style = "padding: 5px 5px 5px; color:#6c757d;">Allocate by Excel</p>
+                
+                </div>
+            </div>
+            
+            <script>
+                let btn = document.querySelector("#btn1");
+                let sidebar = document.querySelector(".sidebar");
+                btn.onclick = function() {
+                    sidebar.classList.toggle("active");
+                }
+            </script>
+
+
+        
+            <div class="card border-0 shadow-sm m-3 p-2">
+                <form action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+
+                    
+                        {% csrf_token %}
+                    <div class="col-5">
+                        allocate 
+                    </div>
+                    <div class="col-6">
+                        
+                            
+                            <input class="form-control" id="formFileLg" type="file" name="excel_file" required="required">
+                    </div>
+                    <div class="col-1">
+                            <input type="submit"
+                                value="Upload"
+                                style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+                    </div>
+            
+
+                </div>
+            </form>
+            
+
+            </div>
+            <!-- Errors now -->
+            <div class="row">
+                <div class="col-7">
+                    <div class="card border-0 shadow-sm m-3 p-2">
+                        <div class="col-6">
+                        <div class="btn-group">
+                            
+                                <input type="checkbox" class="btn-check" id="btn-check-2-outlined1" autocomplete="off" checked onclick="toggleDiv('intern_table')">
+                                <label class="btn btn-outline-secondary" for="btn-check-2-outlined1">Intern preferences</label><br>
+        
+
+
+
+                                <input type="checkbox" class="btn-check" id="btn-check-2-outlined2" autocomplete="off" onclick="toggleDiv('job_table')">
+                                <label class="btn btn-outline-secondary" for="btn-check-2-outlined2">Job preferences</label><br>       
+
+                        </div>
+
+
+
+                            
+                        </div>
+                    </div>
+                    <div id="intern_table" style = "display: block;">
+
+                        <div class="card border-0 shadow-sm m-3 p-2">
+                        
+                            Intern Preferences
+                            <div style = "overflow-y: auto;">
+                                
+                            <table class="table" id="dtHorizontalVerticalExample" >
+                            
+                                <tr>
+                                    <th class="table-light">Name</th>
+                                    <th class="table-light">Pref. 1</th>
+                                    <th class="table-light">Pref. 2</th>
+                                    <th class="table-light">Pref. 3</th>
+          
+                                    
+                                </tr>
+                            
+                            
+                                    {% for intern, jobs in intern_preference.items %}
+                                        <tr>
+                                            <td style="min-width:100px">{{intern}}</td>
+        
+                                            {% for job in jobs %}
+                                                <td style="min-width:100px">{{job}}</td>
+                                            {% endfor %}                                    
+              
+                                        </tr>
+                                    {% endfor %}
+                                
+                            </table>
+                        </div>  
+                        </div> 
+                    </div>
+                    <div id="job_table" style = "display: none;">
+                        <div class="card border-0 shadow-sm m-3 p-2">
+                        
+                            Job preferences
+                            <div style = "overflow-y: auto;">
+                            <table class="table" id="dtHorizontalVerticalExample" >
+                            
+                                <tr>
+                                    <th class="table-light">Name</th>
+                                    <th class="table-light">Pref. 1</th>
+                                    <th class="table-light">Pref. 2</th>
+                                    <th class="table-light">Pref. 3</th>
+          
+                                    
+                                </tr>
+                            
+                                    {% for job, interns in job_preference.items %}
+                                        <tr>
+                                            <td style="min-width:100px">{{job}}</td>
+        
+                                            {% for intern in interns %}
+                                                <td style="min-width:100px">{{intern}}</td>
+                                            {% endfor %}                                    
+              
+                                        </tr>
+                                    {% endfor %}
+                                
+                            </table>   
+                        </div>
+                        </div>      
+                    </div>
+
+                    <script>
+                        function toggleDiv(DivID) {
+                        var x = document.getElementById(DivID);
+                        if (x.style.display === "block") {
+                            x.style.display = "none";
+                        } else {
+                            x.style.display = "block";
+                        }
+                        }
+                    </script>
+                    
+
+
+                    
+    
+                </div>
+                <div class="col-5">
+                    <div class="card border-0 shadow-sm m-3 p-2">
+                        Allocation
+                        <div style = "overflow: auto; height:80vh;">
+                            <table class="table" id="dtHorizontalVerticalExample" >
+                                <tr>
+                                    <th class="table-light">Intern</th>
+                                    <th class="table-light">Job</th>
+                                    
+                                </tr>
+                                {% for pair in allocated_pairs %}
+                                    <tr>
+                                        <td>{{pair.0}}</td>
+                                        <td>{{pair.1}}</td>
+                                    </tr>
+                                {% endfor %}
+
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+
+            
+
+     </div>
+        
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+                        
+</main>
+{% endblock %}

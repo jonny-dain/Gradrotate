@@ -123,6 +123,31 @@ def intern_preference_dictionary():
 
 
 
+def excel_preferences(preferences):
+
+        preferences_dictionary = {}
+        for j in range(2, preferences.max_column + 1):
+            row_data = list()
+            for number, i in enumerate(range(1, preferences.max_row + 1)):
+                
+                cell_obj = preferences.cell(row = i, column = j)
+                if number == 0:
+                    #If first row forget... this will be added later as the primary key
+                    continue
+                else:
+                    row_data.append(str(cell_obj.value))
+                
+            cell_obj = preferences.cell(row = 1, column = j)
+            preferences_dictionary[cell_obj.value] = row_data
+
+        return preferences_dictionary
+
+def excel_set(model):
+    model_list = list()
+    for j in range(2, model.max_column + 1):
+        cell_obj = model.cell(row = 1, column = j)
+        model_list.append(str(cell_obj.value))
+    return model_list
    
     
 

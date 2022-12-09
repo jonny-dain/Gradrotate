@@ -55,6 +55,8 @@ deploy:
     - scp -r $(pwd) root@$UBUNTU_SERVER:~/$PROJECT_DIR/
     - cat "$PROJECT_DIR/.env"
     - ssh root@$UBUNTU_SERVER "apt update && apt install -y python3-pip && cd $PROJECT_DIR && pip install -r requirements.txt && python3 manage.py collectstatic --noinput && python3 manage.py makemigrations accounts && python3 manage.py makemigrations users && python3 manage.py makemigrations dashboard && python3 manage.py makemigrations interface"
+    
+    - ssh root@$UBUNTU_SERVER "cd $PROJECT_DIR && python3 manage.py makemigrations accounts && python3 manage.py makemigrations users && python3 manage.py makemigrations dashboard && python3 manage.py makemigrations interface"
     - ssh root@$UBUNTU_SERVER "cd $PROJECT_DIR && python3 manage.py migrate"
     - echo "is this working?"
     - ssh root@$UBUNTU_SERVER "cd $PROJECT_DIR && source $PROJECT_DIR/.env  && (python3 manage.py createsuperuser --noinput --username admin --email $EMAIL || true)"

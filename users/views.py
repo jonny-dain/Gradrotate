@@ -192,14 +192,18 @@ def manager_form_additional_requirements(request):
             if form2.is_valid():
                 office_name = form.data['location']
                 address = form.data['address']
+                try:
 
-                geolocator = Nominatim(user_agent="users")
-                location = geolocator.geocode(address)
+                    geolocator = Nominatim(user_agent="users")
+                    location = geolocator.geocode(address)
 
-                offices = JobLocation.objects.filter()
-                offices.create(location = office_name, address = location.address, latitude=location.latitude, longitude= location.longitude)
+                    offices = JobLocation.objects.filter()
+                    offices.create(location = office_name, address = location.address, latitude=location.latitude, longitude= location.longitude)
 
-
+                except:
+                    messages.info(request, 'Incorrect address')
+                    context = {'form': form, 'additional_office': form2, 'job': job, 'locations': location_json}
+                    return render(request, 'users/manager_form4.html', context)
 
 
 

@@ -94,7 +94,7 @@
 <div class="content1">
     <div class = 'title-bar-dashboard text-center'>
         <div class = "row justify-content-center">
-        <h3 style="margin-top: 50px;">Provide basic information</h3>
+        <h3 style="margin-top: 50px;">Rate your Job preferences</h3>
         </div>
     </div>
 
@@ -190,39 +190,6 @@
                                             {% for skills in jobs_skills %}
                                             <button type="button" class="btn btn-primary">{{skills}} </button>
                                             {% endfor %}
-
-                                
-
-                                            <!--
-                                            <div class="float-end" id="piechart-{{forloop.counter}}"></div>
-                                            
-                                            
-
-                                
-
-                                            <script type="text/javascript">
-                                                // Load google charts
-                                                google.charts.load('current', {'packages':['corechart']});
-                                                google.charts.setOnLoadCallback(drawChart);
-                                                
-                                                // Draw the chart and set the chart values
-                                                function drawChart() {
-                                                    var djangodata = {{job_skills|safe}};
-                                                    var data = google.visualization.arrayToDataTable(djangodata);
-                                                
-                                                    // Optional; add a title and set the width and height of the chart
-                                                    var options = {pieSliceText: 'none', 'chartArea': {'width': '600%', 'height': '60%'},'width':400, 'height':400, pieHole: 0.4,colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']};
-                                                    
-                                                    // Display the chart inside the <div> element with id="piechart"
-                                                    //var = func_name = "container-{{forloop.counter}}"
-
-                                                    //var func_name = "container-{{forloop.counter}}";
-                                                
-                                                    var chart = new google.visualization.PieChart(document.getElementById('piechart-{{forloop.counter}}'));
-                                                    chart.draw(data, options);
-                                                };
-                                            </script>
-                                            -->
 
 
 

@@ -85,8 +85,9 @@ def job_ordered_list(request):
 
 
        #If the locations are the same add one to the weighting - total max is now 6
-        if job.location == intern.location:
+        if job.job_location == intern.job_location:
             similarity_weighting += 1
+        
 
         #If remote is the same add one to the weighting - total max is now 7
         if job.remote == intern.remote:

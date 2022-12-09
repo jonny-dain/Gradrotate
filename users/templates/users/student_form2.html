@@ -27,10 +27,74 @@
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
+                
             Preferred office location *
-  
-            {{form.location}}
+            <div id='map' class='map'></div> 
+            {{form.job_location}}
             </div>
+            
+
+            
+
+
+
+
+            <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.13.0/maps/maps.css'/> 
+            <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.13.0/maps/maps-web.min.js'></script> 
+              
+            <script> 
+                // create the map 
+                 tt.setProductInfo('TomTom Maps Django Demo', '1.0'); 
+                let map = tt.map({ 
+                    key: 'XWuy4PARxELlMFIGWbt2fO29LHQG2XKv', 
+                    container: 'map' 
+                }); 
+          
+                // add store markers 
+                let bounds = [] 
+                let storeLocations = JSON.parse("{{ locations|escapejs}}"); 
+          
+            for (let storeLocation of storeLocations) { 
+                let coordinates = [storeLocation.longitude, storeLocation.latitude]; 
+           
+                bounds.push(coordinates); 
+                
+                
+                // create popup to display store information when the marker is clicked 
+                let popup = new tt.Popup().setHTML(` 
+                    <div class="locator-popup"> 
+                        <p>${storeLocation.location}</p> 
+                        <p>${storeLocation.address}</p>
+                        
+                    </div> 
+                `); 
+                console.log(coordinates.toString())
+        
+                let marker = new tt.Marker() 
+                    .setLngLat(coordinates) 
+                    .setPopup(popup) 
+                    .addTo(map); 
+            } 
+ 
+       // zoom the map to fit all markers 
+        map.on('load', () => { 
+            map.fitBounds(bounds, { 
+               padding: { top: 50, bottom:50, left: 50, right: 50 } 
+           }); 
+        }) 
+            </script> 
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </row>
     <row>
@@ -45,14 +109,7 @@
 
     </row>
     <row>
-        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
-            <div class="card-body">
-            Preferred wage *
-            <!--{{form.email.label}} -->
-            {{form.wage}}
-            </div>
-            
-        </div>
+
 
     </row>
     

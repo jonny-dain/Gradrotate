@@ -658,3 +658,18 @@ a.active, a:hover{
   font-size: 16px;
   align-items: center;
 }
+
+/* Style the map */
+#map { 
+  height: 200px; 
+  width: 100%; 
+} 
+
+.mapboxgl-marker { 
+  cursor: pointer; 
+} 
+
+.locator-popup { 
+  font-size: 14px; 
+} 
+

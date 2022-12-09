@@ -23,7 +23,7 @@ class StudentForm(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','email','progress','wage','computing_skills','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','location','remote','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','email','progress','computing_skills','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','job_location','remote','first_preference', 'second_preference', 'third_preference']
     
         
 
@@ -45,12 +45,12 @@ class StudentForm(ModelForm):
 
 class StudentForm2(ModelForm):
 
-    LOCATIONS=[('Newbury','Newbury'),
-        ('London Paddington', 'London Paddington'),
-        ('Speechmark','Speechmark')]
+    #LOCATIONS=[('Newbury','Newbury'),
+    #    ('London Paddington', 'London Paddington'),
+    #    ('Speechmark','Speechmark')]
 
 
-    location = forms.ChoiceField(choices=LOCATIONS, widget=forms.RadioSelect())
+    #location = forms.ChoiceField(choices=LOCATIONS, widget=forms.RadioSelect())
 
 
     REMOTE_OPTIONS= [
@@ -63,7 +63,6 @@ class StudentForm2(ModelForm):
 
 
 
-
     #emote.widget.attrs.update({'class': 'form-select'})
 
     class Meta:
@@ -71,12 +70,21 @@ class StudentForm2(ModelForm):
         fields = '__all__'
         exclude = ['user','name','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','email','progress','first_preference', 'second_preference', 'third_preference']
     
+    def __init__(self, *args, **kwargs):
+        super(StudentForm2, self).__init__(*args, **kwargs)
+
+
+        self.fields["job_location"].widget = forms.Select(attrs={'class' : 'form-select'})
+        #forms.RadioSelect()
+        self.fields["job_location"].queryset = JobLocation.objects.all()
+        self.fields['job_location'].required = True
+
 
 class StudentForm3(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','name','email','progress','location','wage','remote','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','name','email','progress','job_location','remote','first_preference', 'second_preference', 'third_preference']
     
 
     def __init__(self, *args, **kwargs):
@@ -114,12 +122,15 @@ class StudentForm3(ModelForm):
 
 
 
+
+
+
 class ManagerForm(ModelForm):
 #name, manager name, job name, job description, day in the life
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','name','description','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','location','email']
+        exclude = ['user','name','description','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','job_location','email']
 
 
     def __init__(self, *args, **kwargs):
@@ -175,7 +186,7 @@ class ManagerForm2(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
+        exclude = ['user','computing_skills','wage','analytic_skills','marketing_skills','job_location','remote','wage','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm2, self).__init__(*args, **kwargs)
@@ -215,7 +226,7 @@ class ManagerForm3(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','remote','progress','wage','name','daily_tasks','manager_name','location','description','email']
+        exclude = ['user','remote','progress','wage','name','daily_tasks','manager_name','job_location','description','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm3, self).__init__(*args, **kwargs)
@@ -249,3 +260,49 @@ class ManagerForm3(ModelForm):
         self.fields["admin_skills"].queryset = AdminSkills.objects.all()
         self.fields['admin_skills'].required = False
 
+class ManagerForm4(ModelForm):
+#location, remote balance, pay
+
+    class Meta:
+        model = Job
+        fields = '__all__'
+        exclude = ['user','computing_skills','wage','name','daily_tasks','description','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
+
+    def __init__(self, *args, **kwargs):
+        super( ManagerForm4, self).__init__(*args, **kwargs)
+
+
+        self.fields["job_location"].widget = forms.Select(attrs={'class' : 'form-select'})
+        #forms.RadioSelect()
+        self.fields["job_location"].queryset = JobLocation.objects.all()
+        self.fields['job_location'].required = True
+
+
+class ManagerCreateOffice(forms.Form):
+
+    location = forms.CharField(max_length = 30)
+    address = forms.CharField(max_length= 100)
+    
+    class Meta:
+        fields = '__all__'
+        exclude = ['latitude','longitude']
+        
+
+    def __init__(self, *args, **kwargs):
+        super(ManagerCreateOffice, self).__init__(*args, **kwargs)
+
+        self.fields['location'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Office name',
+                'class': 'form-control',
+                'style':'background-color: #fafbfe;',
+
+            })
+        
+        self.fields['address'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Office address',
+                'class': 'form-control',
+                'style':'background-color: #fafbfe;',
+
+            })

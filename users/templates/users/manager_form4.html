@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<main>
+
+    <div class = "progress-with-nav">
+        <div class="progress">
+            <div class="progress-bar " role="progressbar" style="width: 50%; background-color: #5A9B95;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+    </div>
+
+    <div class="container-fluid p-0 m-0">
+        <div class = 'title-bar text-center'>
+            <div class = "row justify-content-center">
+            <h3 style="margin-top: 50px;">Additional Job information</h3>
+            </div>
+    </div>
+<div class="container">
+
+
+
+
+
+<form method="POST" action="">
+
+    {% csrf_token %}
+
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                
+            Job wage *
+                <div class="slidecontainer">   
+
+
+                    <input type="range" value="{{job.wage}}" name="wage_value" min="20000" max="100000"  class="slider" step="1000" oninput= "rangeValue1.innerText = this.value">
+                </div>
+                <p id="rangeValue1">{{job.wage}}</p> 
+                
+            <!--{{form.wage}}-->
+            </div>
+            
+    </div>
+
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+            Amount of days in the office a week *
+            {{form.remote}}
+            </div>
+            
+    </div>
+
+    <div class="row mb-0">
+        <div class="card shadow-sm border-0 rounded ml-4 mr-4 mb-0 p-4 pb-0 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+                Office location *
+            <div id='map' class='map'></div> 
+            {{form.job_location}}
+            </div>
+
+
+            <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.13.0/maps/maps.css'/> 
+            <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.13.0/maps/maps-web.min.js'></script> 
+              
+            
+            <style>
+                .marker-border{
+                background-color: #294b63;
+                border-radius: 50%;
+                height: 15px;
+                width: 15px;
+
+
+                }
+
+            </style>
+            <script> 
+                // create the map 
+                 tt.setProductInfo('TomTom Maps Django Demo', '1.0'); 
+                let map = tt.map({ 
+                    key: 'XWuy4PARxELlMFIGWbt2fO29LHQG2XKv', 
+                    container: 'map' 
+                }); 
+          
+                // add store markers 
+                let bounds = [] 
+                let storeLocations = JSON.parse("{{ locations|escapejs}}"); 
+          
+            for (let storeLocation of storeLocations) { 
+                let coordinates = [storeLocation.longitude, storeLocation.latitude]; 
+           
+                bounds.push(coordinates); 
+                
+                
+                // create popup to display store information when the marker is clicked 
+                let popup = new tt.Popup().setHTML(` 
+                    <div class="locator-popup"> 
+                        <p  style= "font-weight: bold";>${storeLocation.location}</p>
+                        <p style= "font-size: 10px;">${storeLocation.address}</p>
+                        
+                    </div> 
+                `); 
+                
+                let border = document.createElement('div')
+                border.className = 'marker-border'
+                
+
+
+                
+                let marker = new tt.Marker({
+                    element: border
+                }) 
+                    .setLngLat(coordinates) 
+                    .setPopup(popup) 
+                    .addTo(map); 
+                
+            } 
+ 
+       // zoom the map to fit all markers 
+        map.on('load', () => { 
+            map.fitBounds(bounds, { 
+               padding: { top: 50, bottom:50, left: 50, right: 50 } 
+           }); 
+        }) 
+            </script>
+
+
+
+
+
+
+            
+    </div>
+    </div>
+
+
+
+
+    {{form.errors}}
+    <div class="save-bar">
+        <div style = "display: flex;
+        justify-content: center; ">
+    
+            
+                <a href="../../form/manager_form/information" class="back-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Back</a>
+                
+        
+                
+            
+                <button class="save-button p-2 m-2" type="submit" name ="Submit_form">Save and continue</button>
+                
+              
+        </div>
+    </div>
+
+ 
+</form>
+
+
+<div class="card shadow-sm border-0 rounded ml-4 mr-4 p-4 pt-0 mx-auto" style="max-width: 45rem;">
+    <div class="row justify-content-center">
+        <div style = "display: flex; justify-content: center;">
+            <button type="button" class="toggle-create-skills-button text-center" data-bs-toggle="button" autocomplete="off" id="add_skills_btn" onclick="toggleDiv('add_skills')">+ Add new office</button>
+        </div>
+    </div>
+
+<script>
+    const btn = document.getElementById('add_skills_btn');
+
+    btn.addEventListener('click', () => {
+    // 👇️ hide button
+        btn.style.display = 'none';
+    });
+    function toggleDiv(DivID) {
+    var x = document.getElementById(DivID);
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+    }
+
+</script>
+
+<div id="add_skills" style = "display: none;">
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        <div class="row justify-content-center">
+            
+            <div class="create-skills">
+                <div class="col-4 p-1">
+                    {{additional_office.location}}
+                </div>
+                <div class="col-7 p-1">
+                    {{additional_office.address}}
+                </div>
+                <div class="col-1 text-center">
+                    <button class="create-skills-button" type="submit" name ="Submit_office" value="Next">+</button>
+                </div>
+    
+            </div>
+            
+        </div>
+    
+</form>
+</div>
+
+</div>
+
+
+
+
+
+</div>   
+
+</main>
+
+
+{% endblock %}

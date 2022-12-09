@@ -1,5 +1,7 @@
 import email
 from sre_constants import CATEGORY
+
+
 from django.db import models
 #from users.models import Skills
 from django.contrib.auth.models import User
@@ -46,18 +48,21 @@ class AdminSkills(models.Model):
         return self.name
 
 
+class JobLocation(models.Model):
+    location = models.CharField(max_length = 200, null = True)
+    address = models.TextField() 
+    latitude = models.FloatField() 
+    longitude = models.FloatField() 
+    
+    def __str__(self):
+        return self.location
 
 
 
 
 
 
-
-
-
-
-
-
+    
 
 
 
@@ -104,11 +109,15 @@ class Intern(models.Model):
 
 
     #Job preferences
-    location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
+    #location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
+    
+    job_location = models.ForeignKey(JobLocation, null=True, on_delete=models.SET_NULL)
+    
+
+
     remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
     
-    #Expected wage
-    wage = models.IntegerField(default = 0)
+
 
 
     
@@ -156,12 +165,15 @@ class Job(models.Model):
     daily_tasks = models.CharField(max_length = 200, null = True, blank = True)
 
 
-
+    
 
     date_created = models.DateTimeField(auto_now_add=True)
 
     #Location and remote balance
-    location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
+    #location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
+
+    job_location = models.ForeignKey(JobLocation, null=True, on_delete=models.SET_NULL)
+
     remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
 
     #Wage

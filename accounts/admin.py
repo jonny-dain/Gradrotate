@@ -14,5 +14,5 @@ admin.site.register(ManagementSkills)
 admin.site.register(LeadershipSkills)
 admin.site.register(BusinessSkills)
 admin.site.register(AdminSkills)
-
+admin.site.register(JobLocation)
 

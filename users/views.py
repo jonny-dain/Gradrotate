@@ -32,9 +32,25 @@ def student_form(request):
     return render(request, 'users/student_form.html', context)
     
 
+
+
+
+
+
+import json 
+
 def student_form_requirements(request):
     intern = request.user.intern
     form = StudentForm2(instance= intern)
+    
+    location_list = list(JobLocation.objects.all().values()) 
+    location_json = json.dumps(location_list)
+    
+
+
+
+
+
 
     if request.method == "POST":
         form = StudentForm2(request.POST, instance= intern) 
@@ -45,8 +61,22 @@ def student_form_requirements(request):
             form.save()
             return redirect('../../form/student_form/skills')
 
-    context = {'form': form, 'intern': intern}
+    context = {'form': form, 'intern': intern, 'locations': location_json}
     return render(request, 'users/student_form2.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def student_form_skills(request):
     intern = request.user.intern
@@ -105,7 +135,7 @@ def manager_form(request):
             #gathers all the skills
             form.save()
             job.progress = 1
-            return redirect('../../form/manager_form/requirements')
+            return redirect('../../form/manager_form/information')
 
 
     context = {'form': form, 'job': job}
@@ -122,18 +152,83 @@ def manager_form_requirements(request):
     #.job
     form = ManagerForm2(instance= job)
 
+    location_list = list(JobLocation.objects.all().values()) 
+    location_json = json.dumps(location_list)
+
     if request.method == 'POST':
         form = ManagerForm2(request.POST, instance= job)        
         if form.is_valid():
             #gathers all the skills
             form.save()
             job.progress = 2
-            return redirect('../../form/manager_form/skills')
+            return redirect('../../form/manager_form/information_2')
 
-    context = {'form': form, 'job': job}
+    context = {'form': form, 'job': job, 'locations': location_json}
     return render(request, 'users/manager_form2.html', context)
 
+
+
+from geopy.geocoders import Nominatim
     
+#@login_required(login_url='../login')
+#@allowed_users(allowed_roles=['Manager'])
+def manager_form_additional_requirements(request):
+    job = request.user.job
+    #.job
+    form = ManagerForm4(instance= job)
+    form2 = ManagerCreateOffice()
+
+    location_list = list(JobLocation.objects.all().values()) 
+    location_json = json.dumps(location_list)
+
+
+
+
+    if request.method == 'POST':
+
+        form = ManagerForm4(request.POST, instance= job)   
+        form2 =ManagerCreateOffice(request.POST)  
+        if 'Submit_office' in request.POST:
+            if form2.is_valid():
+                office_name = form.data['location']
+                address = form.data['address']
+
+                geolocator = Nominatim(user_agent="users")
+                location = geolocator.geocode(address)
+
+                offices = JobLocation.objects.filter()
+                offices.create(location = office_name, address = location.address, latitude=location.latitude, longitude= location.longitude)
+
+
+
+
+
+                return redirect('../../form/manager_form/information_2')
+
+        elif 'Submit_form' in request.POST:   
+            if form.is_valid():
+                #gathers all the skills
+                job.wage = form.data['wage_value']
+                form.save()
+                job.progress = 2
+                return redirect('../../form/manager_form/skills')
+
+        
+
+
+                
+
+    context = {'form': form, 'additional_office': form2, 'job': job, 'locations': location_json}
+    return render(request, 'users/manager_form4.html', context)
+
+
+
+
+
+
+
+
+
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Manager'])
 def manager_form_skills(request):

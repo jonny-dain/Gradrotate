@@ -7,7 +7,7 @@
 
     <div class = "progress-with-nav">
         <div class="progress">
-            <div class="progress-bar " role="progressbar" style="width: 50%; background-color: #5A9B95;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar " role="progressbar" style="width: 40%; background-color: #5A9B95;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
     </div>
 
@@ -31,7 +31,8 @@
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
-            Job name *
+            <div class="question-text">Job name *</div>
+            
             {{form.name}}
             </div>
             
@@ -41,7 +42,8 @@
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
-            Job description *
+            <div class="question-text">Job description *</div>
+            
             {{form.description}}
             </div>
             
@@ -49,7 +51,7 @@
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="card-body">
-            Job's daily tasks *
+            <div class="question-text">Job's daily tasks *</div>
             {{form.daily_tasks}}
             </div>
             

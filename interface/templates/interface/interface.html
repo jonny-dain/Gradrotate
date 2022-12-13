@@ -68,16 +68,43 @@
 
 
 
+        {% if messages %}
+        <div class="row">
+            <div class="col-xl-3 col-lg-3">
 
+            </div>
+            <div class="col-xl-4 col-lg-3">
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert"> {{message}} </div>
+            {% endfor %}
+            </div>
+            <div class="col-xl-5 col-lg-6">
 
+            </div>
 
-    
+        </div>
+        {% endif %}
+
+        
+        
         <div class = "row">
-            <div class="col-xl-3 col-lg-4">
+            <div class="col-xl-3 col-lg-3">
+                <div class="col text-center">
+                    Statistics
+                </div>
+                
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body p-1 p-sm-5">
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Total users</h5>
+                        <i class="fa fa-regular fa-user float-end fa-2x" style = "color:#d3d6d8"></i>
+                        <h2 style = "color:#6c757d;">{{users}}</h2>
+                    </div>
+                </div>
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body p-1 p-sm-5">
                         <h5 class="card-title fs-12" style = "color:#6c757d;">Intern users</h5>
-                        <i class="fa fa-regular fa-user float-end fa-2x" style = "color:#d3d6d8"></i>
+                        
+                        <i class="fa fa-regular fa-graduation-cap float-end fa-2x" style = "color:#d3d6d8"></i>
                         <h2 class="my-2"style = "color:#6c757d;">{{interns.count}}</h2>
                     </div>
                 </div>
@@ -88,65 +115,357 @@
                         <h2 class="my-2"style = "color:#6c757d;">{{jobs.count}}</h2>
                     </div>
                 </div>
+                
+
+
+
+
+
+
+            </div>
+            <div class="col-xl-4 col-lg-3">
+                <div class="col text-center">
+                    Phases
+                </div>
+                
+
+
+                
                 <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fs-12" style = "color:#6c757d;">Select Phase:</h5>
+                        <form method="POST" action="">
+    
+                            {% csrf_token %}
+                            <div class="switch-field justify-content-center">
+                            {% for checkbox in form.phase %}
+    
+                                {{ checkbox.tag }}
+                                
+    
+                                <label for="id_phase_{{ forloop.counter0 }}">{{ checkbox.choice_label }} ></label> 
+    
+                            {% endfor %}
+                            
+                            </div>
+                            
+                            
+                            
+                        </form>
+                    </div>
+                        
+                </div>
+                <div class="card border-0 shadow-sm mb-3 p-0">
+                    <div class="alert alert-secondary m-0" role="alert">
+                        Follow the below steps and phases when allocating Interns to their Jobs:
+                        <br>
+                        1. (Job creation phase) Contact Managers for them to complete their Job listing
+                        <br>
+                        2. (Intern Collection phase) Contact Interns to get them to complete their profile
+                        <br>
+                        3. (Allocation phase) Once complete, allocate students with the below buttons
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-3">
+                    
                     <div class="card-body p-1 p-sm-5">
-                        <button><a href="../admin_interface/allocate"> Allocate </a></button>
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Allocation:</h5>
+                        <div class="row justify-content-center">
+                            <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate"> Allocate </a>
+                        </div>
+                        <div class="row justify-content-center">
+                            <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate/excel"> Allocate by Excel </a>
+                        </div>
+                
+                
+                
+                    
+                        
                         
                     </div>
                 </div>
+            </div>
+
+
+
+            <div class="col-xl-5 col-lg-6"> 
+                <div class="col text-center">
+                    Settings
+                </div>   
+
+                
+
                 <div class="card border-0 shadow-sm mb-3">
-                    <div class="card-body p-1 p-sm-5">
-                        <button><a href="../admin_interface/allocate/excel"> Allocate by Excel </a></button>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Edit Offices:</h5>
                         
+                        <div style = "overflow-y: auto;">
+                        <table class="table mt-2" id="dtHorizontalVerticalExample" >
+                            
+                            <tr>
+                                <th class="table-light">Office</th>
+                                <th class="table-light">Delete</th>
+    
+                            </tr>
+                        
+                        
+                                {% for office in locations %}
+                                    <tr>
+                                        <td style="min-width:100px">{{office.location}}</td>
+                                        <td style="min-width:100px"><a href="{% url 'deleteOffice' office.id %}">Delete</a></td>                          
+                                        
+                                    </tr>
+                                {% endfor %}
+                           
+                        </table>   
                     </div>
-                </div>
+         
+                    <div style = "display: flex; justify-content: center;">
+                        <button type="button" class="toggle-create-skills-button text-center" data-bs-toggle="button" autocomplete="off" id="add_office_btn" onclick="toggleDiv('add_office')">+ Add new office</button>
+                    </div>
+                    <div id="add_office" style = "display: none;">
 
-
-
-
-
-
-                </div>
-            <div class="col-xl-9 col-lg-8">
-                <div class = "card card-body">
-                    <form method="POST" action="">
-
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        <div class="switch-field">
-                        {% for checkbox in form.phase %}
-
-                            {{ checkbox.tag }}
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            
+                            <div class="row justify-content-center">
+                                
+                                <div class="create-skills">
+                                    <div class="col-4 p-1">
+                                        {{additional_office.location}}
+                                    </div>
+                                    <div class="col-7 p-1">
+                                        {{additional_office.address}}
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <button class="create-skills-button" type="submit" name ="Submit_office" value="Next">+</button>
+                                    </div>
+                        
+                                </div>
+                                
+                            </div>
+                            
                             
 
-                            <label for="id_phase_{{ forloop.counter0 }}">{{ checkbox.choice_label }} ></label> 
-
-                        {% endfor %}
-
                         
+                    </form>
+                    </div>
+                    </div>
+                </div>
+                <script>
+                    const btn2 = document.getElementById('add_office_btn');
+                
+                    btn2.addEventListener('click', () => {
+                    // 👇️ hide button
+                        btn2.style.display = 'none';
+                    });
+                    function toggleDiv(DivID) {
+                    var x1 = document.getElementById(DivID);
+                    if (x1.style.display === "block") {
+                        x1.style.display = "none";
+                    } else {
+                        x1.style.display = "block";
+                    }
+                    }
+                
+                </script>
+                
+                <div class="card border-0 shadow-sm mb-3">
+                    
+                    <div class="card-body p-4">
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Edit Skills:</h5>
+                        
+                        <div class = "row justify-content-center mt-2">
+                            <div class="col-10 text-center">
+                        
+
+                                <button type="butoryton" class="btn btn-warning mb-1 active" data-bs-toggle="button"  id="toggleCoding" autocomplete="off">Coding</button>
+                                <button type="button" class="btn btn-warning mb-1" data-bs-toggle="button"  id="toggleAnalytic" autocomplete="off">Analytic</button>
+                                <button type="button" class="btn btn-warning mb-1" data-bs-toggle="button"  id="toggleMarketing" autocomplete="off">Marketing</button>
+                                <button type="button" class="btn btn-warning mb-1" data-bs-toggle="button"  id="toggleManagement" autocomplete="off">Management</button>
+                                <button type="button" class="btn btn-warning mb-1" data-bs-toggle="button"  id="toggleLeadership" autocomplete="off">Leadership</button>
+                                <button type="button" class="btn btn-warning mb-1" data-bs-toggle="button"  id="toggleBusiness" autocomplete="off">Business</button>
+                                <button type="button" class="btn btn-warning mb-1" data-bs-toggle="button"  id="toggleAdmin" autocomplete="off">Admin</button>
+                
+
+                   
+
+                            </div>
                         </div>
 
 
+                        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function(){
+                                $('#toggleCoding').on('click',function(){	
+                                    $('.toggleCoding').toggle();
+                                });
+                                
+                            });
+                            $(document).ready(function(){
+                                $('#toggleAnalytic').on('click',function(){	
+                                    $('.toggleAnalytic').toggle();
+                                });
+                            });
+                            $(document).ready(function(){
+                                $('#toggleMarketing').on('click',function(){	
+                                    $('.toggleMarketing').toggle();
+                                });
+                            });
+                            $(document).ready(function(){
+                                $('#toggleManagement').on('click',function(){	
+                                    $('.toggleManagement').toggle();
+                                });
+                            });
+                            $(document).ready(function(){
+                                $('#toggleLeadership').on('click',function(){	
+                                    $('.toggleLeadership').toggle();
+                                });
+                            });
+                            $(document).ready(function(){
+                                $('#toggleBusiness').on('click',function(){	
+                                    $('.toggleBusiness').toggle();
+                                });
+                            });
+                            $(document).ready(function(){
+                                $('#toggleAdmin').on('click',function(){	
+                                    $('.toggleAdmin').toggle();
+                                });
+                            });
+
+                        </script>
+                        <div id="coding_skills" style = "display : block;">
+                            <div style = "overflow-y: auto;">
+                                <table class="table" id="dtHorizontalVerticalExample" >
+                                    
+                                    <tr>
+                                        <th class="table-light">Skill</th>
+                                        <th class="table-light">Delete</th>
+            
+                                    </tr>
+                                
+                                
+                                        {% for computing_skill in computing_skills %}
+                                            <tr class="toggleCoding">
+                                                <td style="min-width:100px">{{computing_skill.name}}</td>
+                                                <td style="min-width:100px"><a href="{% url 'deleteSkillComputing' computing_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        {% for analytic_skill in analytic_skills %}
+                                            <tr class="toggleAnalytic" style="display: none;">
+                                                <td style="min-width:100px;">{{analytic_skill.name}}</td>
+                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillAnalytic' analytic_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        {% for marketing_skill in marketing_skills %}
+                                            <tr class="toggleMarketing" style="display: none;">
+                                                <td style="min-width:100px;">{{marketing_skill.name}}</td>
+                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillMarketing' marketing_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        {% for management_skill in management_skills %}
+                                            <tr class="toggleManagement" style="display: none;">
+                                                <td style="min-width:100px;">{{management_skill.name}}</td>
+                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillManagement' management_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        {% for leadership_skill in leadership_skills %}
+                                            <tr class="toggleLeadership" style="display: none;">
+                                                <td style="min-width:100px;">{{leadership_skill.name}}</td>
+                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillLeadership' leadership_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        {% for business_skill in business_skills %}
+                                            <tr class="toggleBusiness" style="display: none;">
+                                                <td style="min-width:100px;">{{business_skill.name}}</td>
+                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillBusiness' business_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                        {% for admin_skill in admin_skills %}
+                                            <tr class="toggleAdmin" style="display: none;">
+                                                <td style="min-width:100px;">{{admin_skill.name}}</td>
+                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillAdmin' admin_skill.id %}">Delete</a></td>                          
+                                                
+                                            </tr>
+                                        {% endfor %}
 
 
-                        <!--
-                        <label for="id_phase_0" class="btn">Job Creation</label>
-                        <label for="id_phase_1" class="btn">Intern Collection</label>
-                        <label for="id_phase_2" class="btn">Allocation</label>
-                        -->
 
-                        
-                        <input type="Submit" name ="Submit">
-                        {{form.errors}}
-                        {% for message in messages %}
-                            <div class="alert alert-dark" role="alert"> {{message}} </div>
-                        {% endfor %}
-                        
+                                    
+                                </table>   
+                            </div>
 
-                    </form>
+                        </div>
+                        <div class="row justify-content-center mb-3 mt-3">
+                            <div style = "display: flex; justify-content: center;">
+                                <button type="button" class="toggle-create-skills-button text-center" data-bs-toggle="button" autocomplete="off" id="add_skills_btn" onclick="toggleDiv('add_skills')">+ Add new skills</button>
+                            </div>
+                        </div>
+
+
+                        <script>
+                            const btn3 = document.getElementById('add_skills_btn');
                     
+                            btn3.addEventListener('click', () => {
+                            // 👇️ hide button
+                                btn3.style.display = 'none';
+                            });
+                    
+                        </script>
+
+                        
+                        <div id="add_skills" style = "display: none;">
+                            <form method="POST" action="">
+                        
+                                {% csrf_token %}
+                                <div class="row justify-content-center mb-3">
+                                    <div class="create-skills">
+                                        <div class="col-6 p-1">
+                                            {{additional_skills.name}}
+                                        </div>
+                                        <div class="col-5 p-1">
+                                            {{additional_skills.skill_category}}
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            <button class="create-skills-button" type="submit" name ="Submit_skills" value="Next">+</button>
+                                        </div>
+                            
+                                    </div>
+                                </div>
+                                
+                        
+                            </form>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+    
+                            
+                    </div>
+                    </div>
                 </div>
-            </div>
+                    
+                
+
+
+
+
+
+        </div>
 
                 
             

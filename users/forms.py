@@ -263,6 +263,14 @@ class ManagerForm3(ModelForm):
 class ManagerForm4(ModelForm):
 #location, remote balance, pay
 
+    REMOTE_OPTIONS= [
+        ('Everyday', 'Everyday'),
+        ('3-4', '3-4'),
+        ('1-2','1-2'),
+        ('Remote','Remote')
+    ]
+    remote = forms.CharField(widget=forms.Select(choices=REMOTE_OPTIONS, attrs={'class': 'form-select'}))
+
     class Meta:
         model = Job
         fields = '__all__'
@@ -276,6 +284,13 @@ class ManagerForm4(ModelForm):
         #forms.RadioSelect()
         self.fields["job_location"].queryset = JobLocation.objects.all()
         self.fields['job_location'].required = True
+
+
+
+
+
+
+
 
 
 class ManagerCreateOffice(forms.Form):

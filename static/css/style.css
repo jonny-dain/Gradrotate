@@ -4,16 +4,17 @@
     list-style: none;
     box-sizing: border-box;
     padding: 0;
-                                                
-                                                
-
-
+    font:sans-serif;
+    font-weight: 400;
+                                                                                         
 }
 
 
 
 body{
-    background-color: #fafbfe;
+    /*background-color: #fafbfe;*/
+
+    background-color:#F0F1F5;
 }
 main{
     margin-top: 8vh;
@@ -21,7 +22,7 @@ main{
     margin-bottom: 90px;
     margin-left: 0px;
     
-    background-color: #fafbfe;;
+    background-color: #F0F1F5;
     display: flex;
 }
 
@@ -459,6 +460,18 @@ a.active, a:hover{
     bottom: .5em;
   }
 
+/* questionairre text*/
+.question-text{
+  font-size: 1.20rem;
+  font-weight: 500;
+  color: #393939;
+}
+
+
+
+
+
+
 
 /* 2nd bar */
 .save-bar{
@@ -474,18 +487,17 @@ a.active, a:hover{
 }
 
 .title-bar{
-  background: #e5e8ec;
+  /*background: #e5e8ec; */
+  background: #DEE0E3;
   height: 110px;
   width: 100%;
   top: 0px;
   font-family: 'Archivo Black', sans-serif;
-
   box-shadow: 0px 0px 35px 0px rgba(154, 161, 171, 0.15);
-
 }
 
 .title-bar-dashboard{
-  background: #e5e8ec;
+  background: #DEE0E3;
   height: 110px;
   width: 100%;
   top: 0px;
@@ -495,6 +507,9 @@ a.active, a:hover{
 
 }
 
+.progress{
+  background-color: #DEE0E3;
+}
 
 
 .save-button{
@@ -586,8 +601,8 @@ a.active, a:hover{
 }
 
 .switch-field label {
-	background-color: #e4e4e4;
-	color: rgba(0, 0, 0, 0.6);
+	background-color: #fafbfe;
+	color: rgba(0, 0, 0, 0.8);
 	font-size: 14px;
 	line-height: 1;
 	text-align: center;
@@ -604,8 +619,9 @@ a.active, a:hover{
 }
 
 .switch-field input:checked + label {
-	background-color: #a5dc86;
+	background-color: #5a9b95;
 	box-shadow: none;
+  color: white;
 }
 
 .switch-field label:first-of-type {
@@ -673,3 +689,114 @@ a.active, a:hover{
   font-size: 14px; 
 } 
 
+
+
+
+/* Yellow button */
+.btn.btn-warning{
+  transition: none;
+  border: none;
+  outline: none;
+  background-color: white;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
+}
+.btn.btn-warning.active{
+  background-color: #ffcd3a;
+  transition: none;
+  outline: none;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
+}
+.btn-check:active+.btn-warning:focus, .btn-check:checked+.btn-warning:focus, .btn-warning.active:focus, .btn-warning:active:focus, .show>.btn-warning.dropdown-toggle:focus {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.btn-check:focus+.btn-warning, .btn-warning:focus {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.btn-outline-warning{
+  border: none;
+  color: black;
+  background-color: white;
+  transition: none;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+  width: 25vw;
+
+}
+.btn-outline-warning:hover{
+  color: black;
+  background-color: white;
+}
+.btn-outline-warning.btn-check:active{
+  color: black;
+  background-color: #ffcd3a;
+}
+.btn-check:checked+.btn-outline-warning{
+  color: black;
+  background-color: #ffcd3a;
+  transition: none;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
+}
+.btn-check:active+.btn-outline-warning:focus, .btn-check:checked+.btn-outline-warning:focus, .btn-outline-warning.active:focus, .btn-outline-warning:active:focus, .show>.btn-outline-warning.dropdown-toggle:focus {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.btn-check:focus+.btn-outline-warning, .btn-outline-warning:focus {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+
+
+
+.range-slider-container {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+} 
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  background:  0;
+  cursor: pointer;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; 
+  box-sizing: border-box;
+  box-shadow: -1px 1px 5px rgba(0,0,0,.4);
+  border: 3px solid #ddd;
+  background: #294b63; /*color*/
+}
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: -1px 1px 5px rgba(0,0,0,.4); 
+  border: 3px solid #ddd;
+  background: #294b63; /*color*/
+}
+.range-track {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  pointer-events: none;
+  top: 10px;
+  left:  1px;
+  border-radius: 3px;
+}
+.track-highlight {
+  background: #294b63; /*color*/
+}
+#range_slider_1 {
+  z-index: 500;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}

@@ -161,11 +161,10 @@ class Job(models.Model):
     manager_name = models.CharField(max_length = 200, null = True)
     name = models.CharField(max_length = 200, null = True)
 
-    description = models.CharField(max_length = 200, null = True, blank = True)
-    daily_tasks = models.CharField(max_length = 200, null = True, blank = True)
+    description = models.TextField(null = True, blank = True)
+    daily_tasks = models.TextField(null = True, blank = True)
 
 
-    
 
     date_created = models.DateTimeField(auto_now_add=True)
 

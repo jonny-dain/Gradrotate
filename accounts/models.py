@@ -176,7 +176,7 @@ class Job(models.Model):
     remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
 
     #Wage
-    wage = models.IntegerField(default = 0)
+    wage = models.IntegerField(default = 15000)
 
 
 

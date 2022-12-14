@@ -61,19 +61,24 @@
                 
                 
                 // create popup to display store information when the marker is clicked 
+                
                 let popup = new tt.Popup().setHTML(` 
                     <div class="locator-popup"> 
-                        <p>${storeLocation.location}</p> 
-                        <p>${storeLocation.address}</p>
+                        <p  style= "font-weight: bold";>${storeLocation.location}</p>
+                        <p style= "font-size: 10px;">${storeLocation.address}</p>
                         
                     </div> 
                 `); 
-                console.log(coordinates.toString())
-        
-                let marker = new tt.Marker() 
+                
+                let border = document.createElement('div')
+                border.className = 'marker-border'
+
+                let marker = new tt.Marker({
+                    element: border
+                }) 
                     .setLngLat(coordinates) 
                     .setPopup(popup) 
-                    .addTo(map); 
+                    .addTo(map);
             } 
  
        // zoom the map to fit all markers 

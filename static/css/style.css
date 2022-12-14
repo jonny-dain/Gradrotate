@@ -267,7 +267,7 @@ a.active, a:hover{
   }
   
 
-  
+
 
 
 
@@ -802,3 +802,16 @@ input[type="range"] {
   left: 0;
   top: 5px;
 }
+
+
+
+
+/* Maps */
+.marker-border{
+  background-color: #294b63;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+
+
+  }

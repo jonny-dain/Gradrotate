@@ -1,16 +1,105 @@
 
 
+<div class="content1">
+    <div class = 'title-bar-dashboard text-center'>
+        <div class = "row justify-content-center">
+        <h3 style="margin-top: 50px;">Job Information</h3>
+        </div>
+    </div>
 
 
+    <div class="card-container m-4" style="position:relative; display: block;" >
+        <div class="job-card-deck p-2" >   
+                {% for i, jobs_skills, jobs_percentage in zippedlist2 %}
+                    <div class="job-card shadow-sm border-0 rounded" >
+                        <h5 class="job-card-title">
+                            <div class="row">
+                                <div class="col-3">
+                                    {{jobs_percentage}}%
+                                </div>
+                                <div class="col-9">
+                                    <div class="float-start">
+                                        {{i.name}}
+                                    </div>
+                                    
+                                </div>
+                                #{{forloop.counter}}
+                            </div>
+                        </h5>   
+                        <div class="job-card-body">
+                            <div class="row pb-2">
+                                <div class = "skill-bar">
+                                    {% for skills in jobs_skills %}
+                                        <div class = "skill-button" >{{skills}}</div>
+                                    {% endfor %}
+                                </div>           
+                            </div>
+                            <div class="row pb-1">
+                                <div class="col-9">                    
+                                        {{i.description}}                   
+                                </div>
+                                <div class="col-3">
+                                    <i class='bx bxs-map-pin'></i>
+                                    {{i.location}}
+                                </div>
+                            </div>
+                            <div class="row pb-1">
+                                <div class="col-3">
+                                <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
+                                    Read more
+                                </button>
+                                </div>
+
+                            </div>                     
+                        </div>
+                    </div>
+                        <div class="modal fade" id="modal{{ i.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{i.description}}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {% for skills in jobs_skills %}
+                                                <button type="button" class="btn btn-primary">{{skills}} </button>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class = "sidebarchoice">
 
 
 {% csrf_token %}
+<div class="row text-center mt-2 mb-2">
+    <div class="title-text">Rate your preferences</div>
+
+</div>
+
+
 
 
 
 <form class="sortable" hx-post = "{% url 'sort' %}" hx-trigger="end" hx-target = "#dashboard-pref">
-    <div class="htmx-indicator">Updating...</div>
- 
 
     {% for intern_preference in intern_preferences %}
     <div>
@@ -25,3 +114,4 @@
 
     {% endfor %}
   </form>
+</div>

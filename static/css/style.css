@@ -19,7 +19,6 @@ body{
 main{
     margin-top: 8vh;
     margin-right: 0px;
-    margin-bottom: 90px;
     margin-left: 0px;
     
     background-color: #F0F1F5;
@@ -324,7 +323,7 @@ a.active, a:hover{
 .sidebarchoice {
   margin: 0;
   padding: 0;
-  width: 260px;
+  width: 300px;
   z-index: 9;
   top: calc(8vh + 16px); 
   
@@ -333,19 +332,7 @@ a.active, a:hover{
   height: 100%;
   overflow: auto;
 }
-/*
-.sidebarchoice.active {
-  margin: 0;
-  padding: 0;
-  width: 260px;
-  z-index: 9;
-  background-color: #313a46;;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  
-}
-*/
+
 
 .choiceselection{
   margin-top:10px;
@@ -368,10 +355,10 @@ a.active, a:hover{
   div.content1 {
     position:relative;
     display: block;
-    width: calc(100% - 260px);
+    width: calc(100% - 300px);
     top:0vh;
 
-    left:260px;
+    left:300px;
   }
 
   @media screen and (max-width: 870px) {
@@ -397,7 +384,7 @@ a.active, a:hover{
   .sidebarchoice.active ~ .progress-with-nav{
     position: fixed;
     width: calc(100% - 260px);
-    left:260px
+    left:300px
   }
   .progress-with-nav{
     position: fixed;
@@ -467,6 +454,11 @@ a.active, a:hover{
   font-size: 1.20rem;
   font-weight: 500;
   color: #393939;
+}
+.title-text{
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: white;
 }
 
 

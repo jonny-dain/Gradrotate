@@ -12,7 +12,6 @@
 </header>
 
 
-
 <main>
     <div class = "progress-with-nav">
         <div class="progress">
@@ -86,163 +85,9 @@
 
     <div>
     
-    </div>  
+</div>  
     
 <!-- Main content here-->
-
-
-<div class="content1">
-    <div class = 'title-bar-dashboard text-center'>
-        <div class = "row justify-content-center">
-        <h3 style="margin-top: 50px;">Rate your Job preferences</h3>
-        </div>
-    </div>
-
-
-<div class="card-container m-4" style="position:relative; display: block;" >
-    <div class="job-card-deck p-2" >
-        
-            {% for i, jobs_skills, jobs_percentage in zippedlist2 %}
-
-            
-                <div class="job-card shadow-sm border-0 rounded" >
-                    <h5 class="job-card-title">
-                        <div class="row">
-                            <div class="col-3">
-                                {{jobs_percentage}}%
-                            </div>
-                            <div class="col-9">
-                                <div class="float-start">
-                                    {{i.name}}
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </h5>   
-                    <div class="job-card-body">
-                        <div class="row pb-2">
-                            <div class = "skill-bar">
-                                {% for skills in jobs_skills %}
-                                    <div class = "skill-button" >{{skills}}</div>
-                                {% endfor %}
-
-                            </div>
-                            
-                        
-                        </div>
-                        <div class="row pb-1">
-                            <div class="col-9">
-                                
-                                    {{i.description}} 
-                              
-                            </div>
-                            <div class="col-3">
-                                <i class='bx bxs-map-pin'></i>
-                                {{i.location}}
-                            </div>
-
-                            
-
-                        </div>
-                        <div class="row pb-1">
-                            <div class="col-3">
-                            <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
-                                Read more
-                            </button>
-                            </div>
-
-                        </div>
-                        
-
-
-
-      
-                            
-                    </div>
-                    
-
-
-
-                    
-
-
-                
-
-                  </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="modal{{ i.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                        
-    
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            {{i.description}}
-                                        </div>
-                                        <div class="col-md-6">
-                                            {% for skills in jobs_skills %}
-                                            <button type="button" class="btn btn-primary">{{skills}} </button>
-                                            {% endfor %}
-
-
-
-
-
-                                        </div>
-
-                                    </div>
-                            
-
-
-
-                                </div>
-                              
-                                  
-
-                                  <!-- Use google pie chart here-->
-                        
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-
-
-
-
-            
-            {% endfor %}
-        
-        
-
-            <!-- for job in jobs -> create a form number with a number and using the name.. views will take this and add it into the form?--> 
-
-
-            
-            
-          
-            
-
-
-
-        </div>
-    </div>
-</div>
-</div>
-
-
-
-
-
 
 
 </div>
@@ -251,34 +96,11 @@
 
 <!-- New section 
 <div class = "sidebarchoice">-->
-    <section id ="dashboard-pref" class = "sidebarchoice">
-       {% include 'dashboard/dashboard-pref.html' %}
+    <section id ="dashboard-pref">
+       {% include 'dashboard/dashboard-pref.html' with zippedlist2=zippedlist2 %}
        
         
 
-        
-
-        
-        <!--<form class="sortable" hx-post = "{% url 'sort' %}" hx-trigger="end" hx-target = "#dashboard-pref">
-        <form class="sortable" hx-post = "{% url 'sort' %}" hx-trigger="end">
-            <div class="htmx-indicator">Updating...</div>
-        
-
-            {% for intern_preference in intern_preferences %}
-            <div>
-                <div class = "choiceselection p-1 m-2 ">
-                
-                    <input type='hidden' name='preference_order' value='{{ intern_preference.pk }}'/>
-                    #{{intern_preference.preference}} {{intern_preference.job.name}}
-                    <i class='bx bx-menu float-end'></i>
-                </div>
-            </div>
-
-
-            {% endfor %}
-         
-        </form>
-        --> 
 
     </section>
 </div>

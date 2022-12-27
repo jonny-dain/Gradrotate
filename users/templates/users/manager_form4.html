@@ -26,6 +26,15 @@
 <form method="POST" action="">
 
     {% csrf_token %}
+    <row>
+        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+            <div class="card-body">
+            <div class="question-text">Team Name/Department *</div>
+            
+            {{form.team}}
+            </div>
+            
+    </div>
 
     <row>
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
@@ -185,7 +194,7 @@
 </form>
 
 
-<div class="card shadow-sm border-0 rounded ml-4 mr-4 p-4 pt-0 mx-auto" style="max-width: 45rem;">
+<div class="card shadow-sm border-0 rounded ml-4 mr-4 p-4 pt-0 mx-auto" style="max-width: 45rem; margin-bottom: 100px;">
     <div class="row justify-content-center">
         <div style = "display: flex; justify-content: center;">
             <button type="button" class="toggle-create-skills-button text-center" data-bs-toggle="button" autocomplete="off" id="add_skills_btn" onclick="toggleDiv('add_skills')">+ Add new office</button>

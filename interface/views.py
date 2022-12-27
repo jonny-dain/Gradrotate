@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import *
-from accounts.permissions import allowed_users
-from interface.forms import AdminForm
+from accounts.permissions import allowed_users, update_phase
+from interface.forms import AdminForm, AdminForm2, AdminToggleAutomaticPhase
 from interface.gale_shapely import *
 from interface.preferences import *
 from users.forms import ManagerCreateOffice, ManagerCreateSkills
@@ -17,6 +17,7 @@ import openpyxl
 
 #@login_required(login_url='../login')
 #@allowed_users(allowed_roles=['Admin'])
+@update_phase
 def admin_interface(request):
 
     #admin = request.user.admin
@@ -27,6 +28,8 @@ def admin_interface(request):
     form = AdminForm(instance= admin)
     form2 = ManagerCreateOffice()
     additional_skills = ManagerCreateSkills()
+    automatic_phase = AdminForm2(instance = admin)
+    toggle_automatic_phase = AdminToggleAutomaticPhase(instance = admin)
 
     
     interns = Intern.objects.all()
@@ -44,6 +47,8 @@ def admin_interface(request):
         form = AdminForm(request.POST, instance= admin)  
         form2 =ManagerCreateOffice(request.POST)
         additional_skills =ManagerCreateSkills(request.POST)
+        automatic_phase = AdminForm2(request.POST, instance = admin)
+        toggle_automatic_phase = AdminToggleAutomaticPhase(request.POST, instance = admin)
 
         if 'Submit_office' in request.POST:
             if form2.is_valid():
@@ -57,7 +62,23 @@ def admin_interface(request):
                 except:
                     messages.error(request, 'Incorrect location! Please copy the google maps address')
                     return redirect('../../../admin_interface')
-                return redirect('../../../admin_interface')               
+                return redirect('../../../admin_interface')
+
+        elif 'Submit_toggle_automated' in request.POST:
+            if toggle_automatic_phase.is_valid():
+                toggle_automatic_phase.save()
+                return redirect('../../../admin_interface')
+
+
+
+        elif 'Submit_phase' in request.POST:
+            if automatic_phase.is_valid():
+                #Changes the phases on the admin panel 
+                automatic_phase.save()
+                return redirect('../../../admin_interface')
+
+
+                       
         elif 'Submit_skills' in request.POST:
 
             if additional_skills.is_valid():
@@ -104,7 +125,9 @@ def admin_interface(request):
     'business_skills' : business_skills,
     'admin_skills' : admin_skills,
     'additional_office':form2,
-    'additional_skills': additional_skills
+    'additional_skills': additional_skills,
+    'automatic_phase':automatic_phase,
+    'toggle_automatic_phase':toggle_automatic_phase
     }
     return render(request, 'interface/interface.html', context)
 

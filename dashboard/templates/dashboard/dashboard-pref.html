@@ -6,24 +6,28 @@
         <h3 style="margin-top: 50px;">Job Information</h3>
         </div>
     </div>
+    
 
-
-    <div class="card-container m-4" style="position:relative; display: block;" >
+    <div class="card-container mt-4" style="position:relative; display: block; margin-bottom: 80px; margin-left: 1.5rem!important; margin-right: 1.5rem!important;" >
         <div class="job-card-deck p-2" >   
                 {% for i, jobs_skills, jobs_percentage in zippedlist2 %}
-                    <div class="job-card shadow-sm border-0 rounded" >
+                    <div class="job-card shadow-sm border-0" >
                         <h5 class="job-card-title">
                             <div class="row">
-                                <div class="col-3">
-                                    {{jobs_percentage}}%
+                                <div class="col-2 job-card-title-text">
+                                    #{{forloop.counter}}
                                 </div>
-                                <div class="col-9">
-                                    <div class="float-start">
+                                
+                                <div class="col-8">
+                                    <div class=" text-center job-card-title-text">
                                         {{i.name}}
                                     </div>
                                     
                                 </div>
-                                #{{forloop.counter}}
+                                <div class="col-2 job-card-title-text">
+                                    {{jobs_percentage}}%
+                                </div>
+                               
                             </div>
                         </h5>   
                         <div class="job-card-body">
@@ -34,41 +38,89 @@
                                     {% endfor %}
                                 </div>           
                             </div>
-                            <div class="row pb-1">
-                                <div class="col-9">                    
-                                        {{i.description}}                   
+                            <div class="row" style="max-height: 50px;">
+                                <div class="col-9">
+                                    <div class="card-description">
+                                        {{i.description}}
+                                    </div>                   
+                                                           
                                 </div>
                                 <div class="col-3">
-                                    <i class='bx bxs-map-pin'></i>
-                                    {{i.location}}
+                                    <i class="fa fa-sharp fa-solid fa-lg fa-location-dot float-start" style = "color: #294b63;"></i>
+                                    <div class="card-description float-end">
+                                        
+                                        {{i.job_location.location}}
+                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div class="row pb-1">
+                            <div class="row" style="max-height: 50px;">
+                                <div class="col-9">
+                                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
+                                        Read more
+                                    </button>
+
+                                </div>
                                 <div class="col-3">
-                                <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
-                                    Read more
-                                </button>
+                                    <i class=" fa fa-solid fa-lg fa-users" style = "color: #294b63;"></i>
+                                    <div class="card-description">
+                                        {{i.team}}
+
+                                    </div>
+                                    
                                 </div>
 
-                            </div>                     
+                            </div>
+
+
+                                                
                         </div>
                     </div>
                         <div class="modal fade" id="modal{{ i.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="row">
+                                        
+                                            <h5 class="job-card-title-text" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
+                                        
+
+                                        
+                                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+                                        
+                                        
+                                    </div>
+                                    
                                 </div>
                                 <div class="modal-body">
                                     <div class="container-fluid">
+                                        <div class="row mt-1 mb-2">
+                                            <div class="col-md-7">
+                                                <div class="question-text">
+                                                Description:
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="question-text">
+                                                    Key Skills:
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-7">
+                                                
                                                 {{i.description}}
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
+                                               
                                                 {% for skills in jobs_skills %}
-                                                <button type="button" class="btn btn-primary">{{skills}} </button>
+                                                <button type="button" class="skill-button">{{skills}} </button>
                                                 {% endfor %}
                                             </div>
                                         </div>

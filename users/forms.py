@@ -130,7 +130,7 @@ class ManagerForm(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','name','description','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','job_location','email']
+        exclude = ['user','name','description','team','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','job_location','email']
 
 
     def __init__(self, *args, **kwargs):
@@ -186,7 +186,7 @@ class ManagerForm2(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','computing_skills','wage','analytic_skills','marketing_skills','job_location','remote','wage','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
+        exclude = ['user','computing_skills','team','wage','analytic_skills','marketing_skills','job_location','remote','wage','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm2, self).__init__(*args, **kwargs)
@@ -226,7 +226,7 @@ class ManagerForm3(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','remote','progress','wage','name','daily_tasks','manager_name','job_location','description','email']
+        exclude = ['user','remote','progress','team','wage','name','daily_tasks','manager_name','job_location','description','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm3, self).__init__(*args, **kwargs)
@@ -285,6 +285,12 @@ class ManagerForm4(ModelForm):
         self.fields["job_location"].queryset = JobLocation.objects.all()
         self.fields['job_location'].required = True
 
+        self.fields['team'].widget = widgets.TextInput(
+            attrs={
+                'placeholder': 'Team/Department',
+                'class': 'form-control',
+                'style': 'margin-bottom: 10px'
+            })
 
 
 

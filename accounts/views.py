@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from .permissions import authenticated_user, allowed_users
+from .permissions import authenticated_user, allowed_users, update_phase
 from django.contrib.auth.models import Group
 
 
@@ -14,7 +14,11 @@ from django.contrib.auth.models import Group
 from .models import *
 from .forms import CreateUserForm
 
+#Testing
+import datetime
 
+
+@update_phase
 @authenticated_user
 def login(request):
 
@@ -38,9 +42,13 @@ def login(request):
                 if (admin.phase == 'Job creation'):
                     if group == 'Manager':
                         return redirect('../form/manager_form')
+                    else:
+                        auth_logout(request)
                 if (admin.phase == 'Intern collection'):
                     if group == 'Intern':
                         return redirect('../form/student_form')
+                    else:
+                        auth_logout(request)
                 messages.info(request, 'We are currently in the '+ str(admin.phase)+ ' phase, please try again later')
 
                 return render(request, 'accounts/login.html')

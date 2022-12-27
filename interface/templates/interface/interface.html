@@ -150,21 +150,78 @@
                             </div>
                             
                             
-                            
                         </form>
                     </div>
                         
                 </div>
                 <div class="card border-0 shadow-sm mb-3 p-0">
-                    <div class="alert alert-secondary m-0" role="alert">
-                        Follow the below steps and phases when allocating Interns to their Jobs:
-                        <br>
-                        1. (Job creation phase) Contact Managers for them to complete their Job listing
-                        <br>
-                        2. (Intern Collection phase) Contact Interns to get them to complete their profile
-                        <br>
-                        3. (Allocation phase) Once complete, allocate students with the below buttons
+                    <div class="card-body p-4">
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Automate Phase:</h5>
+
+                        
+
+                    <form method="POST" action="">
+    
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-auto">          
+                                    Toggle timed phases:
+                            </div>
+                            <div class="col">
+                                    <div class="form-check form-switch">
+                                        {{automatic_phase.automate_phase}}
+                                    </div>
+                            </div>
+                        </div>
+                        <div style="color:#6c757d;">
+                        
+                        <div class="row p-1">
+                            <div class="col-md-auto">  
+                                Job creation:
+                            </div>
+                            <div class="col">
+                                {{automatic_phase.job_creation_date}}
+                            </div>
+                        </div>
+                        <div class="row p-1">
+                            <div class="col-md-auto">  
+                                Intern collection:    
+                            </div>
+                            <div class="col">
+                                {{automatic_phase.intern_creation_date}}
+                            </div>
+                        </div>
+                        <div class="row p-1">
+                            <div class="col-md-auto">  
+                                Allocation:      
+                            </div>
+                            <div class="col">
+                                {{automatic_phase.allocation_creation_date}}
+                            </div>
+                        </div>
                     </div>
+                    
+
+                            
+                            
+
+                            
+                          
+                   
+
+
+                    <button class="toggle-create-skills-button text-center" type="submit" name ="Submit_phase" value="Next" onclick="">Update</button>
+                    
+                </form>
+                    </div>
+                
+                    
+
+
+
+
+
+
                 </div>
 
                 <div class="card border-0 shadow-sm mb-3">

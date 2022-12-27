@@ -19,7 +19,35 @@ class AdminForm(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
-        exclude = ['name','user']
+        exclude = ['name','user','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
 
-       
+
+
+
+class AdminForm2(ModelForm):
+
+    job_creation_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date', 'style':'color:#6c757d;'}))
+
+    intern_creation_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date', 'style':'color:#6c757d;'}))
+
+    allocation_creation_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date', 'style':'color:#6c757d;'}))
+
+    automate_phase = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
     
+    class Meta:
+        model = Admin
+        fields = '__all__'
+        exclude = ['name','user','phase']
+
+    def __init__(self, *args, **kwargs):
+        super(AdminForm2, self).__init__(*args, **kwargs)
+        self.fields['automate_phase'].required = False
+
+
+
+class AdminToggleAutomaticPhase(ModelForm):
+
+    class Meta:
+        model = Admin
+        fields = '__all__'
+        exclude = ['name','user','phase','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']

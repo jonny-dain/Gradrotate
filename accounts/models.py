@@ -98,7 +98,7 @@ class Intern(models.Model):
     business_skills = models.ManyToManyField(BusinessSkills)
     admin_skills = models.ManyToManyField(AdminSkills)
 
-
+    
 
 
 
@@ -166,6 +166,7 @@ class Job(models.Model):
 
 
 
+    team = models.CharField(max_length=30, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     #Location and remote balance
@@ -214,6 +215,14 @@ class Admin(models.Model):
     )
 
     phase = models.CharField(max_length = 200, null = True, choices = PHASES)
+
+    #automate true or false...
+    automate_phase = models.BooleanField(default=False)
+
+    job_creation_date = models.DateField(null=True)
+    intern_creation_date  = models.DateField(null=True)
+    allocation_creation_date = models.DateField(null=True)
+
     name = models.CharField(max_length = 200, null = True)
     def __str__(self):
         return str(self.name)

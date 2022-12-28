@@ -838,3 +838,61 @@ input[type="range"] {
 }
 
 
+
+
+
+
+
+
+
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 2;
+  width: 300px;
+  color: black;
+  font-size: 12px;
+  background-color: #dde0e3;
+  border-radius: 10px;
+  padding: 10px 15px 10px 15px;
+}
+
+.hover-text:hover .tooltip-text {
+  visibility: visible;
+}
+
+#top {
+  top: -40px;
+  left: -50%;
+}
+
+#top::before {
+  top: 80%;
+  left: 45%;
+}
+
+#bottom {
+  top: 25px;
+  left: -50%;
+
+}
+
+#left {
+  top: -8px;
+  right: 120%;
+}
+
+#left::before {
+  top: 35%;
+  left: 94%;
+}
+
+
+
+
+.hover-text {
+  position: relative;
+  display: inline-block;
+
+  
+}

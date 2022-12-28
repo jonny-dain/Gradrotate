@@ -102,7 +102,7 @@
                 </div>
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body p-1 p-sm-5">
-                        <h5 class="card-title fs-12" style = "color:#6c757d;">Intern users</h5>
+                        <h5 class="card-title fs-12" style = "color:#6c757d;">Interns</h5>
                         
                         <i class="fa fa-regular fa-graduation-cap float-end fa-2x" style = "color:#d3d6d8"></i>
                         <h2 class="my-2"style = "color:#6c757d;">{{interns.count}}</h2>
@@ -128,12 +128,47 @@
                     Phases
                 </div>
                 
-
+                
 
                 
                 <div class="card border-0 shadow-sm mb-3">
                         <div class="card-body p-4">
-                            <h5 class="card-title fs-12" style = "color:#6c757d;">Select Phase:</h5>
+                            <div class= "row">
+                                <div class="col-md-auto">
+                                    <h5 class="card-title fs-12" style = "color:#6c757d;">Select Phase:</h5>
+
+                                </div>
+                                <div class="col">
+                                    <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                        <span class="tooltip-text" id="bottom">Select the phases below:
+                                            <br>
+                                            1. Job creation - Allows managers to create Jobs on the website
+                                            <br>
+                                            2. Intern collection - Allows interns to fill out their preferences
+                                            <br>
+                                            3. Allocation - Allows the Admin to allocate Interns to their Jobs
+                                        </span>
+                                      </div>
+
+                                </div>
+                            </div>
+                            
+
+                            
+                            
+                              
+                            
+                                
+
+                            
+
+
+
+
+
+
+
+
                         <form method="POST" action="">
     
                             {% csrf_token %}
@@ -156,7 +191,21 @@
                 </div>
                 <div class="card border-0 shadow-sm mb-3 p-0">
                     <div class="card-body p-4">
-                        <h5 class="card-title fs-12" style = "color:#6c757d;">Automate Phase:</h5>
+                        <div class= "row">
+                            <div class="col-md-auto">
+                                <h5 class="card-title fs-12" style = "color:#6c757d;">Automate Phase:</h5>
+
+                            </div>
+                            <div class="col">
+                                <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                    <span class="tooltip-text" id="bottom">Toggle on/off the Automate Phase Changes below. 
+                                        When turned on, the software will update the phase on the dates below
+                                    </span>
+                                  </div>
+
+                            </div>
+                        </div>
+                        
 
                         
 
@@ -226,8 +275,22 @@
 
                 <div class="card border-0 shadow-sm mb-3">
                     
-                    <div class="card-body p-1 p-sm-5">
-                        <h5 class="card-title fs-12" style = "color:#6c757d;">Allocation:</h5>
+                    <div class="card-body p-4">
+                        <div class= "row">
+                            <div class="col-md-auto">
+                                <h5 class="card-title fs-12" style = "color:#6c757d;">Allocation:</h5>
+
+                            </div>
+                            <div class="col">
+                                <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                    <span class="tooltip-text" id="bottom">When in the allocation phase, complete the Allocation with the button below.
+                                        Excel sheets are supported with the 'Allocate by Excel' button
+                                    </span>
+                                  </div>
+
+                            </div>
+                        </div>
+                        
                         <div class="row justify-content-center">
                             <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate"> Allocate </a>
                         </div>
@@ -250,12 +313,27 @@
                 <div class="col text-center">
                     Settings
                 </div>   
+                
 
                 
 
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body p-4">
-                        <h5 class="card-title fs-12" style = "color:#6c757d;">Edit Offices:</h5>
+                        
+                        <div class= "row">
+                            <div class="col-md-auto">
+                                <h5 class="card-title fs-12" style = "color:#6c757d;">Edit Offices</h5>
+
+                            </div>
+                            <div class="col">
+                                <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                    <span class="tooltip-text" id="left">Edit the office locations below
+                                    </span>
+                                  </div>
+
+                            </div>
+                        </div>
+                        
                         
                         <div style = "overflow-y: auto;">
                         <table class="table mt-2" id="dtHorizontalVerticalExample" >
@@ -331,7 +409,20 @@
                 <div class="card border-0 shadow-sm mb-3">
                     
                     <div class="card-body p-4">
-                        <h5 class="card-title fs-12" style = "color:#6c757d;">Edit Skills:</h5>
+                        
+                        <div class= "row">
+                            <div class="col-md-auto">
+                                <h5 class="card-title fs-12" style = "color:#6c757d;">Edit Skills</h5>
+
+                            </div>
+                            <div class="col">
+                                <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                    <span class="tooltip-text" id="left">Edit the Job / Intern Skills below
+                                    </span>
+                                  </div>
+
+                            </div>
+                        </div>
                         
                         <div class = "row justify-content-center mt-2">
                             <div class="col-10 text-center">

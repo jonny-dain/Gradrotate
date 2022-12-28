@@ -3,7 +3,7 @@
 {% extends "base.html" %} 
 
 
-
+{% load static %}
 {% block content %}
 
 <main>
@@ -81,7 +81,13 @@
                     
                         {% csrf_token %}
                     <div class="col-xl-5 col-lg-5">
-                        Please upload the preferences excel
+                        Download the template
+
+                        <a href="{% static '/files/Placement_test.xlsx' %}" download>
+                            here
+                        </a>
+                         and upload the preferences excel to complete allocation
+
                     </div>
                     <div class="col-xl-5 col-lg-5">
                         
@@ -132,7 +138,7 @@
                             <table class="table" id="dtHorizontalVerticalExample" >
                             
                                 <tr>
-                                    <th class="table-light">Name</th>
+                                    <th class="table-light">Intern Pref.</th>
                                     {% for i in preference_number %}
                                         <th class="table-light">Pref. {{i}}</th>
                                     {% endfor %}
@@ -164,7 +170,7 @@
                             <table class="table" id="dtHorizontalVerticalExample" >
                             
                                 <tr>
-                                    <th class="table-light">Name</th>
+                                    <th class="table-light">Job Pref.</th>
                                     {% for i in preference_number %}
                                         <th class="table-light">Pref. {{i}}</th>
                                     {% endfor %}

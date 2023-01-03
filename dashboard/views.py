@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import Job, Intern
+from accounts.permissions import allowed_users, update_progress
 from dashboard.dashboard_info import *
 from users.models import InternPreference
 from .forms import InternPreferenceForm
@@ -37,8 +38,9 @@ class BaseCheckFormSet(BaseFormSet):
 
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Intern'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
+@update_progress(4)
 def preference(request):
 
     #creates list for new interns based on skills before
@@ -87,7 +89,8 @@ def preference(request):
 
 
 
-
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
 def sort(request):
     preference_pks_order = request.POST.getlist('preference_order')
     intern_preferences = []

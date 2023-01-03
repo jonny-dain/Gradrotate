@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>Gradrotate - Where Interns Get allocated To Their Placement Roles</title>
+</head>
+<main>
+    <body>
+        <div class = "progress-with-nav">
+            <div class="progress">
+                <div class="progress-bar " role="progressbar" style="background-color: #5A9B95;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+        </div>
+        <div class="container">
+            
+                <div class="card border-0 shadow rounded-3 my-5 m-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <div class="row text-center">
+                            <div class="col-lg">
+                                
+                                <style>
+                                    .remoteWork {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                    }
+                                </style>
+
+                           
+                                <img class="remoteWork" src = "{% static '/images/RemoteWork.png' %}" style = "margin: 5px;">
+                
+            
+                                
+                        
+                            </div>
+                            <div class="col-lg">
+                                <h2 class="text-center pt-2" style="font-family: 'Archivo Black', sans-serif;">A platform that assists allocating Interns to their placement roles </h2>
+
+                                <h5 style="color: #6c757d;">
+                                    Gradrotate streamlines the process of allocating graduates and Interns to roles during their various placements with the aim of the placements being suitable, developing skills designed to match future roles and delivering value for the employer by matching the right candidate to the right placement.
+                        
+                                    
+                                    
+                                </h5>
+                                <br>
+                                <a href="../../login" class="save-button p-3 m-2 mt-5 text-center" style="display: inline;text-decoration:none; top: 10px;width: 70px;">Login Now</a>
+                
+                                <a href="../../register" class="save-button p-3 m-2 mt-5 text-center" style="display: inline;text-decoration:none; top: 10px;width: 70px;">Sign Up Now</a>
+                
+                                
+
+
+                            </div>
+                        </div>
+                        
+                    </div>
+
+            </div>
+            <div class="card border-0 shadow rounded-3 my-5 m-5">
+                <div class="card-body p-4 p-sm-5">
+                    <div class="row">
+                        <h3 class="pt-2" style="font-family: 'Archivo Black', sans-serif; ">How It Works...</h3>
+
+           
+                        
+                    </div>
+                    <div class="row text-center" style="color: #6c757d;">
+                        <div class="col-lg">
+                            <i style="color: #51575d;" class='bx bx-lg bx-clipboard pt-4' ></i>
+                            <br>
+                            <h5 style="color: #51575d;">Job Creation</h5>
+                            
+                            <h7>Managers Create A Vacancy Listing With Skills Needed For The Job
+                            </h7>
+
+                        </div>
+                        
+                        <div class="col-lg">
+                            <i style="color: #51575d;" class='bx bx-lg bx-poll pt-4'></i>
+                            <br>
+                            <h5 style="color: #51575d;">Intern Collection</h5>
+                            
+                            <h7>Interns Create A Personality Profile And Rank Each Job In Order Of Preference</h7>
+                        </div>
+                        
+                        <div class="col-lg">
+                            <i style="color: #51575d;" class='bx bx-lg bx-shuffle pt-4' ></i>
+                            <br>
+                            <h5 style="color: #51575d;">Allocation</h5>
+                            
+                            <h7>Interns and Jobs Are Matched Together Based On Both Parties Preferences
+                            </h7>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="row text-center p-3" style="color: #6c757d;">
+                        <hr class="my-4">
+                    
+                    </div>
+                    <div class="row text-center" style="color: #6c757d;">
+                        <div class="col-lg">
+                            <h5 class="pt-2" style="color: #51575d;">{{total_jobs}}+</h5>
+                            
+                            
+                            <h7>Jobs Created</h7>
+                            
+                            
+                            
+                        </div>
+                        <div class="col-lg">
+                            <h5 class="pt-2" style="color: #51575d;">{{total_interns}}+</h5>
+                            
+                            
+                            <h7>Interns Collected</h7>
+                            
+
+                        </div>
+                    
+                    </div>
+                    
+                    
+                </div>
+
+        </div>
+        <div class="row p-5 pt-2 pb-2"  style="font-size: 13px;">
+            <div class="col-md-3">
+              <p class="text-center">
+                Supervisor <a class="text-decoration-none" href="https://shah.fyi/">Prof. Madasar Shah</a><br>
+                </p>
+            </div>
+            <div class="col-md-6">
+              <p class="text-center">
+                © <a class="text-decoration-none" href="https://www.linkedin.com/in/jonathan-dain-753173151">Jonathan Dain</a> 2022
+                <br>
+                
+              </p>
+            </div>
+            <div class="col-md-3">
+              <p class="text-center">Image - <a class="text-decoration-none" href=https://www.pngarts.com/explore/165353 target="_blank">Remote Work</a>
+              </a></p>
+            </div>
+          </div>
+
+        
+            
+        
+  
+            
+        </div>
+    </body>
+</main>
+
+                
+
+{% endblock %}

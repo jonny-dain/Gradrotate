@@ -3,17 +3,19 @@ from unicodedata import name
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from accounts.permissions import allowed_users
+from accounts.permissions import allowed_users, update_progress
 from .forms import *
 from django.contrib import messages
-
+import json 
+from geopy.geocoders import Nominatim
 
 
 
 # Create your views here.
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Intern'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
+@update_progress(1)
 def student_form(request):
     intern = request.user.intern
     form = StudentForm(instance= intern)
@@ -23,7 +25,7 @@ def student_form(request):
         form = StudentForm(request.POST, instance= intern)        
         if form.is_valid():
             
-            intern.progress = 1
+
             form.save()
             return redirect('../../form/student_form/requirements')
 
@@ -33,12 +35,9 @@ def student_form(request):
     
 
 
-
-
-
-
-import json 
-
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
+@update_progress(2)
 def student_form_requirements(request):
     intern = request.user.intern
     form = StudentForm2(instance= intern)
@@ -55,7 +54,6 @@ def student_form_requirements(request):
     if request.method == "POST":
         form = StudentForm2(request.POST, instance= intern) 
         if form.is_valid():
-            intern.progress = 2
             #intern.location = request.POST['pref_location']
             #intern.remote = request.POST['remote_option']
             form.save()
@@ -66,18 +64,9 @@ def student_form_requirements(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
+@update_progress(3)
 def student_form_skills(request):
     intern = request.user.intern
     form = StudentForm3(instance= intern)
@@ -87,7 +76,6 @@ def student_form_skills(request):
     if request.method == "POST":
         form = StudentForm3(request.POST, instance= intern) 
         if form.is_valid() and 'Submit' in request.POST:
-            intern.progress = 3
             #gathers all the skills
 
             computing_skills = form.cleaned_data['computing_skills']
@@ -118,8 +106,9 @@ def student_form_skills(request):
 
 
     
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Manager'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Manager'])
+@update_progress(1)
 def manager_form(request):
     job = request.user.job
     #.job
@@ -134,7 +123,6 @@ def manager_form(request):
         if form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
             form.save()
-            job.progress = 1
             return redirect('../../form/manager_form/information')
 
 
@@ -145,8 +133,9 @@ def manager_form(request):
 
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Manager'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Manager'])
+@update_progress(2)
 def manager_form_requirements(request):
     job = request.user.job
     #.job
@@ -160,7 +149,6 @@ def manager_form_requirements(request):
         if form.is_valid():
             #gathers all the skills
             form.save()
-            job.progress = 2
             return redirect('../../form/manager_form/information_2')
 
     context = {'form': form, 'job': job, 'locations': location_json}
@@ -168,10 +156,10 @@ def manager_form_requirements(request):
 
 
 
-from geopy.geocoders import Nominatim
     
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Manager'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Manager'])
+@update_progress(3)
 def manager_form_additional_requirements(request):
     job = request.user.job
     #.job
@@ -209,7 +197,6 @@ def manager_form_additional_requirements(request):
                 #gathers all the skills
                 job.wage = form.data['wage_value']
                 form.save()
-                job.progress = 2
                 return redirect('../../form/manager_form/skills')
 
         
@@ -225,11 +212,9 @@ def manager_form_additional_requirements(request):
 
 
 
-
-
-
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Manager'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Manager'])
+@update_progress(4)
 def manager_form_skills(request):
     job = request.user.job
     #.job
@@ -284,7 +269,6 @@ def manager_form_skills(request):
             else:
 
                 form.save()
-                job.progress = 3
 
                 #redirect to done... 
                 return redirect('../../form/manager_form/complete')
@@ -295,13 +279,13 @@ def manager_form_skills(request):
 
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Manager'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
+@update_progress(5)
 def student_complete(request):
     #Top choices
     intern = request.user.intern
     print(intern.progress)
-    intern.progress = 4
     print(intern.progress)
     intern.save()
 
@@ -324,8 +308,9 @@ def student_complete(request):
 
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Manager'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Manager'])
+@update_progress(5)
 def manager_complete(request):
 
 

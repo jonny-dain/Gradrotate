@@ -1,7 +1,6 @@
 import datetime
 from django.http import HttpResponse
 from django.shortcuts import redirect
-
 from accounts.models import Admin
 
 def authenticated_user(view_func):
@@ -25,6 +24,9 @@ def allowed_users(allowed_roles=[]):
                 return view_func(request, *arg, **kwargs)
             
             else:
+                
+                
+                
                 if group == 'Admin':
                     return redirect('../../admin_interface')
                 
@@ -35,11 +37,32 @@ def allowed_users(allowed_roles=[]):
                     return redirect('../form/student_form')
                 else:
                     return HttpResponse('You are not authorized to view this page')
+                
         return wrapper_func
     return decorator
 
 
 
+def update_progress(progress):
+    def decorator(view_func):
+        def wrapper_func(request, *arg, **kwargs):
+
+            if request.user.groups.exists():
+                group = request.user.groups.all()[0].name
+                if group == 'Intern':
+                    if request.user.intern.progress < progress:
+                        request.user.intern.progress = progress
+                        request.user.intern.save()
+
+                if group == 'Manager':
+                    if request.user.job.progress < progress:
+                        request.user.job.progress = progress
+                        request.user.job.save()
+
+            return view_func(request, *arg, **kwargs)
+            
+        return wrapper_func
+    return decorator
 
 
 

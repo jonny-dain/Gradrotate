@@ -18,8 +18,16 @@
             </label>
 
             <!--<label class="logo">Gradrotate</label> -->
+            {% if request.user.is_authenticated %}
+            
             <img src = "{% static '/images/GradrotateLogo.png' %}"width="250" height="50" style = "margin: 5px;">
             
+            {% else %}
+            <a href="../../../../../../">
+            <img src = "{% static '/images/GradrotateLogo.png' %}"width="250" height="50" style = "margin: 5px;">
+            </a>
+
+            {% endif %}
             
 
             
@@ -35,7 +43,9 @@
 
                 {% else %}
 
-                <li><a href="/">Login</a></li>
+                <li><a href="../../login">Login</a></li>
+                <li><a href="../../register">Sign Up</a></li>
+                
 
                 {% endif %}
             </ul>

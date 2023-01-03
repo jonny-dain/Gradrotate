@@ -373,7 +373,7 @@ a.active, a:hover{
       width: 100%;
       height: auto;
       float: none;
-      top: 0vh;
+      top: -7vh;
       position:relative;
       display: block;
     }

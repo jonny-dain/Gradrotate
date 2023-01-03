@@ -223,6 +223,9 @@ class Admin(models.Model):
     intern_creation_date  = models.DateField(null=True)
     allocation_creation_date = models.DateField(null=True)
 
+    total_jobs = models.IntegerField(default=0)
+    total_interns = models.IntegerField(default=0)
+
     name = models.CharField(max_length = 200, null = True)
     def __str__(self):
         return str(self.name)

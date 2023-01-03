@@ -17,6 +17,14 @@ from .forms import CreateUserForm
 #Testing
 import datetime
 
+@update_phase
+@authenticated_user
+def homepage(request):
+    admin = Admin.objects.all().first()
+    total_interns = admin.total_interns
+    total_jobs = admin.total_jobs
+    context = {'total_interns': total_interns, 'total_jobs': total_jobs}
+    return render(request, 'accounts/homepage.html', context)
 
 @update_phase
 @authenticated_user
@@ -41,16 +49,20 @@ def login(request):
                 
                 if (admin.phase == 'Job creation'):
                     if group == 'Manager':
+                        if request.user.job.progress == 5:
+                            return redirect('../form/manager_form/complete')
                         return redirect('../form/manager_form')
                     else:
                         auth_logout(request)
                 if (admin.phase == 'Intern collection'):
                     if group == 'Intern':
+                        if request.user.intern.progress == 5:
+                            return redirect('../form/student_form/complete')
                         return redirect('../form/student_form')
                     else:
                         auth_logout(request)
                 messages.info(request, 'We are currently in the '+ str(admin.phase)+ ' phase, please try again later')
-
+                auth_logout(request)
                 return render(request, 'accounts/login.html')
 
         else:
@@ -62,11 +74,12 @@ def login(request):
 
 def logout(request):  
     auth_logout(request)
-    return redirect('../login')
+    return redirect('../')
     
       
 @authenticated_user
 def register(request):
+    admin = Admin.objects.all().first()
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -84,11 +97,16 @@ def register(request):
                     email = user.email,
                     
                 )
+                admin.total_jobs += 1
+                admin.save()
+
             if role == 'Intern':
                 Intern.objects.create(
                     user = user,
                     email = user.email,
                 )
+                admin.total_interns += 1
+                admin.save()
             
             messages.success(request, 'Account was greated for '+ str(username) )
             return redirect('../login')

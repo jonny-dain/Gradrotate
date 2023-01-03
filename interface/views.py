@@ -15,8 +15,8 @@ from geopy.geocoders import Nominatim
 import openpyxl
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 @update_phase
 def admin_interface(request):
 
@@ -74,6 +74,7 @@ def admin_interface(request):
         elif 'Submit_phase' in request.POST:
             if automatic_phase.is_valid():
                 #Changes the phases on the admin panel 
+                print('here')
                 automatic_phase.save()
                 return redirect('../../../admin_interface')
 
@@ -109,6 +110,7 @@ def admin_interface(request):
         else:   
             if form.is_valid():
                 form.save()
+                
                 return redirect('../../../admin_interface')
 
 

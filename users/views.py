@@ -3,7 +3,7 @@ from unicodedata import name
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from accounts.permissions import allowed_users, update_progress
+from accounts.permissions import allowed_users, required_phase, update_progress
 from .forms import *
 from django.contrib import messages
 import json 
@@ -16,6 +16,7 @@ from geopy.geocoders import Nominatim
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(1)
+@required_phase(phase=['Intern collection'])
 def student_form(request):
     intern = request.user.intern
     form = StudentForm(instance= intern)
@@ -38,6 +39,7 @@ def student_form(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(2)
+@required_phase(phase=['Intern collection'])
 def student_form_requirements(request):
     intern = request.user.intern
     form = StudentForm2(instance= intern)
@@ -67,6 +69,7 @@ def student_form_requirements(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(3)
+@required_phase(phase=['Intern collection'])
 def student_form_skills(request):
     intern = request.user.intern
     form = StudentForm3(instance= intern)
@@ -109,6 +112,7 @@ def student_form_skills(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Manager'])
 @update_progress(1)
+@required_phase(phase=['Job creation'])
 def manager_form(request):
     job = request.user.job
     #.job
@@ -136,6 +140,7 @@ def manager_form(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Manager'])
 @update_progress(2)
+@required_phase(phase=['Job creation'])
 def manager_form_requirements(request):
     job = request.user.job
     #.job
@@ -160,6 +165,7 @@ def manager_form_requirements(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Manager'])
 @update_progress(3)
+@required_phase(phase=['Job creation'])
 def manager_form_additional_requirements(request):
     job = request.user.job
     #.job
@@ -215,6 +221,7 @@ def manager_form_additional_requirements(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Manager'])
 @update_progress(4)
+@required_phase(phase=['Job creation'])
 def manager_form_skills(request):
     job = request.user.job
     #.job
@@ -282,6 +289,7 @@ def manager_form_skills(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(5)
+@required_phase(phase=['Intern collection'])
 def student_complete(request):
     #Top choices
     intern = request.user.intern
@@ -311,8 +319,41 @@ def student_complete(request):
 @login_required(login_url='../login')
 @allowed_users(allowed_roles=['Manager'])
 @update_progress(5)
+@required_phase(phase=['Job creation'])
 def manager_complete(request):
 
 
     context = {}
     return render(request, 'users/manager_complete.html', context)
+
+
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Intern'])
+@required_phase(phase=['Allocation'])
+def student_allocation_complete(request):
+    intern = request.user.intern
+    job = intern.allocated_job
+    admin = Admin.objects.all().first()
+
+    context = {'job':job, 'admin':admin}
+
+    
+
+    
+
+    return render(request, 'users/student_allocate_complete.html', context)
+
+
+
+
+
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Manager'])
+@required_phase(phase=['Allocation'])
+def manager_allocation_complete(request):
+    job = request.user.job
+    intern = job.allocated_intern
+    admin = Admin.objects.all().first()
+    
+    context = {'intern':intern, 'admin':admin}
+    return render(request, 'users/manager_allocate_complete.html', context)

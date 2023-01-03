@@ -23,7 +23,7 @@ class StudentForm(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','email','progress','computing_skills','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','job_location','remote','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','email','progress','allocated_job','computing_skills','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','job_location','remote','first_preference', 'second_preference', 'third_preference']
     
         
 
@@ -68,7 +68,7 @@ class StudentForm2(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','name','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','email','progress','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','name','allocated_job','computing_skills','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','email','progress','first_preference', 'second_preference', 'third_preference']
     
     def __init__(self, *args, **kwargs):
         super(StudentForm2, self).__init__(*args, **kwargs)
@@ -84,7 +84,7 @@ class StudentForm3(ModelForm):
     class Meta:
         model = Intern
         fields = '__all__'
-        exclude = ['user','name','email','progress','job_location','remote','first_preference', 'second_preference', 'third_preference']
+        exclude = ['user','allocated_job','name','email','progress','job_location','remote','first_preference', 'second_preference', 'third_preference']
     
 
     def __init__(self, *args, **kwargs):
@@ -130,7 +130,7 @@ class ManagerForm(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','name','description','team','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','job_location','email']
+        exclude = ['user','name','allocated_intern','description','team','daily_tasks','computing_skills','remote','wage','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','job_location','email']
 
 
     def __init__(self, *args, **kwargs):
@@ -186,7 +186,7 @@ class ManagerForm2(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','computing_skills','team','wage','analytic_skills','marketing_skills','job_location','remote','wage','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
+        exclude = ['user','computing_skills','allocated_intern','team','wage','analytic_skills','marketing_skills','job_location','remote','wage','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm2, self).__init__(*args, **kwargs)
@@ -226,7 +226,7 @@ class ManagerForm3(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','remote','progress','team','wage','name','daily_tasks','manager_name','job_location','description','email']
+        exclude = ['user','remote','allocated_intern','progress','team','wage','name','daily_tasks','manager_name','job_location','description','email']
 
     def __init__(self, *args, **kwargs):
         super(ManagerForm3, self).__init__(*args, **kwargs)
@@ -274,7 +274,7 @@ class ManagerForm4(ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
-        exclude = ['user','computing_skills','wage','name','daily_tasks','description','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
+        exclude = ['user','allocated_intern','computing_skills','wage','name','daily_tasks','description','analytic_skills','marketing_skills','management_skills','leadership_skills','business_skills','admin_skills','progress','manager_name','email']
 
     def __init__(self, *args, **kwargs):
         super( ManagerForm4, self).__init__(*args, **kwargs)

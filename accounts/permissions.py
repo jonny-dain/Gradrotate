@@ -15,18 +15,17 @@ def authenticated_user(view_func):
 def allowed_users(allowed_roles=[]):
     def decorator(view_func):
         def wrapper_func(request, *arg, **kwargs):
-            
+
             group = None
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
 
             if group in allowed_roles:
+
+
+                
                 return view_func(request, *arg, **kwargs)
-            
             else:
-                
-                
-                
                 if group == 'Admin':
                     return redirect('../../admin_interface')
                 
@@ -87,3 +86,40 @@ def update_phase(view_func):
 
         return view_func(request, *arg, **kwargs)
     return wrapper_func
+
+
+
+
+
+
+#Ensures the User stays in the phase forms - If they try and use the URL Bar
+def required_phase(phase=[]):
+    def decorator(view_func):
+        def wrapper_func(request, *arg, **kwargs):
+            admin = Admin.objects.all().first()
+
+            group = None
+            if request.user.groups.exists():
+                group = request.user.groups.all()[0].name
+
+
+            if admin.phase in phase:
+                return view_func(request, *arg, **kwargs)
+            else:
+                if admin.phase == 'Allocation':
+
+                    if group == 'Manager':
+                        return redirect('../../../../form/manager_form/allocation/complete')
+                    if group == 'Intern':
+                        return redirect('../../../../form/student_form/allocation/complete')
+                if admin.phase == 'Intern collection':
+                    return redirect('../../../../form/student_form/complete')
+
+                if admin.phase == 'Job creation':
+                    return redirect('../../../../form/manager_form/complete')
+                    
+
+        return wrapper_func
+    return decorator
+    
+

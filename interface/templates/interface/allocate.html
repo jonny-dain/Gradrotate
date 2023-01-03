@@ -115,6 +115,46 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row g-0">
+                            <div class="card border-0 shadow-sm mb-3">
+                                <div class="card-body text-center"> 
+                                <form method="POST" action="">
+                                    <div class="row">
+
+                                    
+    
+                                    {% csrf_token %}
+                                    <div class="col-sm-auto">
+                                        Notify Users of their Allocations Online:
+
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <div class="form-check form-switch">
+                                            {{form.notify_allocations}}
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-auto">
+                                        <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                            <span class="tooltip-text" id="bottom">When logging on to the website in the Allocation Phase, Managers and Interns will be able to view their Allocations online
+                                            </span>
+                                          </div>
+
+                                    </div>
+                                </div>
+                                    
+                                    
+                                    
+                                    
+    
+                                </form>
+                                </div>
+
+                            </div>
+
+                            
+                            
+                        </div>
                     
                     
                 </div>

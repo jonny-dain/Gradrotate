@@ -99,25 +99,13 @@ class Intern(models.Model):
     admin_skills = models.ManyToManyField(AdminSkills)
 
     
-
-
-
-
-
-
-
-
-
-    #Job preferences
-    #location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
-    
     job_location = models.ForeignKey(JobLocation, null=True, on_delete=models.SET_NULL)
     
 
 
     remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
     
-
+    
 
 
     
@@ -129,6 +117,8 @@ class Intern(models.Model):
     #project_management = models.IntegerField(default = 5)
     #marketing1_skills = models.IntegerField(default = 5)
     #web_skills = models.IntegerField(default = 5)
+
+    allocated_job = models.ForeignKey('Job', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return str(self.name)
@@ -179,7 +169,7 @@ class Job(models.Model):
     #Wage
     wage = models.IntegerField(default = 15000)
 
-
+    
 
     #Skills
     computing_skills = models.ManyToManyField(ComputingSkills)
@@ -199,6 +189,8 @@ class Job(models.Model):
     #project_management = models.IntegerField(default = 5)
     #marketing1_skills = models.IntegerField(default = 5)
     #web_skills = models.IntegerField(default = 5)
+
+    allocated_intern = models.ForeignKey(Intern, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return str(self.name)
@@ -225,6 +217,8 @@ class Admin(models.Model):
 
     total_jobs = models.IntegerField(default=0)
     total_interns = models.IntegerField(default=0)
+
+    notify_allocations = models.BooleanField(default=False)
 
     name = models.CharField(max_length = 200, null = True)
     def __str__(self):

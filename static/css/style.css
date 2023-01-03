@@ -835,6 +835,7 @@ input[type="range"] {
   background-color: #5B7F8B;
   color: white;
   border-bottom: none;
+  display: block;
 }
 
 

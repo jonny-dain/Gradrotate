@@ -19,7 +19,7 @@ class AdminForm(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
-        exclude = ['name','user','total_jobs','total_interns','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
+        exclude = ['name','user','notify_allocations','total_jobs','total_interns','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
 
 
 
@@ -37,7 +37,7 @@ class AdminForm2(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
-        exclude = ['name','user','phase','total_jobs','total_interns']
+        exclude = ['name','user','phase','notify_allocations','total_jobs','total_interns']
 
     def __init__(self, *args, **kwargs):
         super(AdminForm2, self).__init__(*args, **kwargs)
@@ -50,4 +50,19 @@ class AdminToggleAutomaticPhase(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
+        exclude = ['name','user','notify_allocations','total_jobs','total_interns','phase','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
+
+
+
+
+class AdminToggleNotify(ModelForm):
+    notify_allocations = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'onchange': 'submit();'}))
+    
+    class Meta:
+        model = Admin
+        fields = '__all__'
         exclude = ['name','user','total_jobs','total_interns','phase','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
+
+    def __init__(self, *args, **kwargs):
+        super(AdminToggleNotify, self).__init__(*args, **kwargs)
+        self.fields['notify_allocations'].required = False

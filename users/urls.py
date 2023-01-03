@@ -2,6 +2,7 @@ from django.urls import path
 from users import views
 
 urlpatterns = [
+    
     path('student_form/', views.student_form),
     path('student_form/requirements',views.student_form_requirements, name= 'student_form_requirements'),
     path('student_form/skills',views.student_form_skills),
@@ -11,6 +12,8 @@ urlpatterns = [
     path('manager_form/skills', views.manager_form_skills),
     path('student_form/complete', views.student_complete),
     path('manager_form/complete', views.manager_complete),
+    path('student_form/allocation/complete', views.student_allocation_complete),
+    path('manager_form/allocation/complete', views.manager_allocation_complete),
 
 
 ]

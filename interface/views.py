@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import *
 from accounts.permissions import allowed_users, update_phase
-from interface.forms import AdminForm, AdminForm2, AdminToggleAutomaticPhase
+from interface.forms import AdminForm, AdminForm2, AdminToggleAutomaticPhase, AdminToggleNotify
 from interface.gale_shapely import *
 from interface.preferences import *
 from users.forms import ManagerCreateOffice, ManagerCreateSkills
@@ -144,8 +144,8 @@ def admin_interface(request):
 
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def intern_interface(request):
     
     
@@ -158,8 +158,8 @@ def intern_interface(request):
     return render(request, 'interface/interns.html', context)
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def job_interface(request):
     
     jobs = Job.objects.all()
@@ -171,8 +171,8 @@ def job_interface(request):
     return render(request, 'interface/jobs.html', context)
 
 #This is to delete Interns from the system
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteIntern(request, pk):
 
     
@@ -183,8 +183,8 @@ def deleteIntern(request, pk):
     #need to delete all interns items
     return redirect('../../../admin_interface/interns/')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteJob(request, pk):
 
     job = Job.objects.get(id=pk)
@@ -193,16 +193,16 @@ def deleteJob(request, pk):
     job.delete()
     return redirect('../../../admin_interface/jobs/')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteOffice(request, pk):
     office = JobLocation.objects.get(id=pk)
     office.delete()
     return redirect('../../../admin_interface')
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillComputing(request, pk):
     skill = ComputingSkills.objects.get(id=pk)
     skill.delete()
@@ -215,36 +215,36 @@ def deleteSkillAnalytic(request, pk):
     skill.delete()
     return redirect('../../../admin_interface')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillMarketing(request, pk):
     skill = MarketingSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillManagement(request, pk):
     skill = ManagementSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillLeadership(request, pk):
     skill = LeadershipSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillBusiness(request, pk):
     skill = BusinessSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillAdmin(request, pk):
     skill = AdminSkills.objects.get(id=pk)
     skill.delete()
@@ -254,8 +254,8 @@ def deleteSkillAdmin(request, pk):
 
 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def allocate_interface(request):
     admin = Admin.objects.all().first()
 
@@ -283,6 +283,12 @@ def allocate_interface(request):
                 job_preference=job_preference,
             )  
 
+            #Saves the allocated interns and jobs to the profiles
+            for pair in allocated_pairs:
+                pair[0].allocated_job = pair[1]
+                pair[1].allocated_intern = pair[0]
+                pair[0].save()
+                pair[1].save()
 
             first_preference = 0
             second_preference = 0
@@ -299,8 +305,27 @@ def allocate_interface(request):
                         elif pair[1] == jobs[2]:
                             third_preference += 1
 
-            context = {'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs, 'first_preference' : first_preference, 'second_preference' : second_preference, 'third_preference' : third_preference}
+            form = AdminToggleNotify(instance= admin)
+            if request.method == 'POST':
+                form = AdminToggleNotify(request.POST, instance= admin)  
+                form.save()
+
+
+
+
+
+
+            context = {'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs, 'first_preference' : first_preference, 'second_preference' : second_preference, 'third_preference' : third_preference}
             return render(request, 'interface/allocate.html', context)
+
+
+
+
+
+
+
+
+
         except:
 
             messages.info(request, 'Error - Make sure all Intern preferences are filled in')
@@ -316,8 +341,8 @@ def allocate_interface(request):
 
 #This allocates excel files 
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../login')
+@allowed_users(allowed_roles=['Admin'])
 def allocate_excel(request):
 
 

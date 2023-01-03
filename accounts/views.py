@@ -61,6 +61,16 @@ def login(request):
                         return redirect('../form/student_form')
                     else:
                         auth_logout(request)
+                if (admin.phase == 'Allocation'):
+                    if group == 'Intern':
+                        print('here')
+                        return redirect('../../../../form/student_form/allocation/complete')
+
+                    if group == 'Manager':
+                        return redirect('../../../../form/manager_form/allocation/complete')
+                    
+
+                        
                 messages.info(request, 'We are currently in the '+ str(admin.phase)+ ' phase, please try again later')
                 auth_logout(request)
                 return render(request, 'accounts/login.html')

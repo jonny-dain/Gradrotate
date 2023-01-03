@@ -82,48 +82,230 @@
                                 <div class="modal-header">
                                     <div class="row">
                                         
-                                            <h5 class="job-card-title-text" id="modal-project-{{project.pk}}-label">{{i.name}}</h5>
-                                        
+                                        <div class="col-3">
+                                            <div class=" text-center" >
+                                                <h7 class= "job-card-title-text " >Current ranking</h7>
 
+                                            </div>
+                                            
+                                        </div>
                                         
-                                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="col-6">
+                                            <div class=" text-center" >
+                                                <h7 class= "job-card-title-text " >Job Title</h7>
+                                               
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-3">
+                                            <div class=" text-center" >
+                                                <h7 class= "job-card-title-text " >Percentage Match</h7>
+                                            </div>
+                                            
+                                        </div>
+                                       
+                                    </div>
+                                    
 
+                                    <div class="row">
+                                        
+                                            <div class="col-3">
+                                                <div class=" text-center" >
+                                                    <h4 class= "job-card-title-text " >#{{forloop.counter}}</h4>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <div class="col-6">
+                                                <div class=" text-center" >
+                                                    <h4 class= "job-card-title-text " >{{i.name}}</h4>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-3">
+                                                <div class=" text-center" >
+                                                    <h4 class= "job-card-title-text " >{{jobs_percentage}}%</h4>
+                                                </div>
+                                                
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                           
+                                        
+                         
 
                                         
                                         
                                     </div>
                                     
-                                </div>
+                                
                                 <div class="modal-body">
                                     <div class="container-fluid">
-                                        <div class="row mt-1 mb-2">
-                                            <div class="col-md-7">
-                                                <div class="question-text">
-                                                Description:
+                                        <div class="row">
+                                        <div class="col-lg-7">
+                                            <div class="row pt-2">
+                                                <div class="question-text float-start">
+                                                    Description:
+                                                </div>
+
+                                            </div>
+                                            <div class="row pt-2">
+                                                <div style="padding-left: 12px; padding-right: 12px;">
+                                                    {{i.description}}
+                                                
                                                 </div>
                                                 
+
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="row pt-2">
+                                                <div class="question-text">
+                                                    Daily Tasks:
+                                                </div>
+
+                                            </div>
+                                            <div class="row pt-2">
+                                                <div style="padding-left: 12px; padding-right: 12px;">
+                                                    {{i.daily_tasks}}
+                                                </div>
+                                               
+
+                                            </div>
+                                            
+                                            
+                                            
+
+                                            
+
+
+
+                                        </div>
+                                        <div class="col-lg-5">
+                                            
                                                 <div class="question-text">
                                                     Key Skills:
                                                 </div>
                                                 
-                                                
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                
-                                                {{i.description}}
-                                            </div>
-                                            <div class="col-md-5">
-                                               
                                                 {% for skills in jobs_skills %}
-                                                <button type="button" class="skill-button">{{skills}} </button>
-                                                {% endfor %}
+                                                    <button type="button" class="skill-button">{{skills}} </button>
+                                                    {% endfor %}
+
+                                           
+                                            
+                                            <div class="row pt-2">
+                                                <div class="col-5">
+                                                    <div class="question-text float-start">
+                                                        Location: 
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class = "">
+                                                        {{i.job_location.location}}
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
+                                            <div class="row pt-2">
+                                                <div class="col-5">
+                                                    <div class="question-text float-start">
+                                                        Team: 
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class = "">
+                                                       
+                                                        {{i.team}}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="row pt-2">
+                                                <div class="col-5">
+                                                    <div class="question-text float-start">
+                                                        Remote Balance: 
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class = "">
+                                                       
+                                                        {{i.remote}} (Days In The Office A Week)
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="row pt-2">
+                                                <div class="col-5">
+                                                    <div class="question-text float-start">
+                                                        Wage: 
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class = "">
+                                                       
+                                                        £{{i.wage}}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row pt-2">
+                                                <div class="col-5">
+                                                    <div class="question-text float-start">
+                                                        Manager's Name: 
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class = "">
+                                                       
+                                                        {{i.manager_name}}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row pt-2">
+                                                <div class="col-5">
+                                                    <div class="question-text float-start">
+                                                        Manager's Email: 
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class = "">
+                                                       
+                                                        {{i.email }}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            
+                                        
+                                            
+                                            
+
+                                            
+
+
+                                            
+    
                                         </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                        
+
+
+
+
+
                                     </div>
                                 </div>
                                 <div class="modal-footer">

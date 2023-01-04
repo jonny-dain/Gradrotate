@@ -46,8 +46,9 @@
                                                            
                                 </div>
                                 <div class="col-3">
-                                    <i class="fa fa-sharp fa-solid fa-lg fa-location-dot float-start" style = "color: #294b63;"></i>
-                                    <div class="card-description float-end">
+                                    <div class="card-description pt-2">
+                                        <i class="fa fa-sharp fa-solid fa-lg fa-location-dot float-start" style = "color: #294b63;"></i>
+                                    
                                         
                                         {{i.job_location.location}}
                                     </div>
@@ -56,14 +57,15 @@
                             </div>
                             <div class="row" style="max-height: 50px;">
                                 <div class="col-9">
-                                    <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
+                                    <button type="button" class="btn btn-secondary justify-content-center" data-bs-toggle="modal" data-bs-target="#modal{{ i.id }}">
                                         Read more
                                     </button>
 
                                 </div>
                                 <div class="col-3">
-                                    <i class=" fa fa-solid fa-lg fa-users" style = "color: #294b63;"></i>
-                                    <div class="card-description">
+                                    
+                                    <div class="card-description pt-2">
+                                        <i class=" fa fa-solid fa-lg fa-users" style = "color: #294b63;"></i>
                                         {{i.team}}
 
                                     </div>

@@ -39,12 +39,13 @@
                 
                 {% if request.user.is_authenticated %}
                 
-                <li><a href="../../../logout">Logout</a></li>
+                
+                <a class="register-button" style="text-decoration: none;" href="../../../logout">Logout</a>
 
                 {% else %}
 
-                <li><a href="../../../login">Login</a></li>
-                <li><a href="../../../register">Sign Up</a></li>
+                <a class="sign-in-button" style="text-decoration: none;" href="../../../login">Sign In</a>
+                <a class="register-button" style="text-decoration: none;" href="../../../register">Sign Up</a>
                 
 
                 {% endif %}

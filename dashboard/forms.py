@@ -31,7 +31,7 @@ class InternPreferenceForm(ModelForm):
         cleaned_data = self.cleaned_data
         job = cleaned_data.get('job')
         preference = cleaned_data.get('preference')
-        print('here')
+        
         if (range(preference) == 0):
 
             self.add_error('preference', 'Event end date should not occur before start date.')

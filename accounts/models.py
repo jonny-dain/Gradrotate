@@ -125,14 +125,19 @@ class Intern(models.Model):
 
 
 
+class Manager(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    
 
+    def __str__(self):
+        return str(self.manager_name)  
 
 
 
 
 
 class Job(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    #user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     JOB_LOCATIONS = (
         ('Newbury','Newbury'),
         ('London Paddington', 'London Paddington'),
@@ -145,6 +150,10 @@ class Job(models.Model):
         ('1-2','1-2'),
         ('Remote','Remote'),
     )
+
+    manager = models.ForeignKey(Manager, null=True, on_delete=models.CASCADE)
+
+
 
 
     email = models.CharField(max_length = 200, null = True)

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from .permissions import authenticated_user, allowed_users, update_phase
+from .permissions import allowed_users, update_phase
 from django.contrib.auth.models import Group
 
 
@@ -18,7 +18,6 @@ from .forms import CreateUserForm
 import datetime
 
 @update_phase
-@authenticated_user
 def homepage(request):
     admin = Admin.objects.all().first()
     total_interns = admin.total_interns
@@ -26,8 +25,11 @@ def homepage(request):
     context = {'total_interns': total_interns, 'total_jobs': total_jobs}
     return render(request, 'accounts/homepage.html', context)
 
+
+
+
+
 @update_phase
-@authenticated_user
 def login(request):
 
     if request.method == 'POST':
@@ -47,13 +49,36 @@ def login(request):
                 if group == 'Admin':
                     return redirect('../../admin_interface')
                 
+
+
+
+
+
                 if (admin.phase == 'Job creation'):
                     if group == 'Manager':
-                        if request.user.job.progress == 5:
-                            return redirect('../form/manager_form/complete')
-                        return redirect('../form/manager_form')
+                        
+
+
+                        jobs = Job.objects.all()
+                        manager_jobs = Job.objects.filter(manager = request.user.manager)
+                        
+                        return redirect('../form/manager_dashboard')
+
+
+
+
                     else:
                         auth_logout(request)
+
+
+
+
+
+
+
+                
+                
+
                 if (admin.phase == 'Intern collection'):
                     if group == 'Intern':
                         if request.user.intern.progress == 5:
@@ -61,10 +86,14 @@ def login(request):
                         return redirect('../form/student_form')
                     else:
                         auth_logout(request)
+
+
+                        
                 if (admin.phase == 'Allocation'):
                     if group == 'Intern':
-                        print('here')
+                        
                         return redirect('../../../../form/student_form/allocation/complete')
+
 
                     if group == 'Manager':
                         return redirect('../../../../form/manager_form/allocation/complete')
@@ -87,7 +116,7 @@ def logout(request):
     return redirect('../')
     
       
-@authenticated_user
+
 def register(request):
     admin = Admin.objects.all().first()
     form = CreateUserForm()
@@ -101,14 +130,31 @@ def register(request):
             user.groups.add(group)
             if role == 'Admin':
                 return redirect('../../interface')
+
             if role == 'Manager':
-                Job.objects.create(
-                    user = user,
-                    email = user.email,
+                Manager.objects.create(
+                    user= user,
                     
                 )
-                admin.total_jobs += 1
-                admin.save()
+
+                
+
+
+
+
+                #Job.objects.create(
+                #    user = user,
+                #    email = user.email,
+                #    
+                #)
+                #admin.total_jobs += 1
+                #admin.save()
+
+
+
+
+
+
 
             if role == 'Intern':
                 Intern.objects.create(

@@ -38,7 +38,7 @@ class BaseCheckFormSet(BaseFormSet):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(4)
 @required_phase(phase=['Intern collection'])
@@ -90,7 +90,7 @@ def preference(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 def sort(request):
     preference_pks_order = request.POST.getlist('preference_order')

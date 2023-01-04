@@ -15,7 +15,7 @@ from geopy.geocoders import Nominatim
 import openpyxl
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 @update_phase
 def admin_interface(request):
@@ -74,7 +74,7 @@ def admin_interface(request):
         elif 'Submit_phase' in request.POST:
             if automatic_phase.is_valid():
                 #Changes the phases on the admin panel 
-                print('here')
+                
                 automatic_phase.save()
                 return redirect('../../../admin_interface')
 
@@ -144,7 +144,7 @@ def admin_interface(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def intern_interface(request):
     
@@ -158,7 +158,7 @@ def intern_interface(request):
     return render(request, 'interface/interns.html', context)
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def job_interface(request):
     
@@ -171,7 +171,7 @@ def job_interface(request):
     return render(request, 'interface/jobs.html', context)
 
 #This is to delete Interns from the system
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteIntern(request, pk):
 
@@ -183,17 +183,16 @@ def deleteIntern(request, pk):
     #need to delete all interns items
     return redirect('../../../admin_interface/interns/')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteJob(request, pk):
 
     job = Job.objects.get(id=pk)
     InternPreference.objects.filter(job = job).delete()
-    User.objects.get(job = job).delete()
     job.delete()
     return redirect('../../../admin_interface/jobs/')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteOffice(request, pk):
     office = JobLocation.objects.get(id=pk)
@@ -201,49 +200,49 @@ def deleteOffice(request, pk):
     return redirect('../../../admin_interface')
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteSkillComputing(request, pk):
     skill = ComputingSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-#@login_required(login_url='../login')
-#@allowed_users(allowed_roles=['Admin'])
+@login_required(login_url='../../../../login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteSkillAnalytic(request, pk):
     skill = AnalyticSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteSkillMarketing(request, pk):
     skill = MarketingSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteSkillManagement(request, pk):
     skill = ManagementSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteSkillLeadership(request, pk):
     skill = LeadershipSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteSkillBusiness(request, pk):
     skill = BusinessSkills.objects.get(id=pk)
     skill.delete()
     return redirect('../../../admin_interface')
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def deleteSkillAdmin(request, pk):
     skill = AdminSkills.objects.get(id=pk)
@@ -254,7 +253,7 @@ def deleteSkillAdmin(request, pk):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def allocate_interface(request):
     admin = Admin.objects.all().first()
@@ -341,7 +340,7 @@ def allocate_interface(request):
 
 #This allocates excel files 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def allocate_excel(request):
 

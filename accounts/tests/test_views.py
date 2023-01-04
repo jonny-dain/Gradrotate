@@ -84,13 +84,13 @@ class LoginTest(TestCase):
             user.groups.add(group)
             
             group = user.groups.all()[0].name
-            print(user.group)
+            
             user.save()
 
         response = self.client.get(self.login_url)
 
         #response = self.client.post(self.login_url,self.user, format ='text/html')
-        print(response)
+       
 
         #self.assertEqual(response.status_code,302)
 

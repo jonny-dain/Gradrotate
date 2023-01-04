@@ -3,14 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from accounts.models import Admin
 
-def authenticated_user(view_func):
-    def wrapper_func(request, *arg, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('../dashboard')
-        else:
-            return view_func(request, *arg, **kwargs)
 
-    return wrapper_func
 
 def allowed_users(allowed_roles=[]):
     def decorator(view_func):
@@ -30,7 +23,7 @@ def allowed_users(allowed_roles=[]):
                     return redirect('../../admin_interface')
                 
                 if group == 'Manager':
-                    return redirect('../form/manager_form')
+                    return redirect('../form/manager_dashboard')
                 
                 if group == 'Intern':
                     return redirect('../form/student_form')
@@ -53,11 +46,7 @@ def update_progress(progress):
                         request.user.intern.progress = progress
                         request.user.intern.save()
 
-                if group == 'Manager':
-                    if request.user.job.progress < progress:
-                        request.user.job.progress = progress
-                        request.user.job.save()
-
+              
             return view_func(request, *arg, **kwargs)
             
         return wrapper_func
@@ -112,14 +101,13 @@ def required_phase(phase=[]):
                         return redirect('../../../../form/manager_form/allocation/complete')
                     if group == 'Intern':
                         return redirect('../../../../form/student_form/allocation/complete')
-                if admin.phase == 'Intern collection':
-                    return redirect('../../../../form/student_form/complete')
-
-                if admin.phase == 'Job creation':
-                    return redirect('../../../../form/manager_form/complete')
+                
                     
 
         return wrapper_func
     return decorator
     
+
+
+
 

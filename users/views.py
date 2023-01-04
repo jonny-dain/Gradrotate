@@ -4,6 +4,7 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.permissions import allowed_users, required_phase, update_progress
+from users.models import InternPreference
 from .forms import *
 from django.contrib import messages
 import json 
@@ -13,7 +14,7 @@ from geopy.geocoders import Nominatim
 
 # Create your views here.
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(1)
 @required_phase(phase=['Intern collection'])
@@ -36,7 +37,7 @@ def student_form(request):
     
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(2)
 @required_phase(phase=['Intern collection'])
@@ -66,7 +67,7 @@ def student_form_requirements(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(3)
 @required_phase(phase=['Intern collection'])
@@ -108,13 +109,27 @@ def student_form_skills(request):
 
 
 
+
+
     
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Manager'])
-@update_progress(1)
 @required_phase(phase=['Job creation'])
-def manager_form(request):
-    job = request.user.job
+def manager_form(request, pk):
+    #job = request.user.job
+    job = Job.objects.get(id=pk)
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
+
+    
+    
+
+    if job.progress < 1:
+        job.progress = 1
+        job.save()
+
     #.job
     form = ManagerForm(instance= job)
 
@@ -127,7 +142,7 @@ def manager_form(request):
         if form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
             form.save()
-            return redirect('../../form/manager_form/information')
+            return redirect('../../../form/'+str(job.id)+'/manager_form/information')
 
 
     context = {'form': form, 'job': job}
@@ -137,13 +152,21 @@ def manager_form(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Manager'])
-@update_progress(2)
 @required_phase(phase=['Job creation'])
-def manager_form_requirements(request):
-    job = request.user.job
-    #.job
+def manager_form_requirements(request, pk):
+    #job = request.user.job
+    job = Job.objects.get(id=pk)
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
+
+    if job.progress < 2:
+        job.progress = 2
+        job.save()
+
     form = ManagerForm2(instance= job)
 
     location_list = list(JobLocation.objects.all().values()) 
@@ -154,7 +177,7 @@ def manager_form_requirements(request):
         if form.is_valid():
             #gathers all the skills
             form.save()
-            return redirect('../../form/manager_form/information_2')
+            return redirect('../../../form/'+str(job.id)+'/manager_form/information_2')
 
     context = {'form': form, 'job': job, 'locations': location_json}
     return render(request, 'users/manager_form2.html', context)
@@ -162,13 +185,21 @@ def manager_form_requirements(request):
 
 
     
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Manager'])
-@update_progress(3)
 @required_phase(phase=['Job creation'])
-def manager_form_additional_requirements(request):
-    job = request.user.job
-    #.job
+def manager_form_additional_requirements(request, pk):
+    #job = request.user.job
+    job = Job.objects.get(id=pk)
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
+
+    if job.progress < 3:
+        job.progress = 3
+        job.save()
+
     form = ManagerForm4(instance= job)
     form2 = ManagerCreateOffice()
 
@@ -196,14 +227,14 @@ def manager_form_additional_requirements(request):
                     context = {'form': form, 'additional_office': form2, 'job': job, 'locations': location_json}
                     return render(request, 'users/manager_form4.html', context)
 
-                return redirect('../../form/manager_form/information_2')
+                return redirect('../../../form/'+str(job.id)+'/manager_form/information_2')
 
         elif 'Submit_form' in request.POST:   
             if form.is_valid():
                 #gathers all the skills
                 job.wage = form.data['wage_value']
                 form.save()
-                return redirect('../../form/manager_form/skills')
+                return redirect('../../../form/'+str(job.id)+'/manager_form/skills')
 
         
 
@@ -218,13 +249,20 @@ def manager_form_additional_requirements(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Manager'])
-@update_progress(4)
 @required_phase(phase=['Job creation'])
-def manager_form_skills(request):
-    job = request.user.job
-    #.job
+def manager_form_skills(request, pk):
+    job = Job.objects.get(id=pk)
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
+
+    if job.progress < 4:
+        job.progress = 4
+        job.save()
+
     form = ManagerForm3(instance= job)
     additional_skills = ManagerCreateSkills()
 
@@ -256,7 +294,7 @@ def manager_form_skills(request):
                 
                 skills.create(name = skill_name)
             
-            return redirect('../../form/manager_form/skills')
+            return redirect('../../../form/'+str(job.id)+'manager_form/skills')
 
         elif form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
@@ -278,7 +316,7 @@ def manager_form_skills(request):
                 form.save()
 
                 #redirect to done... 
-                return redirect('../../form/manager_form/complete')
+                return redirect('../../../form/'+str(job.id)+'/manager_form/complete')
 
 
     context = {'form': form, 'job': job, 'additional_skills' : additional_skills}
@@ -286,15 +324,14 @@ def manager_form_skills(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(5)
 @required_phase(phase=['Intern collection'])
 def student_complete(request):
     #Top choices
     intern = request.user.intern
-    print(intern.progress)
-    print(intern.progress)
+    
     intern.save()
 
     preferences = intern.internpreference_set.all()
@@ -316,18 +353,44 @@ def student_complete(request):
 
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Manager'])
-@update_progress(5)
 @required_phase(phase=['Job creation'])
-def manager_complete(request):
+def manager_complete(request, pk):
+    job = Job.objects.get(id=pk)
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
 
 
-    context = {}
+
+    if job.progress < 5:
+        job.progress = 5
+        job.save()
+
+
+
+
+
+
+    
+    skills = []
+    skills += job.computing_skills.all()
+    skills += job.analytic_skills.all()
+    skills += job.marketing_skills.all()
+    skills += job.management_skills.all()
+    skills += job.leadership_skills.all()
+    skills += job.business_skills.all()
+    skills += job.admin_skills.all()
+  
+
+
+    context = {'job' : job, 'skills' : skills }
     return render(request, 'users/manager_complete.html', context)
 
 
-@login_required(login_url='../login')
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @required_phase(phase=['Allocation'])
 def student_allocation_complete(request):
@@ -347,13 +410,75 @@ def student_allocation_complete(request):
 
 
 
-@login_required(login_url='../login')
+
+@login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Manager'])
 @required_phase(phase=['Allocation'])
 def manager_allocation_complete(request):
-    job = request.user.job
-    intern = job.allocated_intern
-    admin = Admin.objects.all().first()
     
-    context = {'intern':intern, 'admin':admin}
+    admin = Admin.objects.all().first()
+    manager_jobs = Job.objects.filter(manager = request.user.manager)
+
+
+    context = {'manager_jobs':manager_jobs, 'admin':admin}
     return render(request, 'users/manager_allocate_complete.html', context)
+
+
+
+
+
+
+
+
+
+@login_required(login_url='../../../../login')
+@allowed_users(allowed_roles=['Manager'])
+@required_phase(phase=['Job creation'])
+def manager_dashboard(request):
+    
+    manager_jobs = Job.objects.filter(manager = request.user.manager)
+
+    context = {'manager_jobs':manager_jobs}
+    return render(request, 'users/manager_dashboard.html', context)
+
+
+@login_required(login_url='../../../../login')
+@allowed_users(allowed_roles=['Manager'])
+@required_phase(phase=['Job creation'])
+def manager_create_job(request):
+    admin = Admin.objects.all().first()
+    user = request.user
+    manager = request.user.manager
+
+    job = Job.objects.create(
+        manager = manager,
+        email = user.email,
+        
+    )
+    job.save()
+
+    admin.total_jobs += 1
+    admin.save()
+
+
+    return redirect('../../../form/'+str(job.id)+'/manager_form')
+
+
+
+
+@login_required(login_url='../../../../login')
+@allowed_users(allowed_roles=['Manager'])
+@required_phase(phase=['Job creation'])
+def manager_delete_job(request, pk):
+    
+    job = Job.objects.get(id=pk)
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
+
+
+
+    job.delete()
+    InternPreference.objects.filter(job = job).delete()
+    return redirect('../../../../../../form/manager_dashboard/')

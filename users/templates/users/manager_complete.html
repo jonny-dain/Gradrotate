@@ -4,7 +4,7 @@
 {% block content %}
 
 <header>
-    <title>Manager Form | Gradrotate</title>
+    <title>{{job.name}} | Gradrotate</title>
   </header>
 
 
@@ -18,9 +18,12 @@
     <div class="container-fluid p-0 m-0">
         <div class = 'title-bar text-center'>
             <div class = "row justify-content-center">
-            <h3 style="margin-top: 50px;">Job Submitted!</h3>
+            <h3 style="margin-top: 50px;">{{job.name}}</h3>
             </div>
         </div>
+        
+
+        <div class="row">
         <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
             <div class="row">
                 <div class="col-2">
@@ -42,16 +45,197 @@
                     
                 
             </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3 text-center">
+                <a href="{% url 'managerForm' job.id %}" class="save-button p-2 m-2 text-center" style="display: inline;text-decoration:none;">Edit Job</a>
+            
 
+            </div>
+            <div class="col-3 text-center">
+                <a href="{% url 'managerForm4' job.id %}" class="save-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Edit Skills</a>
+            
+
+            </div>
+            <div class="col-3 text-center">
+                <a href="{% url 'managerDeleteJob' job.id %}" class="back-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Delete Job</a>
+            
+
+            </div>
+        
+        
+        </div>
+        <div class="row" style="padding-bottom: 70px;">
+
+        
+    
+            <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 70rem;">
+                 
+                <div class="job-card-body">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row pt-2">
+                                <div class="question-text float-start">
+                                    Description:
+                                </div>
+
+                            </div>
+                            <div class="row pt-2">
+                                <div style="padding-left: 12px; padding-right: 12px;">
+                                    {{job.description}}
+                                
+                                </div>
+                                
+
+                            </div>
+                            <div class="row pt-2">
+                                <div class="question-text">
+                                    Daily Tasks:
+                                </div>
+
+                            </div>
+                            <div class="row pt-2">
+                                <div style="padding-left: 12px; padding-right: 12px;">
+                                    {{job.daily_tasks}}
+                                </div>
+                               
+
+                            </div>
+                            
+                            
+                            
+
+                            
+
+
+
+                        </div>
+                        <div class="col-lg-5">
+                            
+                                <div class="question-text">
+                                    Key Skills:
+                                </div>
+                                    {% for skill in skills %}
+                                    <button type="button" class="skill-button">{{skill}}</button>
+
+                                        {% endfor %}
+                                
+                               
+
+                           
+                            
+                            <div class="row pt-3">
+                                <div class="col-5">
+                                    <div class="question-text float-start">
+                                        Location: 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class = "">
+                                        {{job.job_location.location}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-5">
+                                    <div class="question-text float-start">
+                                        Team: 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class = "">
+                                       
+                                        {{job.team}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-5">
+                                    <div class="question-text float-start">
+                                        Remote Balance: 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class = "">
+                                       
+                                        {{job.remote}} (Days In The Office A Week)
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-5">
+                                    <div class="question-text float-start">
+                                        Wage: 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class = "">
+                                       
+                                        £{{job.wage}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-5">
+                                    <div class="question-text float-start">
+                                        Manager's Name: 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class = "">
+                                       
+                                        {{job.manager_name}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row pt-3">
+                                <div class="col-5">
+                                    <div class="question-text float-start">
+                                        Manager's Email: 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class = "">
+                                       
+                                        {{job.email }}
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            
+                        
+                            
+                            
+
+                            
+
+
+                            
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        
 
     </div>
     
     <div class="save-bar">
         <div style = "display: flex; justify-content: center; ">        
                 
-            <a href="../../../form/manager_form/" class="save-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Edit profile</a>
-            <a href="../../../form/manager_form/skills" class="save-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Edit skills</a>
-              
+            <a href="../../../../form/manager_dashboard/" class="back-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Return to dashboard</a>
+               
                 
               
         </div>

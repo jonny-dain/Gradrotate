@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -289,32 +290,32 @@ def allocate_interface(request):
                 pair[0].save()
                 pair[1].save()
 
-            first_preference = 0
-            second_preference = 0
-            third_preference = 0
+          
 
             #works out how many interns got their first,second and third choices
-            for pair in allocated_pairs:
-                for intern, jobs in intern_preference.items():
-                    if pair[0] == intern:
-                        if pair[1] == jobs[0]:
-                            first_preference += 1
-                        elif pair[1] == jobs[1]:
-                            second_preference += 1
-                        elif pair[1] == jobs[2]:
-                            third_preference += 1
+
+           
+           
+                    
+
+            data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
+
 
             form = AdminToggleNotify(instance= admin)
             if request.method == 'POST':
                 form = AdminToggleNotify(request.POST, instance= admin)  
                 form.save()
+           
+                return redirect('../../../admin_interface/allocate/')
 
 
 
 
+            
 
 
-            context = {'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs, 'first_preference' : first_preference, 'second_preference' : second_preference, 'third_preference' : third_preference}
+
+            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs}
             return render(request, 'interface/allocate.html', context)
 
 

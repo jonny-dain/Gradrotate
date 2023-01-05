@@ -151,3 +151,57 @@ def excel_set(model):
    
     
 
+def spread_of_preference(allocated_pairs, intern_preference, job_preference):
+    all_jobs_count = Job.objects.all()
+    
+
+    pref_ranking = []
+    i = 0
+    while i < all_jobs_count.count():
+        i += 1
+        list = [i,0,0]
+        pref_ranking.append(list)
+
+
+
+    #[(<Intern: Intern1>, <Job: Digital degree>), (<Intern: Test>, <Job: TPO>), (<Intern: Test1>, <Job: Manager Testing Job>)]
+    for pair in allocated_pairs:
+        for intern, jobs in intern_preference.items():
+            
+            if pair[0] == intern:
+            
+                for count,data in enumerate(pref_ranking):
+                    
+
+                    if pair[1] == jobs[count]:
+                        
+                        data = pref_ranking[count][1]
+                        data += 1
+                        pref_ranking[count][1] = data
+
+
+    for pair in allocated_pairs:
+        for job, interns in job_preference.items():        
+            if pair[1] == job:
+                i=0
+                while i < Intern.objects.all().count():
+                                       
+                    if pair[0] == interns[i]:
+ 
+                        data = pref_ranking[i][2]
+                        data += 1
+                        pref_ranking[i][2] = data
+                    
+                    i += 1
+                    
+    return pref_ranking       
+             
+                    
+
+               
+
+
+                 
+                
+                
+            

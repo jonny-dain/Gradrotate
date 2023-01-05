@@ -7,6 +7,11 @@
 
 <header>
     <title>Allocate | Gradrotate</title>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
   </header>
 
 <main>
@@ -66,59 +71,63 @@
                 btn.onclick = function() {
                     sidebar.classList.toggle("active");
                 }
+
+
+
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawLogScales);
+                var djangoData = {{ data|safe }};
+
+                function drawLogScales() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Interns');
+                    data.addColumn('number', 'Managers');
+
+                    data.addRows(
+                        djangoData
+                    );
+
+                    var options = {
+                        hAxis: {
+                        title: 'Preference Ranking',
+                        logScale: false,
+                        gridlines: {
+                            color: 'transparent'
+                            },
+                        },
+                        
+                        vAxis: {
+                        title: 'Amount of Users',
+                        logScale: false,
+                        gridlines: {
+                            color: 'transparent'
+                            },
+                        },
+                        colors: ['#599a95', '#274b63'],
+                        legend: {position: 'top', textStyle: {fontSize: 14}}
+                    };
+
+                    function resize () {
+                            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                            chart.draw(data, options);
+                        }
+                    resize();
+                
+                    window.onresize = resize;
+
+                    
+                    }
+    
             </script>
             
 
             <div class = "row">
-                <div class="col-md-5">
-                        <div class="row g-0">
-                            <div class="col">
-                                <div class="card border-0 shadow-sm mb-3">
-                                    <div class="card-body text-center"> 
-                                        
-                                        <i class='bx bx-line-chart text-muted bx-sm'></i>
-                                        <h3><span>{{first_preference}}</span></h3>
-                                        <p class="text-muted font-15 mb-0">First preference</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card border-0 shadow-sm mb-3">
-                                    <div class="card-body text-center"> 
-                                        <i class='bx bx-bar-chart text-muted bx-sm' ></i>
-                                        <h3><span>{{second_preference}}</span></h3>
-                                        <p class="text-muted font-15 mb-0">Second preference</p>
-                                    </div>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <div class="row g-0">
-                            <div class="col">
-                                <div class="card border-0 shadow-sm mb-3">
-                                    <div class="card-body text-center"> 
-                                        <i class='bx bx-pie-chart text-muted bx-sm' ></i>
-                                        <h3><span>{{third_preference}}</span></h3>
-                                        <p class="text-muted font-15 mb-0">Third preference</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card border-0 shadow-sm mb-3">
-                                    <div class="card-body text-center"> 
-                                        <i class='bx bx-shuffle text-muted bx-sm' ></i>
-                                        {% if jobs.count < interns.count %}
-                                            <h3><span>{{jobs.count}}</span></h3>
-                                        {% else %}
-                                            <h3><span>{{interns.count}}</span></h3>
-                                        {% endif %}
-                                        <p class="text-muted font-15 mb-0">Total Allocations</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-0">
-                            <div class="card border-0 shadow-sm mb-3">
+                <div class="col-xl-6">
+                    <div style="width: 100%;" id="chart_div"></div>
+                        
+                        <div class="row pt-4 g-0">
+                            <div class="card border-0 mb-3">
                                 <div class="card-body text-center"> 
                                 <form method="POST" action="">
                                     <div class="row">
@@ -138,7 +147,7 @@
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
-                                            <span class="tooltip-text" id="bottom">When logging on to the website in the Allocation Phase, Managers and Interns will be able to view their Allocations online
+                                            <span class="tooltip-text" id="left">When logging on to the website in the Allocation Phase, Managers and Interns will be able to view their Allocations online
                                             </span>
                                           </div>
 
@@ -160,7 +169,7 @@
                     
                     
                 </div>
-                <div class="col-md-7">
+                <div class="col-xl-6">
                     <div class="card border-0 shadow-sm mb-3">
                         <div style = "overflow: auto; height:80vh;">
                             <table class="table" id="dtHorizontalVerticalExample" >
@@ -214,4 +223,6 @@
   });
   $('.dataTables_length').addClass('bs-select');
 });
+
+
 </script>

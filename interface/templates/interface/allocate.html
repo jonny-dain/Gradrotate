@@ -49,18 +49,17 @@
 
     <div class="content">
 
-        <div class="container-fluid" style = "padding: 5px 5px 5px;">
-            <div class = "row justify-content-start">
+        <div class="container-fluid" >
+            <div class = "row justify-content-start" style="background-color: #dde0e3;">
                 <div class = "col-1">
-                    <p class="h3"style = "padding: 5px 5px 5px; color:#6c757d;">
+                    <p class="h3"style = "padding: 5px 5px 5px; color:#565c62;">
                     <i class="fa fa-bars" id="btn1"></i>
                     </p>
                 </div>
                 <div class = "col-1">
-                    <p class="h3" style = "padding: 5px 5px 5px; color:#6c757d;">Allocation</p>
-                    
-                </div>
+                    <p class="h3" style = "padding: 5px 5px 5px; color:#565c62;">Allocate</p>
                 
+                </div>
             </div>
                 
             
@@ -121,12 +120,26 @@
     
             </script>
             
+          
+           
 
-            <div class = "row">
+            <div class = "row pt-2">
                 <div class="col-xl-6">
-                    <div style="width: 100%;" id="chart_div"></div>
-                        
-                        <div class="row pt-4 g-0">
+                    <div class="row text-center">
+                        <h5 style="color: #6c757d;">
+                            Statistics
+                        </h5>
+                        <div style="width: 100%;" id="chart_div"></div>
+
+                    </div>
+                    <div class="row pt-4 text-center">
+
+                   
+                    
+                    <h5 style="color: #6c757d;">
+                        Settings
+                    </h5>
+                        <div class="row pt-2 g-0">
                             <div class="card border-0 mb-3">
                                 <div class="card-body text-center"> 
                                 <form method="POST" action="">
@@ -153,6 +166,13 @@
 
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-auto">
+                                        Allocation algorithm:
+
+                                    </div>
+
+                                </div>
                                     
                                     
                                     
@@ -166,10 +186,18 @@
                             
                             
                         </div>
+                    </div>
                     
                     
                 </div>
                 <div class="col-xl-6">
+                    <div class="row text-center">
+                        <h5 style="color: #6c757d;">
+                            Allocation
+                        </h5>
+                        <div style="width: 100%;" id="chart_div"></div>
+
+                    </div>
                     <div class="card border-0 shadow-sm mb-3">
                         <div style = "overflow: auto; height:80vh;">
                             <table class="table" id="dtHorizontalVerticalExample" >

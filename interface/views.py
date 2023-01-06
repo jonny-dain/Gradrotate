@@ -275,14 +275,15 @@ def allocate_interface(request):
             job_set = set(jobs)
             intern_set = set(interns)
 
-
+            
             allocated_pairs = gale_allocation(
                 intern_set=intern_set,
                 job_set=job_set,
                 intern_preference=intern_preference,
                 job_preference=job_preference,
             )  
-
+            
+            
             #Saves the allocated interns and jobs to the profiles
             for pair in allocated_pairs:
                 pair[0].allocated_job = pair[1]
@@ -328,7 +329,7 @@ def allocate_interface(request):
 
         except:
 
-            messages.info(request, 'Error - Make sure all Intern preferences are filled in')
+            messages.info(request, 'Error - Make sure all Intern preferences are filled in and there are enough Jobs for each Intern')
             return redirect('../../../admin_interface')
 
     else:

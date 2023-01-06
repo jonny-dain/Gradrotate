@@ -14,6 +14,8 @@ from django.contrib.auth.models import Group
 from .models import *
 from .forms import CreateUserForm
 
+
+
 #Testing
 import datetime
 
@@ -172,3 +174,6 @@ def register(request):
     }
     return render(request, 'accounts/register.html', context)
 
+# HTTP Error 400
+def bad_request(request, exception):
+    return render(request, "accounts/error.html")

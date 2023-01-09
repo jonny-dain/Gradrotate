@@ -271,17 +271,31 @@ def allocate_interface(request):
             job_preference = job_preference_dictionary()
 
 
+        
 
-            job_set = set(jobs)
-            intern_set = set(interns)
+            if admin.allocation_algorithm == 'Gale Shapely':
+            
+                allocated_pairs = gale_allocation(
+                    intern_preference=intern_preference,
+                    job_preference=job_preference,
+                )  
+
+            elif admin.allocation_algorithm == 'Hungarian':
+
+                allocated_pairs = hungarian_algorithm(preference=intern_preference)
+        
+            else:
+                print('wrong')
 
             
-            allocated_pairs = gale_allocation(
-                intern_set=intern_set,
-                job_set=job_set,
-                intern_preference=intern_preference,
-                job_preference=job_preference,
-            )  
+
+            
+            #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
+
+            
+
+            #allocated_pairs = hungarian_algorithm(preference=intern_preference)
+           
             
             
             #Saves the allocated interns and jobs to the profiles
@@ -291,7 +305,7 @@ def allocate_interface(request):
                 pair[0].save()
                 pair[1].save()
 
-          
+            
 
             #works out how many interns got their first,second and third choices
 
@@ -300,7 +314,11 @@ def allocate_interface(request):
                     
 
             data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
-
+         
+            data_intern_match = percentage_match(1,data)
+            data_job_match = percentage_match(2,data)
+            data_overall_match = int(((data_intern_match + data_job_match)/2))
+            
 
             form = AdminToggleNotify(instance= admin)
             if request.method == 'POST':
@@ -311,12 +329,7 @@ def allocate_interface(request):
 
 
 
-
-            
-
-
-
-            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs}
+            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs,'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
             return render(request, 'interface/allocate.html', context)
 
 
@@ -364,9 +377,8 @@ def allocate_excel(request):
             intern_set = excel_set(model = intern_excel)
             job_set = excel_set(model = job_excel)
             preference_number = intern_excel.max_row - 1
+
             allocated_pairs = gale_allocation(
-                intern_set=intern_set,
-                job_set=job_set,
                 intern_preference=intern_preference,
                 job_preference=job_preference,
             )  

@@ -1,4 +1,5 @@
 from collections import deque
+from hungarian_algorithm import algorithm
 
 #formula run here
 def pref_rank(pref):
@@ -7,18 +8,24 @@ def pref_rank(pref):
     pref_rank = {}
 
     for intern, intern_preference in pref.items():
-
-        pref_rank.update({intern: {job: rank for rank, job in enumerate(intern_preference)}})
+        
+        #Creates a rank for each of the jobs and interns
+        pref_rank.update({intern: {job: (rank+1) for rank, job in enumerate(intern_preference)}})
 
     return pref_rank
     
 
 
-def gale_allocation(*, intern_set, job_set, intern_preference, job_preference):
+def gale_allocation(*, intern_preference, job_preference):
     
     job_rank = pref_rank(job_preference)
 
 
+    intern_set = list(intern_preference.keys())
+    job_set = list(job_preference.keys())
+    
+    
+    
     #create a deque for the iterate list.. this will get apprended to and deleted and remove items in the list
     iterate_list ={}
     for intern, jobs in intern_preference.items():
@@ -59,3 +66,20 @@ def gale_allocation(*, intern_set, job_set, intern_preference, job_preference):
     
     #Return pair of iterns and jobs... 
     return [(intern, job) for job, intern in pair.items()]
+
+
+#https://github.com/benchaplin/hungarian-algorithm
+def hungarian_algorithm(preference):
+
+
+
+    preference_rank = pref_rank(preference)
+    
+    matches_ranking = algorithm.find_matching(preference_rank, matching_type = 'min', return_type = 'list' )
+
+    matches = [match[0] for match in matches_ranking]
+    
+    return matches
+
+
+

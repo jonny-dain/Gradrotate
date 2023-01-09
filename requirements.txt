@@ -6,6 +6,7 @@ et-xmlfile==1.1.0
 geographiclib==2.0
 geopy==2.3.0
 gunicorn==20.1.0
+hungarian-algorithm==0.1.11
 jdcal==1.4.1
 openpyxl==2.5.1
 psycopg2-binary==2.9.5

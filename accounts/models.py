@@ -151,6 +151,7 @@ class Job(models.Model):
         ('Remote','Remote'),
     )
 
+
     manager = models.ForeignKey(Manager, null=True, on_delete=models.CASCADE)
 
 
@@ -214,6 +215,11 @@ class Admin(models.Model):
         ('Intern collection','Intern collection'),
         ('Allocation','Allocation'),
     )
+    ALGORITHM =(
+        ('Gale Shapely','Gale Shapely (bilateral)'),
+        ('Hungarian','Hungarian (unilateral - Intern preference)')
+
+    )
 
     phase = models.CharField(max_length = 200, null = True, choices = PHASES)
 
@@ -228,6 +234,7 @@ class Admin(models.Model):
     total_interns = models.IntegerField(default=0)
 
     notify_allocations = models.BooleanField(default=False)
+    allocation_algorithm = models.CharField(max_length = 200, null = True, choices = ALGORITHM)
 
     name = models.CharField(max_length = 200, null = True)
     def __str__(self):

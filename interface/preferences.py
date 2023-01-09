@@ -153,6 +153,7 @@ def excel_set(model):
 
 def spread_of_preference(allocated_pairs, intern_preference, job_preference):
     
+    
     all_jobs_count = Job.objects.all()
     all_intern_count = Intern.objects.all()
 
@@ -180,12 +181,16 @@ def spread_of_preference(allocated_pairs, intern_preference, job_preference):
     for pair in allocated_pairs:
         for intern, jobs in intern_preference.items():
             
+            
             if pair[0] == intern:
+                
             
                 for count,data in enumerate(pref_ranking):
                     
-
+                    
                     if pair[1] == jobs[count]:
+                        
+                        
                         
                         data = pref_ranking[count][1]
                         data += 1
@@ -206,9 +211,26 @@ def spread_of_preference(allocated_pairs, intern_preference, job_preference):
                     
                     i += 1
 
-                
+    
+    
                     
     return pref_ranking       
+
+
+def percentage_match(field,data):
+    
+    intern_count = (Intern.objects.all().count()*4)
+    total_value = 0
+    for data_field in data:
+        if data_field[0] == 1:
+            continue
+        else:
+            total_value += data_field[0] * data_field[field]
+        
+    
+    total_value= intern_count - total_value
+    total_value = int((total_value / intern_count)*100)
+    return total_value
              
                     
 

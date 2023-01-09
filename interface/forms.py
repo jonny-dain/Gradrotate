@@ -19,7 +19,7 @@ class AdminForm(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
-        exclude = ['name','user','notify_allocations','total_jobs','total_interns','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
+        exclude = ['name','user','allocation_algorithm','notify_allocations','total_jobs','total_interns','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
 
 
 
@@ -37,7 +37,7 @@ class AdminForm2(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
-        exclude = ['name','user','phase','notify_allocations','total_jobs','total_interns']
+        exclude = ['name','user','allocation_algorithm','phase','notify_allocations','total_jobs','total_interns']
 
     def __init__(self, *args, **kwargs):
         super(AdminForm2, self).__init__(*args, **kwargs)
@@ -50,7 +50,7 @@ class AdminToggleAutomaticPhase(ModelForm):
     class Meta:
         model = Admin
         fields = '__all__'
-        exclude = ['name','user','notify_allocations','total_jobs','total_interns','phase','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
+        exclude = ['name','user','allocation_algorithm','notify_allocations','total_jobs','total_interns','phase','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
 
 
 
@@ -58,6 +58,14 @@ class AdminToggleAutomaticPhase(ModelForm):
 class AdminToggleNotify(ModelForm):
     notify_allocations = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'onchange': 'submit();'}))
     
+    ALGORITHM =(
+        ('Gale Shapely','Gale Shapely (bilateral)'),
+        ('Hungarian','Hungarian (unilateral - Intern preference)')
+
+    )
+    allocation_algorithm= forms.CharField(label='Allocation Algorithm: ', widget=forms.Select(choices=ALGORITHM))
+    allocation_algorithm.widget.attrs.update({'class': 'form-select', 'onchange': 'submit();'})
+
     class Meta:
         model = Admin
         fields = '__all__'

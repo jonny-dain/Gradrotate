@@ -48,12 +48,6 @@ def student_form_requirements(request):
     location_list = list(JobLocation.objects.all().values()) 
     location_json = json.dumps(location_list)
     
-
-
-
-
-
-
     if request.method == "POST":
         form = StudentForm2(request.POST, instance= intern) 
         if form.is_valid():
@@ -90,18 +84,21 @@ def student_form_skills(request):
             business_skills = form.cleaned_data['business_skills']
             admin_skills = form.cleaned_data['admin_skills']
 
+            
+
             if (len(computing_skills) + len(analytic_skills) + len(marketing_skills) + len(management_skills) + len(leadership_skills) +len(business_skills)+len(admin_skills)) > 5:
                 messages.info(request, '5 Skill maximum')
                 context = {'form': form, 'intern': intern}
                 return render(request, 'users/student_form3.html', context)
             else:
                 
-                #intern.coding = form.data['coding']
-                #intern.project_management = form.data['project_management']
-                #intern.marketing1_skills = form.data['marketing1_skills']
-                #intern.web_skills = form.data['web_skills']
                 form.save()
                 return redirect('../../dashboard')
+
+        else:
+            messages.info(request, 'Error completing form')
+            context = {'form': form, 'intern': intern}
+            return render(request, 'users/student_form3.html', context)
 
 
     context = {'form': form, 'intern': intern}
@@ -140,7 +137,7 @@ def manager_form(request, pk):
  
 
         if form.is_valid() and 'Submit_form' in request.POST:
-            #gathers all the skills
+            
             form.save()
             return redirect('../../../form/'+str(job.id)+'/manager_form/information')
 
@@ -405,9 +402,6 @@ def student_allocation_complete(request):
     
 
     return render(request, 'users/student_allocate_complete.html', context)
-
-
-
 
 
 

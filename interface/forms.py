@@ -59,10 +59,12 @@ class AdminToggleNotify(ModelForm):
     notify_allocations = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'onchange': 'submit();'}))
     
     ALGORITHM =(
-        ('Gale Shapely','Gale Shapely (bilateral)'),
-        ('Hungarian','Hungarian (unilateral - Intern preference)')
+        ('Gale Shapely','Gale Shapely'),
+        ('Hungarian','Hungarian'),
+        ('Pareto','Pareto')
 
     )
+
     allocation_algorithm= forms.CharField(label='Allocation Algorithm: ', widget=forms.Select(choices=ALGORITHM))
     allocation_algorithm.widget.attrs.update({'class': 'form-select', 'onchange': 'submit();'})
 

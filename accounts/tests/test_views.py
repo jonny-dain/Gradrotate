@@ -12,9 +12,10 @@ class TestViews(TestCase):
         self.register_url = reverse('register')
         self.logout_url = reverse('logout')
 
-        
-
-
+        Admin.objects.create()
+        self.admin = Admin.objects.all().first()
+        self.admin.automate_phase = False
+        self.admin.save()
 
 
     def test_login(self):
@@ -29,71 +30,91 @@ class TestViews(TestCase):
 class LoginTest(TestCase):
 
     def setUp(self):
-        self.client = Client()
-        self.login_url = reverse('login')
-        self.register_url = reverse('register')
-        self.logout_url = reverse('logout')
-
-        self.user = {
-            'username' : 'testintern',
-            'email' : 'testintern@gmail.com',
-            'password' : 'testpassword'
-        }
-        self.user2={
-            'email':'testemail@gmail.com',
-            'username':'username',
-            'password':'password',
-            'password2':'password',
-            'name':'fullname'
-        }
+        self.test_user = User.objects.create_user(username='testuser', password='testpassword')
+        self.test_group = Group.objects.create(name='Intern')
+        self.test_user.groups.add(self.test_group)
+        self.test_user.save()
+        Intern.objects.create(user=self.test_user)
 
 
+        Admin.objects.create()
+        self.admin = Admin.objects.all().first()
+        self.admin.automate_phase = False
+        self.admin.phase = 'Intern collection'
+        self.admin.save()
 
         return super().setUp()
 
-    def test_can_register_user(self):
-        response=self.client.post(self.register_url,self.user2,format='text/html')
-        self.assertEqual(response.status_code,302)
-
-
-    def test_login_view(self):
-        response = self.client.get(self.login_url)
-
+    def test_login(self):
+        # make sure the login page can be accessed
+        response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
 
+    def test_wrong_login(self):
+        # test the login functionality with incorrect credentials
+        response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'wrongpassword'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Username or password is incorrect')
+    
+    def test_correct_login(self):
+        # test the login functionality with correct credentials
+        response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'testpassword'})
+        self.assertEqual(response.status_code, 302)
 
-    def test_login_success(self):
 
+class RegisterViewTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        Admin.objects.create()
+        Group.objects.create(name='Intern')
+        Group.objects.create(name='Admin')
+        Group.objects.create(name='Manager')
 
+    def test_register(self):
+        # make sure the register page can be accessed
+        response = self.client.get(reverse('register'))
+        self.assertEqual(response.status_code, 200)
 
+    def test_correct_register(self):
+        # test the register functionality with correct data
+        response = self.client.post(reverse('register'), {'username': 'testuser', 'email': 'test@example.com', 'password1': 'testpassword', 'password2': 'testpassword', 'role_selection': 'Intern'})
+        self.assertEqual(response.status_code, 302)
+    
+        # test that user was created in the database
+        self.assertTrue(User.objects.filter(username='testuser').exists())
+        self.assertTrue(Intern.objects.filter(user__username='testuser').exists())
+
+        # test that the proper role was assigned to the user
+        user = User.objects.get(username='testuser')
+        self.assertEqual(user.groups.first().name, 'Intern')
+    
+    def test_wrong_register(self):
+        # test the register functionality with mismatched passwords
+        response = self.client.post(reverse('register'), {'username': 'testuser', 'email': 'test@example.com', 'password1': 'testpassword', 'password2': 'wrongpassword', 'role_selection': 'Intern'})
+        self.assertEqual(response.status_code, 200)
         
+    def test_invalid_email_register(self):
+        # test the register functionality with invalid email
+        response = self.client.post(reverse('register'), {'username': 'testuser', 'email': 'test.com', 'password1': 'testpassword', 'password2': 'testpassword', 'role_selection': 'Intern'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Enter a valid email address')
 
-        self.client.post(self.register_url,self.user, format ='text/html')
-        User.objects.create(
-            email = 'testintern@gmail.com',
-            username = 'testintern',
-            password = 'testpassword',
-        )
 
-        user = User.objects.filter(email = self.user['email']).first()
+class LogoutTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.user.save()
+
+        Admin.objects.create()
+        self.admin = Admin.objects.all().first()
+        self.admin.automate_phase = False
+        self.admin.phase = 'Intern collection'
+        self.admin.save()
         
-       
-        if user is not None:
-            user.is_active = True
-            group = Group.objects.get_or_create(name = 'intern')
-            user.groups.add(group)
-            
-            group = user.groups.all()[0].name
-            
-            user.save()
-
-        response = self.client.get(self.login_url)
-
-        #response = self.client.post(self.login_url,self.user, format ='text/html')
-       
-
-        #self.assertEqual(response.status_code,302)
-
-        self.client.login(username='testintern', password='testpassword')
-
-        self.assertTrue(response.context['user'].is_authenticated)
+    def test_logout(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('logout'))
+        self.assertRedirects(response, reverse('home'))
+        self.assertEqual(str(response.status_code), '302')
+        self.assertNotIn('_auth_user_id', self.client.session)

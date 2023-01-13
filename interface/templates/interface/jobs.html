@@ -92,7 +92,7 @@
                                         <progress value="{{job.progress}}" max="5"> </progress>
                                         
                                         </td>
-                                    <td style="min-width:100px"><a href="{% url 'deleteJob' job.id %}">Delete</a></td>
+                                    <td style="min-width:100px"><a href="{% url 'interface:deleteJob' job.id %}">Delete</a></td>
 
                                     {% for intern in interns %}
                                         <td style="min-width:100px">{{intern}}</td>

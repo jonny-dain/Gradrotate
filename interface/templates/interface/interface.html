@@ -360,7 +360,7 @@
                                 {% for office in locations %}
                                     <tr>
                                         <td style="min-width:100px">{{office.location}}</td>
-                                        <td style="min-width:100px"><a href="{% url 'deleteOffice' office.id %}">Delete</a></td>                          
+                                        <td style="min-width:100px"><a href="{% url 'interface:deleteOffice' office.id %}">Delete</a></td>                          
                                         
                                     </tr>
                                 {% endfor %}
@@ -509,49 +509,49 @@
                                         {% for computing_skill in computing_skills %}
                                             <tr class="toggleCoding">
                                                 <td style="min-width:100px">{{computing_skill.name}}</td>
-                                                <td style="min-width:100px"><a href="{% url 'deleteSkillComputing' computing_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px"><a href="{% url 'interface:deleteSkillComputing' computing_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}
                                         {% for analytic_skill in analytic_skills %}
                                             <tr class="toggleAnalytic" style="display: none;">
                                                 <td style="min-width:100px;">{{analytic_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillAnalytic' analytic_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillAnalytic' analytic_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}
                                         {% for marketing_skill in marketing_skills %}
                                             <tr class="toggleMarketing" style="display: none;">
                                                 <td style="min-width:100px;">{{marketing_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillMarketing' marketing_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillMarketing' marketing_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}
                                         {% for management_skill in management_skills %}
                                             <tr class="toggleManagement" style="display: none;">
                                                 <td style="min-width:100px;">{{management_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillManagement' management_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillManagement' management_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}
                                         {% for leadership_skill in leadership_skills %}
                                             <tr class="toggleLeadership" style="display: none;">
                                                 <td style="min-width:100px;">{{leadership_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillLeadership' leadership_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillLeadership' leadership_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}
                                         {% for business_skill in business_skills %}
                                             <tr class="toggleBusiness" style="display: none;">
                                                 <td style="min-width:100px;">{{business_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillBusiness' business_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillBusiness' business_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}
                                         {% for admin_skill in admin_skills %}
                                             <tr class="toggleAdmin" style="display: none;">
                                                 <td style="min-width:100px;">{{admin_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'deleteSkillAdmin' admin_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillAdmin' admin_skill.id %}">Delete</a></td>                          
                                                 
                                             </tr>
                                         {% endfor %}

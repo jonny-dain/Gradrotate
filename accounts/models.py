@@ -90,13 +90,13 @@ class Intern(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     #not sure I want skills
-    computing_skills = models.ManyToManyField(ComputingSkills)
-    analytic_skills = models.ManyToManyField(AnalyticSkills)
-    marketing_skills = models.ManyToManyField(MarketingSkills)
-    management_skills = models.ManyToManyField(ManagementSkills)
-    leadership_skills = models.ManyToManyField(LeadershipSkills)
-    business_skills = models.ManyToManyField(BusinessSkills)
-    admin_skills = models.ManyToManyField(AdminSkills)
+    computing_skills = models.ManyToManyField(ComputingSkills, blank=True)
+    analytic_skills = models.ManyToManyField(AnalyticSkills, blank=True)
+    marketing_skills = models.ManyToManyField(MarketingSkills, blank=True)
+    management_skills = models.ManyToManyField(ManagementSkills, blank=True)
+    leadership_skills = models.ManyToManyField(LeadershipSkills, blank=True)
+    business_skills = models.ManyToManyField(BusinessSkills, blank=True)
+    admin_skills = models.ManyToManyField(AdminSkills, blank=True)
 
     
     job_location = models.ForeignKey(JobLocation, null=True, on_delete=models.SET_NULL)
@@ -216,8 +216,9 @@ class Admin(models.Model):
         ('Allocation','Allocation'),
     )
     ALGORITHM =(
-        ('Gale Shapely','Gale Shapely (bilateral)'),
-        ('Hungarian','Hungarian (unilateral - Intern preference)')
+        ('Gale Shapely','Gale Shapely'),
+        ('Hungarian','Hungarian'),
+        ('Pareto','Pareto')
 
     )
 

@@ -15,7 +15,6 @@ def pref_rank(pref):
     return pref_rank
     
 
-
 def gale_allocation(*, intern_preference, job_preference):
     
     job_rank = pref_rank(job_preference)
@@ -82,4 +81,26 @@ def hungarian_algorithm(preference):
     return matches
 
 
+def pareto_optimal(intern_preferences, job_preferences):
+   
+    matching = []
 
+    free_interns = set(intern_preferences.keys())
+    free_jobs = set(job_preferences.keys())
+
+    
+    intern_order = list(intern_preferences.keys())
+    
+    for intern in intern_order:
+        # Find the job that the intern most prefers among the free jobs
+        preferred_jobs = intern_preferences[intern]
+        for job in preferred_jobs:
+            if job in free_jobs:
+                
+                matching.append((intern, job))
+                free_interns.remove(intern)
+                free_jobs.remove(job)
+                break
+
+    
+    return matching

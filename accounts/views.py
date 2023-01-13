@@ -37,79 +37,37 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         user = authenticate(request, username = username, password = password)
-
         admin = Admin.objects.all().first()
-
         if user is not None:
             auth_login(request, user)
-
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
-
                 if group == 'Admin':
                     return redirect('../../admin_interface')
-                
-
-
-
-
-
                 if (admin.phase == 'Job creation'):
-                    if group == 'Manager':
-                        
-
-
-                        jobs = Job.objects.all()
-                        manager_jobs = Job.objects.filter(manager = request.user.manager)
-                        
+                    if group == 'Manager':                        
                         return redirect('../form/manager_dashboard')
-
-
-
-
                     else:
                         auth_logout(request)
-
-
-
-
-
-
-
-                
-                
-
                 if (admin.phase == 'Intern collection'):
                     if group == 'Intern':
                         if request.user.intern.progress == 5:
                             return redirect('../form/student_form/complete')
                         return redirect('../form/student_form')
                     else:
-                        auth_logout(request)
-
-
-                        
+                        auth_logout(request)             
                 if (admin.phase == 'Allocation'):
-                    if group == 'Intern':
-                        
+                    if group == 'Intern':          
                         return redirect('../../../../form/student_form/allocation/complete')
-
-
                     if group == 'Manager':
-                        return redirect('../../../../form/manager_form/allocation/complete')
-                    
-
-                        
+                        return redirect('../../../../form/manager_form/allocation/complete')        
                 messages.info(request, 'We are currently in the '+ str(admin.phase)+ ' phase, please try again later')
                 auth_logout(request)
                 return render(request, 'accounts/login.html')
-
         else:
             messages.info(request, 'Username or password is incorrect')
             return render(request, 'accounts/login.html')
-
 
     return render(request, 'accounts/login.html')
 
@@ -132,40 +90,17 @@ def register(request):
             user.groups.add(group)
             if role == 'Admin':
                 return redirect('../../interface')
-
             if role == 'Manager':
                 Manager.objects.create(
-                    user= user,
-                    
+                    user= user,       
                 )
-
-                
-
-
-
-
-                #Job.objects.create(
-                #    user = user,
-                #    email = user.email,
-                #    
-                #)
-                #admin.total_jobs += 1
-                #admin.save()
-
-
-
-
-
-
-
             if role == 'Intern':
                 Intern.objects.create(
                     user = user,
                     email = user.email,
                 )
                 admin.total_interns += 1
-                admin.save()
-            
+                admin.save() 
             messages.success(request, 'Account was greated for '+ str(username) )
             return redirect('../login')
 

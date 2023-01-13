@@ -251,9 +251,6 @@ def deleteSkillAdmin(request, pk):
     return redirect('../../../admin_interface')
 
 
-
-
-
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def allocate_interface(request):
@@ -284,12 +281,9 @@ def allocate_interface(request):
 
                 allocated_pairs = hungarian_algorithm(preference=intern_preference)
         
-            else:
-                print('wrong')
-
-            
-
-            
+            elif admin.allocation_algorithm == 'Pareto':
+    
+                allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
             #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
 
             
@@ -352,7 +346,6 @@ def allocate_interface(request):
 
 
 
-
 #This allocates excel files 
 
 @login_required(login_url='../../../../login')
@@ -389,9 +382,3 @@ def allocate_excel(request):
 
         context = {'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1)}
         return render(request, 'interface/allocate_excel.html', context)
-
-
-
-
-
-

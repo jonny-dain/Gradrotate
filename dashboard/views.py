@@ -31,37 +31,22 @@ class BaseCheckFormSet(BaseFormSet):
 
 
 
-
-
-
-
-
-
-
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(4)
 @required_phase(phase=['Intern collection'])
 def preference(request):
-
     #creates list for new interns based on skills before
     job_with_percentage = job_ordered_list(request)
 
-    
-    
-    
     jobs = list(job_with_percentage.keys())
 
-    
-    
     counter = 0
     for job in jobs:
         counter += 1
         if not InternPreference.objects.filter(intern = request.user.intern, job = job).exists():
             InternPreference.objects.create(intern = request.user.intern, job = job, preference = counter)
     
-
-
     #orders list based on the prefence list
     job_with_percentage = job_ordered_preference_list(request)
 
@@ -77,8 +62,6 @@ def preference(request):
 
     #This gets all the skills for each of the jobs and gives a %
     all_job_skills = job_skills(jobs = jobs)
-
-   
 
     #Zipped the form and jobs
     form_job = zip(jobs, all_job_skills, jobs_percentage)

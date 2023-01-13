@@ -335,7 +335,7 @@
 
 
 
-<form class="sortable" hx-post = "{% url 'sort' %}" hx-trigger="end" hx-target = "#dashboard-pref">
+<form class="sortable" hx-post = "{% url 'dashboard:sort' %}" hx-trigger="end" hx-target = "#dashboard-pref">
 
     {% for intern_preference in intern_preferences %}
     <div>

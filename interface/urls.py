@@ -4,11 +4,11 @@ from interface import views
 
 
 urlpatterns = [
-    path('', views.admin_interface),
-    path('interns/', views.intern_interface),
-    path('allocate/', views.allocate_interface),
-    path('allocate/excel', views.allocate_excel),
-    path('jobs/', views.job_interface),
+    path('', views.admin_interface, name='admin_interface'),
+    path('interns/', views.intern_interface, name='intern_interface'),
+    path('allocate/', views.allocate_interface, name = 'allocate_interface'),
+    path('allocate/excel', views.allocate_excel, name='allocate_excel'),
+    path('jobs/', views.job_interface, name='job_interface'),
     path('deleteIntern/<int:pk>/', views.deleteIntern, name='deleteIntern' ),
     path('deleteJob/<int:pk>/', views.deleteJob, name='deleteJob' ),
     path('deleteOffice/<int:pk>/', views.deleteOffice, name='deleteOffice' ),
@@ -20,3 +20,5 @@ urlpatterns = [
     path('deleteSkillBusiness/<int:pk>/', views.deleteSkillBusiness, name='deleteSkillBusiness' ),
     path('deleteSkillAdmin/<int:pk>/', views.deleteSkillAdmin, name='deleteSkillAdmin' ),
 ]
+
+app_name = 'interface'

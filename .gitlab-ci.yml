@@ -17,7 +17,9 @@ test:
     - python3 manage.py migrate --settings=gradRotate.local --noinput 
     - python3 manage.py createsuperuser --noinput --username admin --email $EMAIL --settings=gradRotate.local
   script:
-    - echo "run the tests here"
+    - echo "running tests here"
+    - python3 manage.py test --settings=gradRotate.local --noinput
+
 
 artifact:
   script:

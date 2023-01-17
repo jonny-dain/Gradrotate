@@ -366,9 +366,10 @@ def allocate_excel(request):
         excel_file = request.FILES["excel_file"]
 
         #Validation of excel file needs to be complete...
-
-        workbook = openpyxl.load_workbook(excel_file)
+        
+        
         try:
+            workbook = openpyxl.load_workbook(excel_file)
             intern_excel = workbook["Sheet1"]
             job_excel = workbook["Sheet2"] 
             intern_preference = excel_preferences(preferences = intern_excel)
@@ -397,7 +398,6 @@ def allocate_excel(request):
             data_job_match = percentage_match(2,data)
             data_overall_match = int(((data_intern_match + data_job_match)/2))
 
-            
 
         except:
             messages.error(request, 'Wrong format! Please edit and try again')

@@ -109,6 +109,12 @@ def register(request):
     }
     return render(request, 'accounts/register.html', context)
 
+
+
+
+
+
+
 # HTTP Error 400
 def bad_request(request, exception):
     return render(request, "accounts/error.html")

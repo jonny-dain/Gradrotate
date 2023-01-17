@@ -3,6 +3,46 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser
 from django import forms
+from django.contrib.auth.forms import PasswordResetForm, PasswordChangeForm, SetPasswordForm
+
+class UserPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'style': 'margin-bottom: 10px',
+        'placeholder': 'Email',
+        'type': 'email',
+        'name': 'email'
+        }))
+
+
+class UserPasswordResetPasswordForm(SetPasswordForm):
+
+    new_password1 = forms.CharField(label='',widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'style': 'margin-bottom: 10px',
+        'placeholder': 'New Password',
+        'type': 'password',
+        'name': 'password1'
+        }))
+    
+    new_password2 = forms.CharField(label='',widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'style': 'margin-bottom: 10px',
+        'placeholder': 'Repeat Password',
+        'type': 'password',
+        'name': 'password2'
+        }))
+
+    
+
+    class Meta:
+        fields = ('new_password1','new_password2')
+
+    
+
 
 class CreateUserForm(UserCreationForm):
     ROLE= [

@@ -24,11 +24,12 @@
             
             {% else %}
             <a href="../../../../../../">
-            <img src = "{% static '/images/GradrotateLogo.png' %}"width="250" height="50" style = "margin: 5px;">
+                
+            <img src = "{% static '/images/GradrotateLogo.png' %}" width="250" height="50" style = "margin: 5px;">
             </a>
 
             {% endif %}
-            
+            <!--<img src="/static/images/GradrotateLogo.png" width="195" height="40" style="margin: 5px;">-->
 
             
 
@@ -40,7 +41,7 @@
                 {% if request.user.is_authenticated %}
                 
                 
-                <a class="register-button" style="text-decoration: none;" href="../../../logout">Logout</a>
+                <a class="logout-button" style="text-decoration: none;" href="../../../logout">Logout</a>
 
                 {% else %}
 

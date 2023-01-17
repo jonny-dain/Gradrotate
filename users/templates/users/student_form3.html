@@ -57,39 +57,7 @@
 {% csrf_token %}
 
     
-    <!--
-    <row>
-        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
-            <div class="card-body">
-                <p> Coding:</p>
-                <input type="range" value="{{intern.coding}}" name="coding" min="0" max="10"  class="slider" step="1" oninput= "rangeValue.innerText = this.value">
-                <p id="rangeValue">{{intern.coding}}</p> 
 
-
-            </div>
-        </div>
-    </row>
-    -->
-    <!--
-
-                <p id="demo"></p>
-        
-                <p> Project Management:</p>
-                <input type="range" value="{{intern.project_management}}" name="project_management" min="0" max="10"  class="slider" step="1" oninput= "rangeValue1.innerText = this.value">
-                <p id="rangeValue1">{{intern.project_management}}</p> 
-        
-                <p> Marketing Skills:</p>
-                <input type="range" value="{{intern.marketing1_skills}}" name="marketing1_skills" min="0" max="10" class="slider" step="1" oninput= "rangeValue2.innerText = this.value">
-                <p id="rangeValue2">{{intern.marketing1_skills}}</p> 
-        
-                <p> Web Skills:</p>
-                <input type="range" value="{{intern.web_skills}}" name="web_skills" min="0" max="10"  class="slider" step="1" oninput= "rangeValue3.innerText = this.value">
-                <p id="rangeValue3">{{intern.web_skills}}</p> 
-
-            </div>
-        </div>
-    </row>
-    -->
     
 
 
@@ -123,7 +91,7 @@
             background-color: white;
             transition: none;
             box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-            width: 25vw;
+            width: 80%;
         
         }
         .btn-outline-warning:hover{
@@ -157,7 +125,7 @@
     </style>
 
     <div class = "row justify-content-center mt-4">
-        <div class="col-4 text-center">
+        <div class="col-md-4 text-center">
         
             
 
@@ -176,7 +144,7 @@
             
     </div>
     <div class = "row justify-content-center mt-4">
-        <div class="col-5 text-center">
+        <div class="col-md-5 text-center">
             Select the most relevant for you (max 5)
             
         </div>
@@ -186,7 +154,7 @@
 
 
     <div class = "row justify-content-center mt-4" style="margin-bottom: 80px;">
-        <div class="col-lg-5 col-sm-8 text-center">
+        <div class="col-md-7 col-sm-6 col-xs-8 col-lg-4 col-xl-3 text-center">
 
                 
 

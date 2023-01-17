@@ -76,3 +76,22 @@ class AdminToggleNotify(ModelForm):
     def __init__(self, *args, **kwargs):
         super(AdminToggleNotify, self).__init__(*args, **kwargs)
         self.fields['notify_allocations'].required = False
+
+class AdminToggleAlgorithm(ModelForm):
+
+    ALGORITHM =(
+        ('Gale Shapely','Gale Shapely'),
+        ('Hungarian','Hungarian'),
+        ('Pareto','Pareto')
+
+    )
+
+    allocation_algorithm= forms.CharField(label='Allocation Algorithm: ', widget=forms.Select(choices=ALGORITHM))
+    allocation_algorithm.widget.attrs.update({'class': 'form-select'})
+
+    class Meta:
+        model = Admin
+        fields = '__all__'
+        exclude = ['name','user','notify_allocations','total_jobs','total_interns','phase','job_creation_date','intern_creation_date','allocation_creation_date','automate_phase']
+
+

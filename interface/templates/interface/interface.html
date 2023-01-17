@@ -12,6 +12,7 @@
 <main>
 
 
+
         
     <div class = "sidebar active">
         <div class = "logo_content">
@@ -65,6 +66,23 @@
             btn.onclick = function() {
                 sidebar.classList.toggle("active");
             }
+            // Add event listener for window resize
+            
+            function checkWidth() {
+                // Check if window width is less than 510px
+                if (window.innerWidth < 510) {
+                    // Remove "active" class from sidebar
+                    sidebar.classList.remove("active");
+                }
+            }
+
+            // Check width on page load
+            window.onload = checkWidth();
+            //or
+            window.addEventListener('load',checkWidth);
+            // add event listener for window resize
+            window.addEventListener("resize", checkWidth);
+
         </script>
 
 
@@ -303,6 +321,34 @@
 
                             </div>
                         </div>
+                        <form method="POST" action="">
+                        <div class="row text-center align-items-center">
+                            
+                                {% csrf_token %}
+                                    <div class="col-sm-3 col-xl-4">
+                                        Algorithm:
+
+                                    </div>
+                                    <div class="col-sm-6 col-xl-4 align-middle">
+                                        {{toggle_algorithm.allocation_algorithm}}
+                                        
+                                    </div>
+                                    <div class="col-sm-3 col-xl-4 justify-content-center">
+                                        
+                                        <button class="back-button p-2 m-2 text-center" style="max-width: 100%;" type="submit" name="Submit_algorithm" value="Next" onclick="">Update</button>
+                                        
+                                    </div>
+    
+    
+                        
+                        </div>
+                            
+                        </form>
+
+                        
+                        
+
+
                         
                         <div class="row justify-content-center">
                             <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate"> Allocate </a>

@@ -8,9 +8,12 @@
 
 <header>
     <title>Allocate Excel | Gradrotate</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </header>
 
 <main>
+    
+
     <div class = "sidebar active">
         <div class = "logo_content">
             
@@ -36,6 +39,53 @@
         </li>
         </ul>
     </div>
+    <script>
+        google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawLogScales);
+                var djangoData = {{ data|safe }};
+
+                function drawLogScales() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Interns');
+                    data.addColumn('number', 'Managers');
+
+                    data.addRows(
+                        djangoData
+                    );
+
+                    var options = {
+                        hAxis: {
+                        title: 'Preference Ranking',
+                        logScale: false,
+                        gridlines: {
+                            color: 'transparent'
+                            },
+                        },
+                        
+                        vAxis: {
+                        title: 'Amount of Users',
+                        logScale: false,
+                        gridlines: {
+                            color: 'transparent'
+                            },
+                        },
+                        colors: ['#599a95', '#274b63'],
+                        legend: {position: 'top', textStyle: {fontSize: 14}}
+                    };
+
+                    function resize () {
+                            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                            chart.draw(data, options);
+                        }
+                    resize();
+                
+                    window.onresize = resize;
+
+                    
+                    }
+    
+            </script>
 
 
     <div class="content">
@@ -74,6 +124,20 @@
                 btn.onclick = function() {
                     sidebar.classList.toggle("active");
                 }
+                function checkWidth() {
+                // Check if window width is less than 510px
+                if (window.innerWidth < 510) {
+                    // Remove "active" class from sidebar
+                    sidebar.classList.remove("active");
+                }
+            }
+
+            // Check width on page load
+            window.onload = checkWidth();
+            //or
+            window.addEventListener('load',checkWidth);
+            // add event listener for window resize
+            window.addEventListener("resize", checkWidth);
             </script>
 
 
@@ -111,8 +175,107 @@
             
             <div class="row">
                 <div class="col-xl-7 col-lg-7">
-                    <h4 class="text-center">Preferences</h4>
-                    <div class="card border-0 shadow-sm m-3 p-2">
+                    
+                    <div class="row text-center">
+                        <h5 style="color: #6c757d;">
+                            Statistics
+                        </h5>
+                        <div style="width: 100%;" id="chart_div"></div>
+
+                    </div>
+                    <div class="row justify-content-center pt-2">
+                        <div class="col-4">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        
+                                        <h5 style="color: #6c757d;">
+                                            {{data_intern_match}}%
+                                            
+                                            
+                                            
+                                        </h5>
+                                        
+
+                                    </div>
+                                    <div class="row text-center">
+                                        <h6 style="color: #6c757d;">Intern match</h6>
+
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                                
+                            </div>
+                         
+                        </div>
+                        <div class="col-4">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        
+                                        <h5 style="color: #6c757d;">
+                                            {{data_job_match}}%
+                                            
+                                            
+                                            
+                                        </h5>
+                                        
+
+                                    </div>
+                                    <div class="row text-center">
+                                        <h6 style="color: #6c757d;">Job match</h6>
+
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                                
+                            </div>
+               
+                            
+                        </div>
+                        <div class="col-4">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        
+                                        <h5 style="color: #6c757d;">
+                                            {{data_overall_match}}%
+                                            
+                                            
+                                            
+                                        </h5>
+                                        
+
+                                    </div>
+                                    <div class="row text-center">
+                                        <h6 style="color: #6c757d;">Overall match</h6>
+
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                                
+                            </div>
+                           
+                        </div>
+
+
+
+
+                    </div>
+                    
+
+
+
+
+                    <h5 class="text-center pt-2" style="color: #6c757d;">Preferences</h5>
+
+                    <div class="card border-0 p-2">
                         <div class="col-6">
                         <div class="btn-group">
                             
@@ -134,7 +297,7 @@
                     </div>
                     <div id="intern_table" style = "display: none;">
 
-                        <div class="card border-0 shadow-sm m-3">
+                        <div class="card border-0 mt-3">
                         
                             
                             <div style = "overflow-y: auto;">
@@ -167,7 +330,7 @@
                         </div> 
                     </div>
                     <div id="job_table" style = "display: none;">
-                        <div class="card border-0 shadow-sm m-3">
+                        <div class="card border-0 mt-3">
                         
                             
                             <div style = "overflow-y: auto;">
@@ -229,9 +392,9 @@
     
                 </div>
                 <div class="col-xl-5 col-lg-5">
-                    <h4 class="text-center">Allocation</h4>
-                    <div class="card border-0 shadow-sm m-3">
-                        <div style = "overflow: auto; height:80vh;">
+                    <h4 class="text-center" style="color: #6c757d;">Allocation</h4>
+                    <div class="card border-0">
+                        <div style = "overflow: auto; height:75vh;">
                             <table class="table" id="dtHorizontalVerticalExample" >
                                 <tr>
                                     <th class="table-light">Intern</th>

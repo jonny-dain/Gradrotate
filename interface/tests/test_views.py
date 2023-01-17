@@ -8,6 +8,9 @@ from django.contrib.auth.models import Group
 
 from users.models import InternPreference
 
+from django.conf import settings
+from pathlib import Path
+
 class AdminViewTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -129,9 +132,39 @@ class AdminViewTest(TestCase):
         self.assertFalse(BusinessSkills.objects.filter(id=self.business_skills.pk).exists())
 
 
+class AdminViewTestExcel(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.test_group = Group.objects.create(name='Admin')
+        self.user.groups.add(self.test_group)
+        self.user.save()
+        self.client.login(username='testuser', password='testpassword')
+
+        Admin.objects.create(user= self.user)
+        self.admin = Admin.objects.all().first()
+        self.admin.automate_phase = False
+        self.admin.phase = 'Intern collection'
+        self.admin.save()
+    
+
     def test_allocate_excel(self):
         response = self.client.get(reverse('interface:allocate_excel'))
         self.assertEqual(response.status_code, 200)
+
+        self.assertTemplateUsed(response, 'interface/allocate_excel.html')
+
+    def test_post_request_with_valid_excel_file(self):
+        
+        path = Path(settings.BASE_DIR).joinpath("static", "files", "Placement_test.xlsx")
+        excel_file = open(path, "rb")       
+        response = self.client.post(reverse('interface:allocate_excel'), {'excel_file': excel_file})
+        self.assertEqual(response.status_code, 302)
+        
+    
+
+
+
 
 
        

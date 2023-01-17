@@ -15,6 +15,9 @@
   </header>
 
 <main>
+
+
+    
     <div class = "sidebar active">
         <div class = "logo_content">
             
@@ -70,6 +73,20 @@
                 btn.onclick = function() {
                     sidebar.classList.toggle("active");
                 }
+                function checkWidth() {
+                // Check if window width is less than 510px
+                if (window.innerWidth < 510) {
+                    // Remove "active" class from sidebar
+                    sidebar.classList.remove("active");
+                }
+            }
+
+            // Check width on page load
+            window.onload = checkWidth();
+            //or
+            window.addEventListener('load',checkWidth);
+            // add event listener for window resize
+            window.addEventListener("resize", checkWidth);
 
 
 

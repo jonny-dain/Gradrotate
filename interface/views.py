@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import *
 from accounts.permissions import allowed_users, update_phase
-from interface.forms import AdminForm, AdminForm2, AdminToggleAutomaticPhase, AdminToggleNotify
+from interface.forms import AdminForm, AdminForm2, AdminToggleAlgorithm, AdminToggleAutomaticPhase, AdminToggleNotify
 from interface.gale_shapely import *
 from interface.preferences import *
 from users.forms import ManagerCreateOffice, ManagerCreateSkills
@@ -31,6 +31,7 @@ def admin_interface(request):
     additional_skills = ManagerCreateSkills()
     automatic_phase = AdminForm2(instance = admin)
     toggle_automatic_phase = AdminToggleAutomaticPhase(instance = admin)
+    toggle_algorithm = AdminToggleAlgorithm(instance = admin)
 
     
     interns = Intern.objects.all()
@@ -50,6 +51,8 @@ def admin_interface(request):
         additional_skills =ManagerCreateSkills(request.POST)
         automatic_phase = AdminForm2(request.POST, instance = admin)
         toggle_automatic_phase = AdminToggleAutomaticPhase(request.POST, instance = admin)
+
+        toggle_algorithm = AdminToggleAlgorithm(request.POST, instance= admin)
 
         if 'Submit_office' in request.POST:
             if form2.is_valid():
@@ -106,11 +109,19 @@ def admin_interface(request):
                 skills.create(name = skill_name)
             
             return redirect('../../../admin_interface')
+        
+        elif 'Submit_algorithm' in request.POST:
+            if toggle_algorithm.is_valid():
+                toggle_algorithm.save()
+                return redirect('../../../admin_interface')
+
        
        
         else:   
             if form.is_valid():
                 form.save()
+
+                
                 
                 return redirect('../../../admin_interface')
 
@@ -130,7 +141,8 @@ def admin_interface(request):
     'additional_office':form2,
     'additional_skills': additional_skills,
     'automatic_phase':automatic_phase,
-    'toggle_automatic_phase':toggle_automatic_phase
+    'toggle_automatic_phase':toggle_automatic_phase,
+    'toggle_algorithm':toggle_algorithm
     }
     return render(request, 'interface/interface.html', context)
 
@@ -301,11 +313,8 @@ def allocate_interface(request):
 
             
 
-            #works out how many interns got their first,second and third choices
-
-           
-           
-                    
+            #works out how many interns got their first,second and third choices           
+  
 
             data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
          
@@ -326,14 +335,6 @@ def allocate_interface(request):
             context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs,'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
             return render(request, 'interface/allocate.html', context)
 
-
-
-
-
-
-
-
-
         except:
 
             messages.info(request, 'Error - Make sure all Intern preferences are filled in and there are enough Jobs for each Intern')
@@ -351,11 +352,16 @@ def allocate_interface(request):
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def allocate_excel(request):
+    admin = Admin.objects.all().first()
+
+    
 
 
     if "GET" == request.method:
         context = {}
         return render(request, 'interface/allocate_excel.html', context)
+    
+
     else:
         excel_file = request.FILES["excel_file"]
 
@@ -367,18 +373,38 @@ def allocate_excel(request):
             job_excel = workbook["Sheet2"] 
             intern_preference = excel_preferences(preferences = intern_excel)
             job_preference = excel_preferences(preferences = job_excel)
-            intern_set = excel_set(model = intern_excel)
-            job_set = excel_set(model = job_excel)
             preference_number = intern_excel.max_row - 1
 
-            allocated_pairs = gale_allocation(
-                intern_preference=intern_preference,
-                job_preference=job_preference,
-            )  
+            if admin.allocation_algorithm == 'Gale Shapely':
+            
+                allocated_pairs = gale_allocation(
+                    intern_preference=intern_preference,
+                    job_preference=job_preference,
+                )  
+
+            elif admin.allocation_algorithm == 'Hungarian':
+
+                allocated_pairs = hungarian_algorithm(preference=intern_preference)
+        
+            elif admin.allocation_algorithm == 'Pareto':
+    
+                allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
+
+            
+            data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
+
+            data_intern_match = percentage_match(1,data)
+            data_job_match = percentage_match(2,data)
+            data_overall_match = int(((data_intern_match + data_job_match)/2))
+
+
+            
+
         except:
             messages.error(request, 'Wrong format! Please edit and try again')
             return redirect('../../../admin_interface/allocate/excel')
 
+        
 
-        context = {'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1)}
+        context = {'data': json.dumps(data),'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1),'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
         return render(request, 'interface/allocate_excel.html', context)

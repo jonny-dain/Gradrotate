@@ -391,12 +391,15 @@ def allocate_excel(request):
                 allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
 
             
-            data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
+            #data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
 
-            data_intern_match = percentage_match(1,data)
-            data_job_match = percentage_match(2,data)
-            data_overall_match = int(((data_intern_match + data_job_match)/2))
+            #data_intern_match = percentage_match(1,data)
+            #data_job_match = percentage_match(2,data)
+            #data_overall_match = int(((data_intern_match + data_job_match)/2))
 
+            data_intern_match = 10
+            data_job_match = 10
+            data_overall_match = 10
 
             
 
@@ -405,6 +408,8 @@ def allocate_excel(request):
             return redirect('../../../admin_interface/allocate/excel')
 
         
+        context = {'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1),'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
+        
 
-        context = {'data': json.dumps(data),'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1),'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
+        #context = {'data': json.dumps(data),'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1),'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
         return render(request, 'interface/allocate_excel.html', context)

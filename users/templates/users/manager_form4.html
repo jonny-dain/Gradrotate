@@ -198,6 +198,17 @@
  
 </form>
 
+{% if messages %}
+<div class="card shadow-sm border-0 rounded ml-4 mr-4 p-4 pt-0 pb-0 mx-auto" style="max-width: 45rem;">
+    {% for message in messages %}
+    <div class="alert alert-danger text-center m-2" role="alert">
+        {{ message }}
+    </div>
+    
+    {% endfor %}
+</div>
+{% endif %}
+
 
 <div class="card shadow-sm border-0 rounded ml-4 mr-4 p-4 pt-0 mx-auto" style="max-width: 45rem; margin-bottom: 100px;">
     <div class="row justify-content-center">
@@ -251,19 +262,9 @@
 
 </div>
 
-{% if form.errors %}
-    <row>
-        <div class="card shadow-sm border-0 rounded m-4 p-2 mx-auto" style="max-width: 45rem;">
-            <div class="card-body">
-                {% for field in form %}
-                    {% if field.errors %}
-                        <div class="alert alert-dark" role="alert">{{field.errors}}</div>
-                    {% endif %}    
-                {% endfor %}
-            </div>
-        </div>
-    </row>
-    {% endif %}
+
+
+
     
 
 

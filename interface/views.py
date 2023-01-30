@@ -45,6 +45,25 @@ def admin_interface(request):
     admin_skills = AdminSkills.objects.all()
     
 
+    context = { 'form': form, 
+    'users':users,
+    'jobs' :jobs , 
+    'interns' : interns, 
+    'locations' :locations, 
+    'computing_skills' : computing_skills,
+    'analytic_skills'  :analytic_skills,
+    'marketing_skills' : marketing_skills,
+    'management_skills' : management_skills,
+    'leadership_skills' : leadership_skills,
+    'business_skills' : business_skills,
+    'admin_skills' : admin_skills,
+    'additional_office':form2,
+    'additional_skills': additional_skills,
+    'automatic_phase':automatic_phase,
+    'toggle_automatic_phase':toggle_automatic_phase,
+    'toggle_algorithm':toggle_algorithm
+    }
+
     if request.method == 'POST':
         form = AdminForm(request.POST, instance= admin)  
         form2 =ManagerCreateOffice(request.POST)
@@ -64,7 +83,7 @@ def admin_interface(request):
                     offices = JobLocation.objects.filter()
                     offices.create(location = office_name, address = location.address, latitude=location.latitude, longitude= location.longitude)
                 except:
-                    messages.error(request, 'Incorrect location! Please copy the google maps address')
+                    messages.error(request, 'Incorrect Address - Please submit a valid postcode for this address')
                     return redirect('../../../admin_interface')
                 return redirect('../../../admin_interface')
 
@@ -78,9 +97,18 @@ def admin_interface(request):
         elif 'Submit_phase' in request.POST:
             if automatic_phase.is_valid():
                 #Changes the phases on the admin panel 
-                
-                automatic_phase.save()
-                return redirect('../../../admin_interface')
+
+                allocation_creation_date = form.data['allocation_creation_date']
+                intern_creation_date = form.data['intern_creation_date']
+                job_creation_date = form.data['job_creation_date']
+                if (job_creation_date >= intern_creation_date) or (intern_creation_date >= allocation_creation_date) or (job_creation_date >= allocation_creation_date):
+    
+                    messages.error(request, 'Incorrect Date Change Order - Please refer to the info button for more information')
+                    return render(request, 'interface/interface.html', context)
+                    
+                else:
+                    automatic_phase.save()
+                    return redirect('../../../admin_interface')
 
 
                        
@@ -90,23 +118,37 @@ def admin_interface(request):
                 skill_category = form.data['skill_category']
                 skill_name = form.data['name']
 
-
-                if skill_category == 'Computing':
-                    skills = ComputingSkills.objects.filter()
-                elif skill_category == 'Analytic':
-                    skills = AnalyticSkills.objects.filter()
-                elif skill_category == 'Marketing':
-                    skills = MarketingSkills.objects.filter()
-                elif skill_category == 'Management':
-                    skills = ManagementSkills.objects.filter()
-                elif skill_category == 'Leadership':
-                    skills = LeadershipSkills.objects.filter()
-                elif skill_category == 'Business':
-                    skills = BusinessSkills.objects.filter()
-                elif skill_category == 'Admin':
-                    skills = AdminSkills.objects.filter()
-                
-                skills.create(name = skill_name)
+                if ComputingSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under computing skills!')
+                elif AnalyticSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under analtyic skills!')
+                elif ManagementSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under management skills!')
+                elif MarketingSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under marketing skills!')
+                elif LeadershipSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under leadership skills!')
+                elif BusinessSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under business skills!')
+                elif AdminSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under admin skills!')
+                else:
+                    if skill_category == 'Computing':
+                        skills = ComputingSkills.objects.filter()
+                    elif skill_category == 'Analytic':
+                        skills = AnalyticSkills.objects.filter()
+                    elif skill_category == 'Marketing':
+                        skills = MarketingSkills.objects.filter()
+                    elif skill_category == 'Management':
+                        skills = ManagementSkills.objects.filter()
+                    elif skill_category == 'Leadership':
+                        skills = LeadershipSkills.objects.filter()
+                    elif skill_category == 'Business':
+                        skills = BusinessSkills.objects.filter()
+                    elif skill_category == 'Admin':
+                        skills = AdminSkills.objects.filter()
+                    
+                    skills.create(name = skill_name)
             
             return redirect('../../../admin_interface')
         
@@ -126,24 +168,7 @@ def admin_interface(request):
                 return redirect('../../../admin_interface')
 
 
-    context = { 'form': form, 
-    'users':users,
-    'jobs' :jobs , 
-    'interns' : interns, 
-    'locations' :locations, 
-    'computing_skills' : computing_skills,
-    'analytic_skills'  :analytic_skills,
-    'marketing_skills' : marketing_skills,
-    'management_skills' : management_skills,
-    'leadership_skills' : leadership_skills,
-    'business_skills' : business_skills,
-    'admin_skills' : admin_skills,
-    'additional_office':form2,
-    'additional_skills': additional_skills,
-    'automatic_phase':automatic_phase,
-    'toggle_automatic_phase':toggle_automatic_phase,
-    'toggle_algorithm':toggle_algorithm
-    }
+    
     return render(request, 'interface/interface.html', context)
 
 
@@ -400,7 +425,7 @@ def allocate_excel(request):
 
 
         except:
-            messages.error(request, 'Wrong format! Please edit and try again')
+            messages.error(request, 'Incorrect Format! Please edit and try again')
             return redirect('../../../admin_interface/allocate/excel')
 
         

@@ -220,9 +220,11 @@ def manager_form_additional_requirements(request, pk):
                     offices = JobLocation.objects.filter()
                     offices.create(location = office_name, address = location.address, latitude=location.latitude, longitude= location.longitude)
                 except:
-                    messages.info(request, 'Incorrect address')
+
+                    messages.info(request, 'Incorrect Address - Please submit a valid postcode for this Address!')
                     context = {'form': form, 'additional_office': form2, 'job': job, 'locations': location_json}
                     return render(request, 'users/manager_form4.html', context)
+                    
 
                 return redirect('../../../form/'+str(job.id)+'/manager_form/information_2')
 
@@ -273,25 +275,42 @@ def manager_form_skills(request, pk):
                 skill_category = form.data['skill_category']
                 skill_name = form.data['name']
 
+                if ComputingSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under computing skills!')
+                elif AnalyticSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under analtyic skills!')
+                elif ManagementSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under management skills!')
+                elif MarketingSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under marketing skills!')
+                elif LeadershipSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under leadership skills!')
+                elif BusinessSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under business skills!')
+                elif AdminSkills.objects.filter(name = skill_name):
+                        messages.info(request, str(skill_name) + ' already exists under admin skills!')
+                else:
+                    
+                    if skill_category == 'Computing':
+                        skills = ComputingSkills.objects.filter()
+                    elif skill_category == 'Analytic':
+                        skills = AnalyticSkills.objects.filter()
+                    elif skill_category == 'Marketing':
+                        skills = MarketingSkills.objects.filter()
+                    elif skill_category == 'Management':
+                        skills = ManagementSkills.objects.filter()
+                    elif skill_category == 'Leadership':
+                        skills = LeadershipSkills.objects.filter()
+                    elif skill_category == 'Business':
+                        skills = BusinessSkills.objects.filter()
+                    elif skill_category == 'Admin':
+                        skills = AdminSkills.objects.filter()
 
-                if skill_category == 'Computing':
-                    skills = ComputingSkills.objects.filter()
-                elif skill_category == 'Analytic':
-                    skills = AnalyticSkills.objects.filter()
-                elif skill_category == 'Marketing':
-                    skills = MarketingSkills.objects.filter()
-                elif skill_category == 'Management':
-                    skills = ManagementSkills.objects.filter()
-                elif skill_category == 'Leadership':
-                    skills = LeadershipSkills.objects.filter()
-                elif skill_category == 'Business':
-                    skills = BusinessSkills.objects.filter()
-                elif skill_category == 'Admin':
-                    skills = AdminSkills.objects.filter()
+                    skills.create(name = skill_name)
+               
                 
-                skills.create(name = skill_name)
             
-            return redirect('../../../form/'+str(job.id)+'manager_form/skills')
+            return redirect('../../../form/'+str(job.id)+'/manager_form/skills')
 
         elif form.is_valid() and 'Submit_form' in request.POST:
             #gathers all the skills
@@ -475,4 +494,61 @@ def manager_delete_job(request, pk):
 
     job.delete()
     InternPreference.objects.filter(job = job).delete()
+    return redirect('../../../../../../form/manager_dashboard/')
+
+
+@login_required(login_url='../../../../login')
+@allowed_users(allowed_roles=['Manager'])
+@required_phase(phase=['Job creation'])
+def manager_duplicate_job(request, pk):
+    
+    job = Job.objects.get(id=pk)
+    user = request.user
+    manager = request.user.manager
+
+    if job.manager != manager:
+        return redirect('../../../../../form/manager_dashboard')
+
+    new_job = Job.objects.create(
+        manager = manager,
+        email = user.email,
+        manager_name = job.manager_name,
+        name = job.name,
+        description = job.description,
+        daily_tasks = job.daily_tasks,
+        team = job.team,
+        date_created = job.date_created,
+        job_location = job.job_location,
+        remote = job.remote,
+        wage = job.wage,
+        progress = job.progress
+    )
+    for skill in job.computing_skills.all():
+        new_job.computing_skills.add(skill)
+
+    for skill in job.analytic_skills.all():
+        new_job.analytic_skills.add(skill)
+    
+    for skill in job.marketing_skills.all():
+        new_job.marketing_skills.add(skill)
+    
+    for skill in job.management_skills.all():
+        new_job.management_skills.add(skill)
+    
+    for skill in job.leadership_skills.all():
+        new_job.leadership_skills.add(skill)
+    
+    for skill in job.business_skills.all():
+        new_job.business_skills.add(skill)
+    
+    for skill in job.admin_skills.all():
+        new_job.admin_skills.add(skill)
+    
+    for skill in job.admin_skills.all():
+        new_job.admin_skills.add(skill)
+    
+
+    new_job.save()
+
+
     return redirect('../../../../../../form/manager_dashboard/')

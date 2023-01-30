@@ -21,8 +21,7 @@ urlpatterns = [
     path('manager_dashboard/',views.manager_dashboard, name='manager_dashboard'),
     path('manager_form/create_job/', views.manager_create_job, name='manager_create_job'),
     path('<int:pk>/manager_form/delete_job/', views.manager_delete_job, name='managerDeleteJob'),
-    
-
+    path('<int:pk>/manager_form/duplicate_job/', views.manager_duplicate_job, name='managerDuplicateJob'),
 ]
 
 app_name = 'users'

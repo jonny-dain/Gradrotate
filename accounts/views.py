@@ -118,3 +118,7 @@ def register(request):
 # HTTP Error 400
 def bad_request(request, exception):
     return render(request, "accounts/error.html")
+
+
+def bad_request_500(request):
+    return render(request, "accounts/error.html")

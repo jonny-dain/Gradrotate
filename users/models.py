@@ -6,12 +6,7 @@ from accounts.models import Job
 # Create your models here. from accounts.models import Intern, Job
 
 
-#Remove skills.........
-#class Skills(models.Model):
-#    name = models.CharField(max_length = 200, null = True)
 
-#    def __str__(self):
-#        return self.name
 
 
 

@@ -112,11 +112,6 @@ class Intern(models.Model):
     #user progress
     progress = models.IntegerField(default=1)
 
-    #Skills
-    #coding = models.IntegerField(default = 5)
-    #project_management = models.IntegerField(default = 5)
-    #marketing1_skills = models.IntegerField(default = 5)
-    #web_skills = models.IntegerField(default = 5)
 
     allocated_job = models.ForeignKey('Job', null=True, blank=True, on_delete=models.SET_NULL)
 

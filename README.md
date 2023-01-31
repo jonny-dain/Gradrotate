@@ -1,4 +1,4 @@
-This repository was provided by the University of Birmingham to hosy my final year project code. 
+This repository was provided by the University of Birmingham to host my final year project code. 
 
 Website: https://gradrotate.uk/
 

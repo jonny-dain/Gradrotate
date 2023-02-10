@@ -3,6 +3,7 @@ from django.urls import reverse
 from accounts.models import *
 from django.contrib.auth.models import Group
 import json
+import datetime
 
 class TestViews(TestCase):
 
@@ -98,6 +99,33 @@ class RegisterViewTest(TestCase):
         response = self.client.post(reverse('register'), {'username': 'testuser', 'email': 'test.com', 'password1': 'testpassword', 'password2': 'testpassword', 'role_selection': 'Intern'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Enter a valid email address')
+
+class HomepageViewTestCase(TestCase):
+    def setUp(self):
+        
+
+        Admin.objects.create(
+            total_interns=5,
+            total_jobs=10
+        )
+        self.admin = Admin.objects.all().first()
+        self.admin.automate_phase = False
+        self.admin.phase = 'Intern collection'
+        self.admin.save()
+    
+    def test_homepage_view(self):
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_homepage_stats(self):
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, '5')
+
+    def test_hompage_stats(self):
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, '10')
+    
+
 
 
 class LogoutTest(TestCase):

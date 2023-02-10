@@ -223,7 +223,8 @@ def manager_form_additional_requirements(request, pk):
 
                     messages.info(request, 'Incorrect Address - Please submit a valid postcode for this Address!')
                     context = {'form': form, 'additional_office': form2, 'job': job, 'locations': location_json}
-                    return render(request, 'users/manager_form4.html', context)
+                    return redirect('../../../form/'+str(job.id)+'/manager_form/information_2')
+                    
                     
 
                 return redirect('../../../form/'+str(job.id)+'/manager_form/information_2')

@@ -17,11 +17,9 @@ def pref_rank(pref):
 
 def gale_allocation(*, intern_preference, job_preference):
     
+    pair = {}
     job_rank = pref_rank(job_preference)
-
-
     intern_set = list(intern_preference.keys())
-    job_set = list(job_preference.keys())
     
     
     
@@ -31,19 +29,18 @@ def gale_allocation(*, intern_preference, job_preference):
 
         #using deques to improve efficiency
         iterate_list.update({intern: deque(jobs)})
-
-
-    #final pairings
-    pair = {}
+    
 
     interns_left = set(intern_set)
 
     while len(interns_left) > 0:
 
         #iterates through interns left and pops
+
         intern = interns_left.pop()
        
         job = iterate_list[intern].popleft()
+ 
 
         #Searches if the job is in the pair
         if job not in pair:
@@ -54,8 +51,9 @@ def gale_allocation(*, intern_preference, job_preference):
 
         else:
             intern0 = pair[job]
-            job_intern = job_rank[job][intern0] < job_rank[job][intern]
-            if job_intern:
+            job_intern_rank = job_rank[job][intern0] < job_rank[job][intern]
+            
+            if job_intern_rank == True:
 
                 #if the rank is lower then the rank in the pair then add to the list else add the current intern
                 interns_left.add(intern)
@@ -64,20 +62,15 @@ def gale_allocation(*, intern_preference, job_preference):
                 pair[job] = intern
     
     #Return pair of iterns and jobs... 
+
     return [(intern, job) for job, intern in pair.items()]
 
 
 #https://github.com/benchaplin/hungarian-algorithm
 def hungarian_algorithm(preference):
-
-
-
     preference_rank = pref_rank(preference)
-    
     matches_ranking = algorithm.find_matching(preference_rank, matching_type = 'min', return_type = 'list' )
-
     matches = [match[0] for match in matches_ranking]
-    
     return matches
 
 
@@ -104,4 +97,9 @@ def pareto_optimal(intern_preferences, job_preferences):
 
     
     return matching
+
+
+
+
+
 

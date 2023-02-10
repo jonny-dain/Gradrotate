@@ -238,6 +238,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script>
+        
+        
+        
+
         var n = $("input:checked").length;
         if (n >= 5)                                              
         {
@@ -247,15 +251,11 @@
         function countCheckedCheckboxes() {                            
             var n = $("input:checked").length;                       
                                      
-            if (n >= 5)                                              
-            {                                                        
+            if (n >= 5){                                                        
                 $(':checkbox:not(:checked)').prop('disabled', true);  
-            }                                                        
-            else                                                     
-            {                                                        
+            }else{                                                        
                 $(':checkbox:not(:checked)').prop('disabled', false); 
-            }                                                        
-        }                                                                                              
+            }}                                                                                              
         $(":checkbox").click(countCheckedCheckboxes);   
     </script>
 

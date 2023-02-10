@@ -59,20 +59,14 @@ def update_phase(view_func):
     def wrapper_func(request, *arg, **kwargs):
         admin = Admin.objects.all().first()
         if (admin.automate_phase == True):
-            default=datetime.date.today()
-            
-            if (default >= admin.allocation_creation_date):
+            date=datetime.date.today()    
+            if (date >= admin.allocation_creation_date):
                 admin.phase = 'Allocation'
-
-            elif (default >= admin.intern_creation_date):
+            elif (date >= admin.intern_creation_date):
                 admin.phase = 'Intern collection'
-            
             else:
-                admin.phase = 'Job creation'
-                
+                admin.phase = 'Job creation'   
             admin.save()
-
-
         return view_func(request, *arg, **kwargs)
     return wrapper_func
 
@@ -91,7 +85,6 @@ def required_phase(phase=[]):
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
 
-
             if admin.phase in phase:
                 return view_func(request, *arg, **kwargs)
             else:
@@ -101,8 +94,6 @@ def required_phase(phase=[]):
                         return redirect('../../../../form/manager_form/allocation/complete')
                     if group == 'Intern':
                         return redirect('../../../../form/student_form/allocation/complete')
-                
-                    
 
         return wrapper_func
     return decorator

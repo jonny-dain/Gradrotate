@@ -48,7 +48,7 @@
                     var data = new google.visualization.DataTable();
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Interns');
-                    data.addColumn('number', 'Managers');
+                    data.addColumn('number', 'Jobs');
 
                     data.addRows(
                         djangoData
@@ -56,7 +56,7 @@
 
                     var options = {
                         hAxis: {
-                        title: 'Preference Ranking',
+                        title: 'Preference Choice',
                         logScale: false,
                         gridlines: {
                             color: 'transparent'
@@ -64,7 +64,7 @@
                         },
                         
                         vAxis: {
-                        title: 'Amount of Users',
+                        title: 'Number of Users',
                         logScale: false,
                         gridlines: {
                             color: 'transparent'
@@ -175,12 +175,98 @@
             
             <div class="row">
                 <div class="col-xl-7 col-lg-7">
+                    {% if allocated_pairs %}
                     
                     <div class="row text-center">
                         <h5 style="color: #6c757d;">
                             Statistics
                         </h5>
                         <div style="width: 100%;" id="chart_div"></div>
+
+                    </div>
+                    <div class="row justify-content-center pt-2">
+                        <div class="col-4">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        
+                                        <h5 style="color: #6c757d;">
+                                            {{data_intern_match}}%
+                                            
+                                            
+                                            
+                                        </h5>
+                                        
+
+                                    </div>
+                                    <div class="row text-center">
+                                        <h6 style="color: #6c757d;">Intern match</h6>
+
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                                
+                            </div>
+                         
+                        </div>
+                        <div class="col-4">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        
+                                        <h5 style="color: #6c757d;">
+                                            {{data_job_match}}%
+                                            
+                                            
+                                            
+                                        </h5>
+                                        
+
+                                    </div>
+                                    <div class="row text-center">
+                                        <h6 style="color: #6c757d;">Job match</h6>
+
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                                
+                            </div>
+               
+                            
+                        </div>
+                        <div class="col-4">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        
+                                        <h5 style="color: #6c757d;">
+                                            {{data_overall_match}}%
+                                            
+                                            
+                                            
+                                        </h5>
+                                        
+
+                                    </div>
+                                    <div class="row text-center">
+                                        <h6 style="color: #6c757d;">Overall match</h6>
+
+                                    </div>
+                                    
+                                    
+
+                                </div>
+                                
+                            </div>
+                           
+                        </div>
+
+
+
 
                     </div>
                     
@@ -288,6 +374,7 @@
                         }
                     </script>
 
+                    {% endif %}
                     {% if not allocated_pairs %}
                     <div class="row justify-content-center">
                         <div class="col-md-7">

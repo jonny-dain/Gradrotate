@@ -124,6 +124,10 @@ def job_ordered_list(request):
 
 
 
+
+
+
+
 def job_ordered_preference_list(request):
     #create a preference dictionary based on the preferences {<Job: Digital degree>: 57, <Job: TPO>: 43, <Job: Change manager>: 29}
     

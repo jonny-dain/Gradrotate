@@ -217,22 +217,14 @@ def spread_of_preference(allocated_pairs, intern_preference, job_preference):
     return pref_ranking       
 
 
-def percentage_match(field,data):
-    
-    intern_count = (Intern.objects.all().count()*4)
-    total_value = 0
-    for data_field in data:
-        if data_field[0] == 1:
-            continue
-        else:
-            total_value += data_field[0] * data_field[field]
-        
-    
-    total_value= intern_count - total_value
-    total_value = int((total_value / intern_count)*100)
-    return total_value
+
              
-                    
+
+def percentage_match(field, data):  
+    max_intern_value = sum([triplet[1] for triplet in data]) ** 2
+    total_value = sum([data_field[0] * data_field[field] for data_field in data if data_field[0] != 1])
+    percentage = int(((max_intern_value - total_value) / max_intern_value) * 100)
+    return percentage          
 
                
 

@@ -314,6 +314,9 @@ def allocate_interface(request):
                     job_preference=job_preference,
                 )  
 
+                
+                
+
             elif admin.allocation_algorithm == 'Hungarian':
 
                 allocated_pairs = hungarian_algorithm(preference=intern_preference)
@@ -407,6 +410,8 @@ def allocate_excel(request):
                     intern_preference=intern_preference,
                     job_preference=job_preference,
                 )  
+               
+
 
             elif admin.allocation_algorithm == 'Hungarian':
 
@@ -418,10 +423,12 @@ def allocate_excel(request):
 
             
             data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
-
+            
             data_intern_match = percentage_match(1,data)
             data_job_match = percentage_match(2,data)
+
             data_overall_match = int(((data_intern_match + data_job_match)/2))
+
 
 
         except:

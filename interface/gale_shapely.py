@@ -99,7 +99,3 @@ def pareto_optimal(intern_preferences, job_preferences):
     return matching
 
 
-
-
-
-

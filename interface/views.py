@@ -305,7 +305,6 @@ def allocate_interface(request):
             job_preference = job_preference_dictionary()
 
 
-        
 
             if admin.allocation_algorithm == 'Gale Shapely':
             
@@ -315,7 +314,8 @@ def allocate_interface(request):
                 )  
 
                 
-                
+
+
 
             elif admin.allocation_algorithm == 'Hungarian':
 
@@ -398,8 +398,8 @@ def allocate_excel(request):
         
         try:
             workbook = openpyxl.load_workbook(excel_file)
-            intern_excel = workbook["Sheet1"]
-            job_excel = workbook["Sheet2"] 
+            intern_excel = workbook["intern_preference"]
+            job_excel = workbook["job_preference"] 
             intern_preference = excel_preferences(preferences = intern_excel)
             job_preference = excel_preferences(preferences = job_excel)
             preference_number = intern_excel.max_row - 1

@@ -13,4 +13,10 @@ class WebsiteUser(HttpUser):
     def register(self):
         self.client.get("http://www.gradrotate.uk/register")
 
+    @task(5)
+    def login(self):
+        login_url = "http://www.gradrotate.uk/login"
+        data = {'username': 'Intern1', 'password': 'Thisuser'}
+        self.client.post(login_url, data=data)
+
 #locust -f accounts/tests/locustfile.py -H http://www.gradrotate.uk/ -u 3 -r 1

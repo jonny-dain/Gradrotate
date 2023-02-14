@@ -156,7 +156,7 @@ class AdminViewTestExcel(TestCase):
 
     def test_post_request_with_valid_excel_file(self):
         
-        path = Path(settings.BASE_DIR).joinpath("static", "files", "Placement_test.xlsx")
+        path = Path(settings.BASE_DIR).joinpath("static", "files", "Allocation_template.xlsx")
         excel_file = open(path, "rb")       
         response = self.client.post(reverse('interface:allocate_excel'), {'excel_file': excel_file})
         self.assertEqual(response.status_code, 302)

@@ -24,6 +24,9 @@ def homepage(request):
     admin = Admin.objects.all().first()
     total_interns = admin.total_interns
     total_jobs = admin.total_jobs
+
+    setup_initial_data()
+
     context = {'total_interns': total_interns, 'total_jobs': total_jobs}
     return render(request, 'accounts/homepage.html', context)
 
@@ -112,7 +115,26 @@ def register(request):
 
 
 
+GROUP_NAMES = ['Admin', 'Manager', 'Intern']
 
+def setup_initial_data():
+    
+    # Create user groups
+    for group_name in GROUP_NAMES:
+        Group.objects.get_or_create(name=group_name)
+        
+    # Check if there are any admin users already, and create one if not
+    admins = Admin.objects.all()
+    
+    if not admins.exists():
+        admin_user = User.objects.create_user(
+            username='admin',
+            password='supersecretpassword',
+        )
+        admin_group = Group.objects.get(name='Admin')
+        admin_user.groups.add(admin_group)
+        admin_user.save()
+        admin_object = Admin.objects.create(user=admin_user)
 
 
 # HTTP Error 400

@@ -61,7 +61,8 @@ def admin_interface(request):
     'additional_skills': additional_skills,
     'automatic_phase':automatic_phase,
     'toggle_automatic_phase':toggle_automatic_phase,
-    'toggle_algorithm':toggle_algorithm
+    'toggle_algorithm':toggle_algorithm,
+    'admin':admin
     }
 
     if request.method == 'POST':

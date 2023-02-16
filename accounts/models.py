@@ -8,7 +8,8 @@ from django.contrib.auth.models import User
 from django import forms
 
 
-# Create your models here.  I want to create a customer user for email authenication I think... https://www.youtube.com/watch?v=vGDNJoeeQaA
+
+
 
 
 # Skill category 
@@ -46,7 +47,6 @@ class AdminSkills(models.Model):
     name = models.CharField(max_length = 200, null = True)
     def __str__(self):
         return self.name
-
 
 class JobLocation(models.Model):
     location = models.CharField(max_length = 200, null = True)

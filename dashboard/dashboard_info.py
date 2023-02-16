@@ -86,29 +86,38 @@ def job_ordered_list(request):
         business_skills_job = job.business_skills.all()
         admin_skills_job = job.admin_skills.all()
 
-        similarity_weighting = len(list(set(computing_skills_job).intersection(computing_skills_intern)))
+        similarity_weighting += min(len(list(computing_skills_intern)), len(list(computing_skills_job)))
+        similarity_weighting += min(len(list(analytic_skills_intern)), len(list(analytic_skills_job)))
+        similarity_weighting += min(len(list(marketing_skills_intern)), len(list(marketing_skills_job)))
+        similarity_weighting += min(len(list(management_skills_intern)), len(list(management_skills_job)))
+        similarity_weighting += min(len(list(leadership_skills_intern)), len(list(leadership_skills_job)))
+        similarity_weighting += min(len(list(business_skills_intern)), len(list(business_skills_job)))
+        similarity_weighting += min(len(list(admin_skills_intern)), len(list(admin_skills_job)))
+        #Adds a +1 similarity weighting for the same same category of skill
+        
+
+        similarity_weighting += len(list(set(computing_skills_job).intersection(computing_skills_intern)))
         similarity_weighting += len(list(set(analytic_skills_job).intersection(analytic_skills_intern)))
         similarity_weighting += len(list(set(marketing_skills_job).intersection(marketing_skills_intern)))
         similarity_weighting += len(list(set(management_skills_job).intersection(management_skills_intern)))
         similarity_weighting += len(list(set(leadership_skills_job).intersection(leadership_skills_intern)))
         similarity_weighting += len(list(set(business_skills_job).intersection(business_skills_intern)))
         similarity_weighting += len(list(set(admin_skills_job).intersection(admin_skills_intern)))
+        #Adds a +1 similarity weighting for the same same skill
 
-        #This calculates the weighting...
 
-
-       #If the locations are the same add one to the weighting - total max is now 6
+       #If the locations are the same add one to the weighting - total max is now 6, with category is 11
         if job.job_location == intern.job_location:
             similarity_weighting += 1
         
 
-        #If remote is the same add one to the weighting - total max is now 7
+        #If remote is the same add one to the weighting - total max is now 7, with category is 12
         if job.remote == intern.remote:
             similarity_weighting += 1
 
         #Section for preferred wage
 
-        similarity_weighting = round(similarity_weighting/7 * 100)
+        similarity_weighting = round(similarity_weighting/12 * 100)
 
         job_dictionary[job] = similarity_weighting
 
@@ -117,6 +126,7 @@ def job_ordered_list(request):
     job_dictionary = sorted(job_dictionary.items(), key=lambda x:x[1], reverse=True)
 
     job_dictionary = dict(job_dictionary)
+    
     
 
     return job_dictionary
@@ -165,7 +175,16 @@ def job_ordered_preference_list(request):
         business_skills_job = job.business_skills.all()
         admin_skills_job = job.admin_skills.all()
 
-        similarity_weighting = len(list(set(computing_skills_job).intersection(computing_skills_intern)))
+        similarity_weighting += min(len(list(computing_skills_intern)), len(list(computing_skills_job)))
+        similarity_weighting += min(len(list(analytic_skills_intern)), len(list(analytic_skills_job)))
+        similarity_weighting += min(len(list(marketing_skills_intern)), len(list(marketing_skills_job)))
+        similarity_weighting += min(len(list(management_skills_intern)), len(list(management_skills_job)))
+        similarity_weighting += min(len(list(leadership_skills_intern)), len(list(leadership_skills_job)))
+        similarity_weighting += min(len(list(business_skills_intern)), len(list(business_skills_job)))
+        similarity_weighting += min(len(list(admin_skills_intern)), len(list(admin_skills_job)))
+        #Adds a +1 similarity weighting for the same same category of skill
+
+        similarity_weighting += len(list(set(computing_skills_job).intersection(computing_skills_intern)))
         similarity_weighting += len(list(set(analytic_skills_job).intersection(analytic_skills_intern)))
         similarity_weighting += len(list(set(marketing_skills_job).intersection(marketing_skills_intern)))
         similarity_weighting += len(list(set(management_skills_job).intersection(management_skills_intern)))
@@ -183,9 +202,10 @@ def job_ordered_preference_list(request):
             similarity_weighting += 1
 
         #Section for preferred wage
-        similarity_weighting = round(similarity_weighting/7 * 100)
+        similarity_weighting = round(similarity_weighting/12 * 100)
 
         job_dictionary[job] = similarity_weighting
 
+        
 
     return job_dictionary

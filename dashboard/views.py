@@ -43,6 +43,9 @@ def preference(request):
 
     counter = 0
     for job in jobs:
+        
+
+
         counter += 1
         if not InternPreference.objects.filter(intern = request.user.intern, job = job).exists():
             InternPreference.objects.create(intern = request.user.intern, job = job, preference = counter)

@@ -61,7 +61,8 @@ class AdminToggleNotify(ModelForm):
     ALGORITHM =(
         ('Gale Shapely','Gale Shapely'),
         ('Hungarian','Hungarian'),
-        ('Pareto','Pareto')
+        ('Pareto','Pareto'),
+        ('Random Serial Dictatorship','Random Serial Dictatorship')
 
     )
 
@@ -82,7 +83,8 @@ class AdminToggleAlgorithm(ModelForm):
     ALGORITHM =(
         ('Gale Shapely','Gale Shapely'),
         ('Hungarian','Hungarian'),
-        ('Pareto','Pareto')
+        ('Pareto','Pareto'),
+        ('Random Serial Dictatorship','Random Serial Dictatorship')
 
     )
 

@@ -278,7 +278,7 @@
                     <h5 class="text-center pt-2" style="color: #6c757d;">Preferences</h5>
 
                     <div class="card border-0 p-2">
-                        <div class="col-6">
+                        <div class="col-12">
                         <div class="btn-group">
                             
                                 <input type="checkbox" class="btn-check" id="btn-check-2-outlined1" autocomplete="off" onclick="toggleDiv('intern_table')">
@@ -373,6 +373,13 @@
                         }
                         }
                     </script>
+                    <div class="row pt-4 g-0">
+                        <div class="alert alert-secondary" style = "font-size: 13px; " role="alert">
+                            <strong>Allocation Algorithm - {{admin.allocation_algorithm}}:</strong>
+                                            <br>{{ algorithm_context|safe}}
+                          </div>
+
+                    </div>
 
                     {% endif %}
                     {% if not allocated_pairs %}

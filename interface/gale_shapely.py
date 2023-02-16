@@ -99,3 +99,16 @@ def pareto_optimal(intern_preferences, job_preferences):
     return matching
 
 
+def random_serial_dictatorship_matching(intern_preference, job_preference):
+    interns = list(intern_preference.keys())
+    jobs = list(job_preference.keys())
+    matches = []
+    for i in range(len(interns)):
+        preferences = intern_preference[interns[i]]
+        for j in range(len(preferences)):
+            if preferences[j] in jobs:
+                job = preferences[j]
+                jobs.remove(job)
+                matches.append((interns[i], job))
+                break
+    return matches

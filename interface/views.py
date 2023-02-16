@@ -304,6 +304,12 @@ def allocate_interface(request):
             intern_preference = intern_preference_dictionary()
             job_preference = job_preference_dictionary()
 
+            #print("Intern preference: " + str(intern_preference))
+            #print("Job preference: " + str(job_preference))
+            #print("Gale allocation: " + str(gale_allocation(
+            #        intern_preference=intern_preference,
+           #         job_preference=job_preference,
+           #     )  ))
 
 
             if admin.allocation_algorithm == 'Gale Shapely':
@@ -313,22 +319,27 @@ def allocate_interface(request):
                     job_preference=job_preference,
                 )  
 
-                
-
-
+                algorithm_context = 'The Gale-Shapley algorithm is a method for pairing interns with their preferred jobs, utilizing both intern and job preferences. The algorithm iteratively matches each intern with their most preferred job whilst considering the preferences of the jobs. This ensures interns are matched with their best possible job in a stable configuration. <a href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank">Learn more</a>'
 
             elif admin.allocation_algorithm == 'Hungarian':
 
                 allocated_pairs = hungarian_algorithm(preference=intern_preference)
+
+                algorithm_context = 'The Hungarian algorithm is a technique for pairing interns with their preferred jobs, only using the intern’s preferences. The algorithm optimizes the matching by finding the minimum cost of assigning interns to jobs. It achieves this by iteratively selecting the lowest cost assignment and updates the matching until the optimal is found. <a href=" https://en.wikipedia.org/wiki/Hungarian_algorithm " target="_blank">Learn more</a>'
         
             elif admin.allocation_algorithm == 'Pareto':
     
                 allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
-            #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
+                #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
+                
+                algorithm_context = 'The Pareto algorithm finds the optimal pairing that satisfies the preferences of both interns and jobs. The algorithm iteratively evaluates the potential intern-job matches and identifying a match where a pairing cannot be improved without worsening any other interns preference. <a href=" https://en.wikipedia.org/wiki/Multi-objective_optimization" target="_blank">Learn more</a>'
 
-            
+            elif admin.allocation_algorithm == 'Random Serial Dictatorship':
+                allocated_pairs = random_serial_dictatorship_matching(intern_preference=intern_preference, job_preference=job_preference)
 
-            #allocated_pairs = hungarian_algorithm(preference=intern_preference)
+                algorithm_context = 'The Random Serial Dictatorship is an optimal method for pairing interns with jobs, only considering the intern’s preferences. The algorithm randomly selects an intern allowing them to choose their most preferred job. If the job is available, the intern is assigned to the job. If not, the job is removed from consideration and the intern moves on to their next preferred job. <a href=" https://en.wikipedia.org/wiki/Random_priority_item_allocation" target="_blank">Learn more</a>'
+
+         
            
             
             
@@ -360,7 +371,7 @@ def allocate_interface(request):
 
 
 
-            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs,'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
+            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs,'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match, 'algorithm_context':algorithm_context,'admin':admin }
             return render(request, 'interface/allocate.html', context)
 
         except:
@@ -410,16 +421,27 @@ def allocate_excel(request):
                     intern_preference=intern_preference,
                     job_preference=job_preference,
                 )  
-               
 
+                algorithm_context = 'The Gale-Shapley algorithm is a method for pairing interns with their preferred jobs, utilizing both intern and job preferences. The algorithm iteratively matches each intern with their most preferred job whilst considering the preferences of the jobs. This ensures interns are matched with their best possible job in a stable configuration. <a href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank">Learn more</a>'
 
             elif admin.allocation_algorithm == 'Hungarian':
 
                 allocated_pairs = hungarian_algorithm(preference=intern_preference)
+
+                algorithm_context = 'The Hungarian algorithm is a technique for pairing interns with their preferred jobs, only using the intern’s preferences. The algorithm optimizes the matching by finding the minimum cost of assigning interns to jobs. It achieves this by iteratively selecting the lowest cost assignment and updates the matching until the optimal is found. <a href=" https://en.wikipedia.org/wiki/Hungarian_algorithm " target="_blank">Learn more</a>'
         
             elif admin.allocation_algorithm == 'Pareto':
     
                 allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
+                #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
+                
+                algorithm_context = 'The Pareto algorithm finds the optimal pairing that satisfies the preferences of both interns and jobs. The algorithm iteratively evaluates the potential intern-job matches and identifying a match where a pairing cannot be improved without worsening any other interns preference. <a href=" https://en.wikipedia.org/wiki/Multi-objective_optimization" target="_blank">Learn more</a>'
+
+            elif admin.allocation_algorithm == 'Random Serial Dictatorship':
+                allocated_pairs = random_serial_dictatorship_matching(intern_preference=intern_preference, job_preference=job_preference)
+
+                algorithm_context = 'The Random Serial Dictatorship is an optimal method for pairing interns with jobs, only considering the intern’s preferences. The algorithm randomly selects an intern allowing them to choose their most preferred job. If the job is available, the intern is assigned to the job. If not, the job is removed from consideration and the intern moves on to their next preferred job. <a href=" https://en.wikipedia.org/wiki/Random_priority_item_allocation" target="_blank">Learn more</a>'
+
 
             
             data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
@@ -438,5 +460,5 @@ def allocate_excel(request):
         
         
 
-        context = {'data': json.dumps(data),'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1),'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match }
+        context = {'data': json.dumps(data),'allocated_pairs':allocated_pairs, 'intern_preference':intern_preference, 'job_preference': job_preference, 'preference_number' : range(1,preference_number + 1),'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match, 'algorithm_context':algorithm_context,'admin':admin  }
         return render(request, 'interface/allocate_excel.html', context)

@@ -248,7 +248,7 @@
                         Settings
                     </h5>
                     
-                        <div class="row pt-2 g-0">
+                        <div class="row pt-2 p-2 g-0">
                             <div class="card border-0 mb-3">
                                 <div class="card-body text-center"> 
                                 <form method="POST" action="">
@@ -287,8 +287,17 @@
                                         {{form.allocation_algorithm}}
 
                                     </div>
+                                    <div class="col-sm-auto">
+                                        <div class="hover-text float-end"><i class='bx bx-sm bx-info-circle' style = "color:#6c757d;"></i>
+                                            <span class="tooltip-text" id="left"> 
+                                                Change the allocation algorithm to find the most effective intern-job pairing. Additional information below gives some context in to how the allocations have been achieved
+                                            </span>
+                                          </div>
+
+                                    </div>
 
                                 </div>
+                                
                                     
                                     
                                     
@@ -302,6 +311,14 @@
                             
                             
                         </div>
+                        <div class="row pt-1 p-2 g-0">
+                            <div class="alert alert-secondary" style = "font-size: 13px; " role="alert">
+                                <strong>Allocation Algorithm - {{admin.allocation_algorithm}}:</strong>
+                                                <br>{{ algorithm_context|safe}}
+                              </div>
+
+                        </div>
+                        
                     </div>
                     
                     

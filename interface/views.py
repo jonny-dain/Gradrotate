@@ -345,11 +345,13 @@ def allocate_interface(request):
             
             
             #Saves the allocated interns and jobs to the profiles
+            
             for pair in allocated_pairs:
                 pair[0].allocated_job = pair[1]
                 pair[1].allocated_intern = pair[0]
                 pair[0].save()
                 pair[1].save()
+                
 
             
 

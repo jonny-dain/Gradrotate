@@ -353,7 +353,7 @@
 
                         
                         <div class="row justify-content-center">
-                            <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate"> Allocate </a>
+                            <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate">Allocate Interns / Jobs</a>
                         </div>
                         <div class="row justify-content-center">
                             <a class="save-button p-3 m-1 text-center" style="text-decoration:none" href="../admin_interface/allocate/excel"> Allocate by Excel </a>
@@ -413,9 +413,60 @@
                                 {% for office in locations %}
                                     <tr>
                                         <td style="min-width:100px">{{office.location}}</td>
-                                        <td style="min-width:100px"><a href="{% url 'interface:deleteOffice' office.id %}">Delete</a></td>                          
+                                        <td style="min-width:100px"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal{{office.id}}" style="width: 130px;">
+                                            Delete
+                                        </button></td>                          
                                         
                                     </tr>
+
+                                    
+                                    
+            
+            
+                                    <div class="modal fade justify-content-center" id="modal{{office.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="display: block;">
+                                                <div class="row text-center">   
+                                                    <h4 class= "job-card-title-text " > Delete Job</h4> 
+                                                  
+                                                </div>
+                                                
+                                            </div>
+                                                
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        Are you sure you want to delete Office Location: 
+                                                        <br>
+                                                        {{office.location}}
+
+                                                        <br>
+                                                        <br>
+
+                                                        Office address: 
+                                                        <br>
+                                                        {{office.address}}
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+            
+                                            </div>
+                                            <div class="modal-footer">
+                                                
+                                                <a href="{% url 'interface:deleteOffice' office.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                    
+                                                <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+            
+                              
+                                
+            
+                            </div>
+                        
+                                    </div>
                                 {% endfor %}
                            
                         </table>   
@@ -562,50 +613,227 @@
                                         {% for computing_skill in computing_skills %}
                                             <tr class="toggleCoding">
                                                 <td style="min-width:100px">{{computing_skill.name}}</td>
-                                                <td style="min-width:100px"><a href="{% url 'interface:deleteSkillComputing' computing_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-computing-{{computing_skill.id}}" style="width: 130px;">Delete</button></td>                          
                                                 
+                                                <div class="modal fade justify-content-center" id="modal-computing-{{computing_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Computing Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{computing_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillComputing' computing_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
                                             </tr>
                                         {% endfor %}
                                         {% for analytic_skill in analytic_skills %}
                                             <tr class="toggleAnalytic" style="display: none;">
                                                 <td style="min-width:100px;">{{analytic_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillAnalytic' analytic_skill.id %}">Delete</a></td>                          
+                                                <td style="min-width:100px;"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-analytic-{{analytic_skill.id}}" style="width: 130px;">Delete</button></td>                          
                                                 
+                                                <div class="modal fade justify-content-center" id="modal-analytic-{{analytic_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Analytic Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{analytic_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillAnalytic' analytic_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
                                             </tr>
                                         {% endfor %}
                                         {% for marketing_skill in marketing_skills %}
                                             <tr class="toggleMarketing" style="display: none;">
                                                 <td style="min-width:100px;">{{marketing_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillMarketing' marketing_skill.id %}">Delete</a></td>                          
                                                 
+
+                                                <td style="min-width:100px;"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-marketing-{{marketing_skill.id}}" style="width: 130px;">Delete</button></td>                          
+                                                
+                                                <div class="modal fade justify-content-center" id="modal-marketing-{{marketing_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Marketing Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{marketing_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillMarketing' marketing_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
+
+
                                             </tr>
                                         {% endfor %}
                                         {% for management_skill in management_skills %}
                                             <tr class="toggleManagement" style="display: none;">
                                                 <td style="min-width:100px;">{{management_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillManagement' management_skill.id %}">Delete</a></td>                          
+                                                                        
                                                 
+
+                                                <td style="min-width:100px;"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-management-{{management_skill.id}}" style="width: 130px;">Delete</button></td>                          
+                                                
+                                                <div class="modal fade justify-content-center" id="modal-management-{{management_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Management Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{management_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillManagement' management_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
+
                                             </tr>
                                         {% endfor %}
                                         {% for leadership_skill in leadership_skills %}
                                             <tr class="toggleLeadership" style="display: none;">
                                                 <td style="min-width:100px;">{{leadership_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillLeadership' leadership_skill.id %}">Delete</a></td>                          
+         
+                                                <td style="min-width:100px;"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-leadership-{{leadership_skill.id}}" style="width: 130px;">Delete</button></td>                          
                                                 
+                                                <div class="modal fade justify-content-center" id="modal-leadership-{{leadership_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Leadership Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{leadership_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillLeadership' leadership_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
+
+
                                             </tr>
                                         {% endfor %}
                                         {% for business_skill in business_skills %}
                                             <tr class="toggleBusiness" style="display: none;">
                                                 <td style="min-width:100px;">{{business_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillBusiness' business_skill.id %}">Delete</a></td>                          
+                                         
+
+                                                <td style="min-width:100px;"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-business-{{business_skill.id}}" style="width: 130px;">Delete</button></td>                          
                                                 
+                                                <div class="modal fade justify-content-center" id="modal-business-{{business_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Business Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{business_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillBusiness' business_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
                                             </tr>
                                         {% endfor %}
                                         {% for admin_skill in admin_skills %}
                                             <tr class="toggleAdmin" style="display: none;">
                                                 <td style="min-width:100px;">{{admin_skill.name}}</td>
-                                                <td style="min-width:100px;"><a href="{% url 'interface:deleteSkillAdmin' admin_skill.id %}">Delete</a></td>                          
+                       
+
+                                                <td style="min-width:100px;"><button type="button" class="back-button p-1  text-center" data-bs-toggle="modal" data-bs-target="#modal-admin-{{admin_skill.id}}" style="width: 130px;">Delete</button></td>                          
                                                 
+                                                <div class="modal fade justify-content-center" id="modal-admin-{{admin_skill.id}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="display: block;">
+                                                            <div class="row text-center">   
+                                                                <h4 class= "job-card-title-text " > Delete Admin Skill</h4>                                                               
+                                                            </div>                                                            
+                                                        </div>        
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    Are you sure you want to delete skill {{admin_skill.name}}? 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">          
+                                                            <a href="{% url 'interface:deleteSkillAdmin' admin_skill.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
+                                                            <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                </div>
+
+
                                             </tr>
                                         {% endfor %}
 

@@ -67,15 +67,50 @@
                
                     
                  
-                        <a href="{% url 'users:managerDeleteJob' job.id %}" class="back-button p-2 m-2 text-center" style="display: inline;text-decoration:none">Delete Job</a>
+                        
+                        <button type="button" class="back-button p-2 m-2 text-center" data-bs-toggle="modal" data-bs-target="#modal-1">
+                            Delete Job
+                        </button>
+
+
+                        <div class="modal fade justify-content-center" id="modal-1" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header" style="display: block;">
+                                    <div class="row text-center">   
+                                        <h4 class= "job-card-title-text " > Delete Job</h4> 
+                                      
+                                    </div>
+                                    
+                                </div>
+                                    
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            Are you sure you want to delete Job {{job.name}}?
+                                        </div>
+                                        
+                                        
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{% url 'users:managerDeleteJob' job.id %}" class="save-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;">Delete</a>
                     
-        
+                                    <button type="button" class="back-button p-2 m-1 text-center" style="display: inline;text-decoration:none; width: 120px;" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+
                   
                     
 
                 </div>
             
-            </div>
+                        </div>
+
+
+
+
             <div class="card shadow-sm border-0 rounded m-4 mt-0 p-4 mx-auto" style="max-width: 70rem;">
                  
                 <div class="job-card-body">

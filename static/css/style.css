@@ -533,6 +533,14 @@ a.active, a:hover{
   border: 1px solid rgb(200, 200, 200);
   border-radius: 30px;
 }
+.back-button:hover{
+  background-color: #708797;
+  color: white;
+}
+.save-button:hover{
+  background-color: #708797;
+  color: rgb(19, 19, 19);
+}
 
 
 .skill-bar{

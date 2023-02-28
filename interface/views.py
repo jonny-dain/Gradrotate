@@ -322,6 +322,8 @@ def allocate_interface(request):
 
                 algorithm_context = 'The Gale-Shapley algorithm is a method for pairing interns with their preferred jobs, utilizing both intern and job preferences. The algorithm iteratively matches each intern with their most preferred job whilst considering the preferences of the jobs. This ensures interns are matched with their best possible job in a stable configuration. <a href="https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm" target="_blank">Learn more</a>'
 
+                
+
             elif admin.allocation_algorithm == 'Hungarian':
 
                 allocated_pairs = hungarian_algorithm(preference=intern_preference)

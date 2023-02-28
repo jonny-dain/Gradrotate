@@ -48,14 +48,14 @@
     <div class="content">
 
     <div class="container-fluid" >
-        <div class = "row justify-content-start" style="background-color: #dde0e3;">
+        <div class = "row justify-content-start" style="background-color: #E7E9EC;">
             <div class = "col-1">
                 <p class="h3"style = "padding: 5px 5px 5px; color:#565c62;">
                 <i class="fa fa-bars" id="btn1"></i>
                 </p>
             </div>
             <div class = "col-1">
-                <p class="h3" style = "padding: 5px 5px 5px; color:#565c62;">Dashboard</p>
+                
             
             </div>
         </div>
@@ -109,21 +109,21 @@
         
         <div class = "row pt-2">
             <div class="col-xl-3">
-                <div class="col text-center">
+                <div class="row p-3 text-center">
                     <h5 style="color: #6c757d;">
                         Statistics
                     </h5>
                     
                 </div>
                 
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0  mb-3">
                     <div class="card-body p-4">
                         <h5 class="card-title fs-12" style = "color:#6c757d;">Total users</h5>
                         <i class="fa fa-regular fa-user float-end fa-2x" style = "color:#d3d6d8"></i>
                         <h2 style = "color:#6c757d;">{{users}}</h2>
                     </div>
                 </div>
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0  mb-3">
                     <div class="card-body p-4">
                         <h5 class="card-title fs-12" style = "color:#6c757d;">Interns</h5>
                         
@@ -131,7 +131,7 @@
                         <h2 class="my-2"style = "color:#6c757d;">{{interns.count}}</h2>
                     </div>
                 </div>
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0  mb-3">
                     <div class="card-body p-4">
                         <h5 class="card-title fs-12" style = "color:#6c757d;">Jobs</h5>
                         <i class="fa fa-solid fa-briefcase float-end fa-2x" style = "color:#d3d6d8"></i>
@@ -147,7 +147,7 @@
 
             </div>
             <div class="col-xl-4">
-                <div class="col text-center">
+                <div class="row p-3 text-center">
                     <h5 style="color: #6c757d;">
                         Phases
                     </h5>
@@ -157,7 +157,7 @@
                 
 
                 
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0 mb-3">
                         <div class="card-body p-4">
                             <div class= "row">
                                 <div class="col-md-auto">
@@ -215,7 +215,7 @@
                     </div>
                         
                 </div>
-                <div class="card border-0 shadow-sm mb-3 p-0">
+                <div class="card border-0  mb-3 p-0">
                     <div class="card-body p-4">
                         <div class= "row">
                             <div class="col-md-auto">
@@ -306,7 +306,7 @@
 
                 {% if admin.phase == 'Allocation' %}
 
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0  mb-3">
                     
                     <div class="card-body p-4">
                         <div class= "row">
@@ -373,16 +373,17 @@
 
             </div>
             <div class="col-xl-5"> 
-                <div class="col text-center">
+                <div class="row p-3 text-center">
                     <h5 style="color: #6c757d;">
                         Settings
                     </h5>
-                </div>   
+                    
+                </div>
                 
 
                 
 
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0  mb-3">
                     <div class="card-body p-4">
                         
                         <div class= "row">
@@ -522,7 +523,7 @@
                 
                 </script>
                 
-                <div class="card border-0 shadow-sm mb-3">
+                <div class="card border-0  mb-3">
                     
                     <div class="card-body p-4">
                         

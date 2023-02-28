@@ -23,12 +23,14 @@
 
 
     <div class="container">
-        <div class="card shadow-sm border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
+        <div class="card border-0 rounded m-4 p-4 mx-auto" style="max-width: 45rem;">
         <div class="row">
             <div class="col-2">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
+                <div class="text-center">
+                    <i class='bx bx-lg bx-check-circle'></i>
+
+                </div>
+                
 
             </div>
             <div class = "col-10">
@@ -56,7 +58,7 @@
         <div class="mt-3" style="margin-bottom: 70px;">
             {% for job in preference_list %}
             <div class="row">
-                <div class="preference-options shadow-sm border-0 mx-auto text-center">
+                <div class="preference-options  border-0 mx-auto text-center">
 
                     
                     #{{ forloop.counter }}

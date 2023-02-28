@@ -62,7 +62,6 @@ def gale_allocation(*, intern_preference, job_preference):
                 pair[job] = intern
     
     #Return pair of iterns and jobs... 
-
     return [(intern, job) for job, intern in pair.items()]
 
 
@@ -112,3 +111,8 @@ def random_serial_dictatorship_matching(intern_preference, job_preference):
                 matches.append((interns[i], job))
                 break
     return matches
+
+
+
+
+

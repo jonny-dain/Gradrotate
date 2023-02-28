@@ -541,6 +541,10 @@ a.active, a:hover{
   background-color: #4D697D;
   color: white;
 }
+.toggle-create-skills-button:hover{
+  background-color: #4D697D;
+  color: white;
+}
 
 
 .skill-bar{

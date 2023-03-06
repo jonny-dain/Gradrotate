@@ -416,20 +416,23 @@ def student_allocation_complete(request):
     job = intern.allocated_job
     admin = Admin.objects.all().first()
 
+    try:
+        intern_dictionary = {}
+        preferences = intern.internpreference_set.all()
+        for preference in preferences:    
+            intern_dictionary[preference.job] = preference.preference
+        intern_dictionary = sorted(intern_dictionary.items(), key=lambda x:x[1])
+        intern_dictionary = dict(intern_dictionary)
+        job_list = list(intern_dictionary.keys())
+        preference = (job_list.index(intern.allocated_job)+1)
+        context = {'job':job, 'preference': preference,'admin':admin}
+    except:
+        context = {'job':job, 'admin':admin}
 
-    intern_dictionary = {}
-    preferences = intern.internpreference_set.all()
-    for preference in preferences:    
-        intern_dictionary[preference.job] = preference.preference
-    intern_dictionary = sorted(intern_dictionary.items(), key=lambda x:x[1])
-    intern_dictionary = dict(intern_dictionary)
-    job_list = list(intern_dictionary.keys())
-    preference = (job_list.index(intern.allocated_job)+1)
+
+
+
     
-
-
-
-    context = {'job':job, 'preference': preference,'admin':admin}
 
     
 

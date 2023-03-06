@@ -151,74 +151,73 @@ def excel_set(model):
    
     
 
-def spread_of_preference(allocated_pairs, intern_preference, job_preference):
-    
-    
+def spread_of_preference(allocated_pairs, intern_preference, job_preference):   
     all_jobs_count = len(job_preference)
     all_intern_count = len(intern_preference)
-
     pref_ranking = []
     i = 0
     if (all_intern_count < all_jobs_count):
-
         while i < all_jobs_count:
             i += 1
             list = [i,0,0]
             pref_ranking.append(list)
-
-    else:
-        
+    else:   
         while i < all_intern_count:
             i += 1
             list = [i,0,0]
             pref_ranking.append(list)
 
-
-
-
-
     #[(<Intern: Intern1>, <Job: Digital degree>), (<Intern: Test>, <Job: TPO>), (<Intern: Test1>, <Job: Manager Testing Job>)]
     for pair in allocated_pairs:
-        for intern, jobs in intern_preference.items():
-            
-            
-            if pair[0] == intern:
-                
-            
-                for count,data in enumerate(pref_ranking):
-                    
-                    
-                    if pair[1] == jobs[count]:
-                        
-                        
-                        
+        for intern, jobs in intern_preference.items():      
+            if pair[0] == intern:     
+                for count,data in enumerate(pref_ranking):            
+                    if pair[1] == jobs[count]:            
                         data = pref_ranking[count][1]
                         data += 1
                         pref_ranking[count][1] = data
-
-
     for pair in allocated_pairs:
         for job, interns in job_preference.items():        
             if pair[1] == job:
                 i=0
-                while i < all_intern_count:
-                                       
+                while i < all_intern_count:                                     
                     if pair[0] == interns[i]:
- 
                         data = pref_ranking[i][2]
                         data += 1
-                        pref_ranking[i][2] = data
-                    
-                    i += 1
-
-    
-    
-                    
+                        pref_ranking[i][2] = data                   
+                    i += 1                    
     return pref_ranking       
 
 
 
+## HEREE
+
+def spread_of_preference_pairs(allocated_pairs, intern_preference, job_preference):
+       
+    rank_pairs = []
+    for pair in allocated_pairs:
+        for intern, jobs in intern_preference.items(): 
+            if pair[0] == intern:
+                for rank, job in enumerate(jobs):
+                    if job == pair[1]:
+                        intern_rank = rank + 1
+                        break
+
+        for job, interns in job_preference.items(): 
+            if pair[1] == job:
+                for rank, intern in enumerate(interns):
+                    if intern == pair[0]:
+                        job_rank = rank + 1
+                        break
+
+        rank_pairs.append(((intern_rank, job_rank)))
+    return rank_pairs
+                   
+
+
              
+
+
 
 def percentage_match(field, data):  
     max_intern_value = sum([triplet[1] for triplet in data]) ** 2

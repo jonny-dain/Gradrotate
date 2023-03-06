@@ -298,19 +298,11 @@ def allocate_interface(request):
         jobs = Job.objects.all()
         interns = Intern.objects.all()
 
-            #if jobs.count() != interns.count():
-            #Add error messages here.. 
-        #    return redirect('../../../admin_interface')
+
         try:
             intern_preference = intern_preference_dictionary()
             job_preference = job_preference_dictionary()
 
-            #print("Intern preference: " + str(intern_preference))
-            #print("Job preference: " + str(job_preference))
-            #print("Gale allocation: " + str(gale_allocation(
-            #        intern_preference=intern_preference,
-           #         job_preference=job_preference,
-           #     )  ))
 
 
             if admin.allocation_algorithm == 'Gale Shapely':
@@ -362,6 +354,10 @@ def allocate_interface(request):
 
             data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
          
+            
+            rank_pairs = spread_of_preference_pairs(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
+
+
             data_intern_match = percentage_match(1,data)
             data_job_match = percentage_match(2,data)
             data_overall_match = int(((data_intern_match + data_job_match)/2))
@@ -374,9 +370,9 @@ def allocate_interface(request):
            
                 return redirect('../../../admin_interface/allocate/')
 
+            allocated_pairs_rank = zip(allocated_pairs,rank_pairs)
 
-
-            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs,'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match, 'algorithm_context':algorithm_context,'admin':admin }
+            context = {'data': json.dumps(data), 'form':form, 'jobs' :jobs , 'interns' : interns, 'allocated_pairs': allocated_pairs,'allocated_pairs_rank':allocated_pairs_rank,'data_intern_match':data_intern_match, 'data_job_match':data_job_match,'data_overall_match':data_overall_match, 'algorithm_context':algorithm_context,'admin':admin }
             return render(request, 'interface/allocate.html', context)
 
         except:

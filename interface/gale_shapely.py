@@ -67,6 +67,7 @@ def gale_allocation(*, intern_preference, job_preference):
 
 #https://github.com/benchaplin/hungarian-algorithm
 def hungarian_algorithm(preference):
+   
     preference_rank = pref_rank(preference)
     matches_ranking = algorithm.find_matching(preference_rank, matching_type = 'min', return_type = 'list' )
     matches = [match[0] for match in matches_ranking]

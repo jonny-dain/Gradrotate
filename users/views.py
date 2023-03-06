@@ -202,6 +202,7 @@ def manager_form_additional_requirements(request, pk):
 
     location_list = list(JobLocation.objects.all().values()) 
     location_json = json.dumps(location_list)
+    
 
 
 

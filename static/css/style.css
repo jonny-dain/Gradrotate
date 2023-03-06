@@ -545,6 +545,13 @@ a.active, a:hover{
   background-color: #4D697D;
   color: white;
 }
+.create-skills-button:hover{
+  background-color: #708797;
+  color: white;
+}
+.btn.btn-warning:hover{
+  background-color: #FFEEBD;
+}
 
 
 .skill-bar{
@@ -610,6 +617,7 @@ a.active, a:hover{
 	clip: rect(0, 0, 0, 0);
 	height: 1px;
 	width: 1px;
+  
 	border: 0;
 	overflow: hidden;
   border-radius: 0px 4px 0px 0px; /* round arrow corner, the shorthand property doesn't accept "inherit" so it is set to 4px */
@@ -620,7 +628,8 @@ a.active, a:hover{
 .switch-field label {
 	background-color: #fafbfe;
 	color: rgba(0, 0, 0, 0.8);
-	font-size: 14px;
+	font-size: 13px;
+  font-weight: 500;
 	line-height: 1;
 	text-align: center;
 	padding: 8px 16px;
@@ -633,6 +642,8 @@ a.active, a:hover{
 
 .switch-field label:hover {
 	cursor: pointer;
+  background-color: #C8DEDC;
+  
 }
 
 .switch-field input:checked + label {

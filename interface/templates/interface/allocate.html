@@ -334,19 +334,23 @@
 
                     </div>
                     <div class="card border-0  mb-3">
-                        <div style = "overflow: auto; height:80vh;">
+                        <div style = "overflow: auto; height:70vh;">
                             <table class="table" id="dtHorizontalVerticalExample" >
                                 <tr>
                                     <th class="table-light">Intern</th>
+                                    <th class="table-light">Pref.</th>
                                     <th class="table-light">Job</th>
+                                    <th class="table-light">Pref.</th>
                                     <th class="table-light">Intern Email</th>
                                     <th class="table-light">Manager Email</th>
                                     
                                 </tr>
-                                {% for pair in allocated_pairs %}
+                                {% for pair, rank in allocated_pairs_rank %}
                                     <tr>
                                         <td>{{pair.0}}</td>
+                                        <td>{{rank.0}}</td>
                                         <td>{{pair.1}}</td>
+                                        <td>{{rank.1}}</td>
                                         <td>{{pair.0.email}}</td>
                                         <td>{{pair.1.email}}</td>
                                     </tr>
@@ -357,6 +361,25 @@
                         
                 
 
+                    </div>
+                    <h5 class="text-center pt-2" style="color: #6c757d;">Preferences</h5>
+
+                    <div class="card border-0 p-2">
+                        <div class="col-12">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary" onclick= "window.open('https://gradrotate.uk/admin_interface/interns/')">Intern preference</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick= "window.open('https://gradrotate.uk/admin_interface/jobs/',' _blank')">Job preferences</button>
+                            
+                                
+        
+     
+
+                        </div>
+
+
+
+                            
+                        </div>
                     </div>
                 </div>
             </div>

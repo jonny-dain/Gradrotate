@@ -43,8 +43,7 @@ def admin_interface(request):
     leadership_skills = LeadershipSkills.objects.all()
     business_skills = BusinessSkills.objects.all()
     admin_skills = AdminSkills.objects.all()
-    
-
+  
     context = { 'form': form, 
     'users':users,
     'jobs' :jobs , 

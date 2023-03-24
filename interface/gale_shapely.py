@@ -75,6 +75,8 @@ def hungarian_algorithm(preference):
 
 
 def pareto_optimal(intern_preferences, job_preferences):
+
+    
    
     matching = []
 
@@ -95,7 +97,7 @@ def pareto_optimal(intern_preferences, job_preferences):
                 free_jobs.remove(job)
                 break
 
-    
+
     return matching
 
 

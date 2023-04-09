@@ -23,7 +23,7 @@ def gale_allocation(*, intern_preference, job_preference):
     
     
     
-    #create a deque for the iterate list.. this will get apprended to and deleted and remove items in the list
+
     iterate_list ={}
     for intern, jobs in intern_preference.items():
 
@@ -35,7 +35,7 @@ def gale_allocation(*, intern_preference, job_preference):
 
     while len(interns_left) > 0:
 
-        #iterates through interns left and pops
+
 
         intern = interns_left.pop()
        
@@ -55,13 +55,13 @@ def gale_allocation(*, intern_preference, job_preference):
             
             if job_intern_rank == True:
 
-                #if the rank is lower then the rank in the pair then add to the list else add the current intern
+
                 interns_left.add(intern)
             else:
                 interns_left.add(intern0)
                 pair[job] = intern
     
-    #Return pair of iterns and jobs... 
+
     return [(intern, job) for job, intern in pair.items()]
 
 

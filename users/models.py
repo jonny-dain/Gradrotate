@@ -3,14 +3,6 @@ from accounts.models import Job
 
 
 
-# Create your models here. from accounts.models import Intern, Job
-
-
-
-
-
-
-
 
 
 #Intern preferences displayed here
@@ -20,21 +12,10 @@ class InternPreference(models.Model):
     job = models.ForeignKey("accounts.Job", null = True, blank = True, on_delete = models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add = True, null = True)
 
-    #Preference number for each of the jobs - Needs to be a max number of job.number Job.objects.all() job.count()
-    #first preference .. second preference
-    #(default=10, validators=[MinValueValidator(1), MaxValueValidator(100)])
+
   
     jobs = Job.objects.all()
     
-    #6 needs to be job count but cant be stuck in import loop - should be job
-    #preference = models.IntegerField(choices=[(i, i) for i in range(1, jobs.count() + 1)], blank=True)
+
     preference = models.IntegerField(blank=True)
 
-
-    #models.PositiveSmallIntegerField(default = 0)
-
-
-
-
-
-#class JobPreference

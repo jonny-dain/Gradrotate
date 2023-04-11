@@ -11,10 +11,10 @@ To run this software locally:
 3. Clone the git repository: ```$git clone git@git.cs.bham.ac.uk:projects-2022-23/jxd965.git```
 4. Install all dependencies listed on requirements.txt: ```$pip install -r requirements.txt -v```
 5. Create new API keys for the google charts and Tom-Tom map APIs
-6. Make database migrations: ```$python3 manage.py makemigrations```
-7. Migrate the changes on the database: ```$python3 manage.py migrate```
-8. Create a superuser with your credentials: ```$python3 manage.py createsuperuser```
-10. Create the correct groups: ```$python manage.py creategroup Intern Admin Manager```
+6. Make database migrations: ```$python3 manage.py makemigrations --settings=gradRotate.local  ```
+7. Migrate the changes on the database: ```$python3 manage.py migrate --settings=gradRotate.local  ```
+8. Create a superuser with your credentials: ```$python3 manage.py createsuperuser --settings=gradRotate.local  ```
+10. Create the correct groups: ```$python manage.py creategroup Intern Admin Manager --settings=gradRotate.local  ```
 11. Start the Django development server: ```$python manage.py runserver --settings=gradRotate.local  ``` 
 12. The development server should now be available on port 127.0.0.1:8000 on the browser
 

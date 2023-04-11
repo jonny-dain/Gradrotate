@@ -7,14 +7,6 @@ class InternPreferenceForm(ModelForm):
 
 
 
-    #PREFS = ((1,1),)
-    #jobs = Job.objects.all()
-    #for i in range(2,jobs.count()+1):
-    #    PREFS = PREFS + ((i,i),)
-    
-    #pref_option= forms.CharField(label='mp', widget=forms.Select(choices=PREFS))
-    #pref_option.widget.attrs.update({'class': 'form-select'})
-
 
 
     class Meta:

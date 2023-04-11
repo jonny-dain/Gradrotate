@@ -324,7 +324,6 @@ def allocate_interface(request):
             elif admin.allocation_algorithm == 'Pareto':
     
                 allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
-                #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
                 
                 algorithm_context = 'The Pareto algorithm finds the optimal pairing that satisfies the preferences of both interns and jobs. The algorithm iteratively evaluates the potential intern-job matches and identifying a match where a pairing cannot be improved without worsening any other interns preference. <a href=" https://en.wikipedia.org/wiki/Multi-objective_optimization" target="_blank">Learn more</a>'
 
@@ -348,8 +347,6 @@ def allocate_interface(request):
 
             
 
-            #works out how many interns got their first,second and third choices           
-  
 
             data = spread_of_preference(allocated_pairs = allocated_pairs, intern_preference = intern_preference, job_preference = job_preference)
          
@@ -433,7 +430,6 @@ def allocate_excel(request):
             elif admin.allocation_algorithm == 'Pareto':
     
                 allocated_pairs = pareto_optimal(intern_preferences=intern_preference, job_preferences=job_preference)
-                #allocated_pairs = gale_shapley2(intern_pref =intern_preference, job_pref =job_preference)
                 
                 algorithm_context = 'The Pareto algorithm finds the optimal pairing that satisfies the preferences of both interns and jobs. The algorithm iteratively evaluates the potential intern-job matches and identifying a match where a pairing cannot be improved without worsening any other interns preference. <a href=" https://en.wikipedia.org/wiki/Multi-objective_optimization" target="_blank">Learn more</a>'
 

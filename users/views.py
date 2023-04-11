@@ -51,8 +51,7 @@ def student_form_requirements(request):
     if request.method == "POST":
         form = StudentForm2(request.POST, instance= intern) 
         if form.is_valid():
-            #intern.location = request.POST['pref_location']
-            #intern.remote = request.POST['remote_option']
+            
             form.save()
             return redirect('../../form/student_form/skills')
 
@@ -186,7 +185,7 @@ def manager_form_requirements(request, pk):
 @allowed_users(allowed_roles=['Manager'])
 @required_phase(phase=['Job creation'])
 def manager_form_additional_requirements(request, pk):
-    #job = request.user.job
+    
     job = Job.objects.get(id=pk)
     manager = request.user.manager
 

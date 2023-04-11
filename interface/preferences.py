@@ -25,7 +25,6 @@ def job_preference_dictionary():
         admin_skills_job = job.admin_skills.all()
 
 
-        #print("Job: "+ str(job.name))
 
         for intern in interns:
             computing_skills_intern = intern.computing_skills.all()
@@ -36,9 +35,7 @@ def job_preference_dictionary():
             business_skills_intern = intern.business_skills.all()
             admin_skills_intern = intern.admin_skills.all()
 
-            #skill_difference1 = abs(job.coding - intern.coding) + abs(job.project_management - intern.project_management) + abs(job.marketing1_skills - intern.marketing1_skills) + abs(job.web_skills - intern.web_skills)
-            # save the skill difference with each of the jobs. if a job has a higher skill difference add to the end 
-            #
+
 
             #Similarites in skill 
             skill_difference = len(list(set(computing_skills_job).intersection(computing_skills_intern)))
@@ -49,26 +46,9 @@ def job_preference_dictionary():
             skill_difference += len(list(set(business_skills_job).intersection(business_skills_intern)))
             skill_difference += len(list(set(admin_skills_job).intersection(admin_skills_intern)))
 
-            #print(" intern: " + str(intern.name))
-
-            #print("     similarities: " + str(skill_difference))
-            
-
-            #Take the 
-
-            #print("job skills : " + str(computing_skills_job) + " intern skills: " + str(computing_skills_intern))
 
 
             job_dictionary[intern] = skill_difference
-            #print(" The intern: " + str(intern.name))
-            #print(" Skill difference: " + str(skill_difference))
-        
-        
-
-
-        #{<Intern: Intern2>: 6, <Intern: Intern1>: 6, <Intern: Intern7>: 10, <Intern: Test5>: 3, <Intern: Test3>: 18} sorts that into higher and lower
-        
-        #job_dictionary = sorted(job_dictionary.items(), key=lambda x:x[1])
 
         #Now reverses the list to get the intern with the most similar skills
         
@@ -116,7 +96,7 @@ def intern_preference_dictionary():
 
         interns_dictionary[intern] = job_list
 
-    #print(interns_dictionary)
+    
 
     return interns_dictionary
 
@@ -167,7 +147,6 @@ def spread_of_preference(allocated_pairs, intern_preference, job_preference):
             list = [i,0,0]
             pref_ranking.append(list)
 
-    #[(<Intern: Intern1>, <Job: Digital degree>), (<Intern: Test>, <Job: TPO>), (<Intern: Test1>, <Job: Manager Testing Job>)]
     for pair in allocated_pairs:
         for intern, jobs in intern_preference.items():      
             if pair[0] == intern:     

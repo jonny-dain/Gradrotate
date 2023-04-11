@@ -24,17 +24,6 @@ def job_skills(jobs):
         skills += list(job.admin_skills.all().values_list('name', flat=True))
 
         
-        #info = {}
-        
-        #info2 = []
-
-        #for skill in skills:
-       #     info = []
-            #info.update({skill : (100/len(skills))})
-        #    info.append(skill)
-        #    info.append(100/len(skills))
-        #    info2.append(info)
-            
 
         
 

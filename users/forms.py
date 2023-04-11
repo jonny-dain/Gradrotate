@@ -11,15 +11,7 @@ from accounts.models import *
 
 class StudentForm(ModelForm):
 
-    #REMOTE_CHOICES = [
-    #    ('Everyday', 'Everyday'),
-    #    ('3-4', '3-4'),
-    #    ('1-2','1-2'),
-    #    ('Remote','Remote'),
-    #]
-    #remote_choice = forms.CharField(label='What role are you?', widget=forms.Select(choices=REMOTE_CHOICES))
-    #remote_choice.widget.attrs.update({'class': 'form-select'})
-
+   
     class Meta:
         model = Intern
         fields = '__all__'
@@ -45,13 +37,7 @@ class StudentForm(ModelForm):
 
 class StudentForm2(ModelForm):
 
-    #LOCATIONS=[('Newbury','Newbury'),
-    #    ('London Paddington', 'London Paddington'),
-    #    ('Speechmark','Speechmark')]
-
-
-    #location = forms.ChoiceField(choices=LOCATIONS, widget=forms.RadioSelect())
-
+    
 
     REMOTE_OPTIONS= [
         ('Everyday', 'Everyday'),
@@ -63,8 +49,7 @@ class StudentForm2(ModelForm):
 
 
 
-    #emote.widget.attrs.update({'class': 'form-select'})
-
+    
     class Meta:
         model = Intern
         fields = '__all__'

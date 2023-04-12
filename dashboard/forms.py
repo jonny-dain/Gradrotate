@@ -3,6 +3,7 @@ from accounts.models import Job
 from users.models import InternPreference
 from django import forms
 
+#Preference form for the intern
 class InternPreferenceForm(ModelForm):
 
 
@@ -12,7 +13,7 @@ class InternPreferenceForm(ModelForm):
     class Meta:
         model = InternPreference
         fields = '__all__'
-        #fields = ['preference'] yes
+     
 
     def set_job(self, job):
         data = self.data.copy()

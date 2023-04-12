@@ -86,10 +86,5 @@ class CreateUserForm(UserCreationForm):
                 'class': 'form-control',
                 'style': 'margin-bottom: 10px'
             }) 
-        #self.fields['role_selection'].widget = widgets.Select(
-        #    attrs={
-        
-        #        'class': 'bootstrap-select'
-                
-        #    }) 
+      
     

@@ -19,6 +19,7 @@ from .forms import CreateUserForm
 #Testing
 import datetime
 
+#Homepage
 @update_phase
 def homepage(request):
     admin = Admin.objects.all().first()
@@ -33,7 +34,7 @@ def homepage(request):
 
 
 
-
+#Login method
 @update_phase
 def login(request):
 
@@ -79,7 +80,7 @@ def logout(request):
     return redirect('../')
     
       
-
+# Register system
 def register(request):
     admin = Admin.objects.all().first()
     form = CreateUserForm()
@@ -117,6 +118,7 @@ def register(request):
 
 GROUP_NAMES = ['Admin', 'Manager', 'Intern']
 
+# Runs to get up the local host
 def setup_initial_data():
     
     # Create user groups
@@ -141,6 +143,6 @@ def setup_initial_data():
 def bad_request(request, exception):
     return render(request, "accounts/error.html")
 
-
+# HTTP Error 500
 def bad_request_500(request):
     return render(request, "accounts/error.html")

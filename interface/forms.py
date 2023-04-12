@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 from accounts.models import *
 
+#Change phase form
 class AdminForm(ModelForm):
 
     PHASES = (
@@ -23,7 +24,7 @@ class AdminForm(ModelForm):
 
 
 
-
+#Change phase automatically on datetime
 class AdminForm2(ModelForm):
 
     job_creation_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date', 'style':'color:#6c757d;'}))
@@ -44,7 +45,7 @@ class AdminForm2(ModelForm):
         self.fields['automate_phase'].required = False
 
 
-
+#Toggle automated phase
 class AdminToggleAutomaticPhase(ModelForm):
 
     class Meta:
@@ -54,7 +55,7 @@ class AdminToggleAutomaticPhase(ModelForm):
 
 
 
-
+#Change allocation algorithm
 class AdminToggleNotify(ModelForm):
     notify_allocations = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'onchange': 'submit();'}))
     
@@ -78,6 +79,8 @@ class AdminToggleNotify(ModelForm):
         super(AdminToggleNotify, self).__init__(*args, **kwargs)
         self.fields['notify_allocations'].required = False
 
+
+#Change allocation notification 
 class AdminToggleAlgorithm(ModelForm):
 
     ALGORITHM =(

@@ -12,7 +12,7 @@ from django import forms
 
 
 
-# Skill category 
+# Skill categorys
 class ComputingSkills(models.Model):
     name = models.CharField(max_length = 200, null = True)
     def __str__(self):
@@ -68,7 +68,7 @@ class JobLocation(models.Model):
 
 
 
-
+#Intern class
 class Intern(models.Model):
 
     JOB_LOCATIONS = (
@@ -89,7 +89,7 @@ class Intern(models.Model):
     email = models.CharField(max_length = 200, null = True)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    #not sure I want skills
+   
     computing_skills = models.ManyToManyField(ComputingSkills, blank=True)
     analytic_skills = models.ManyToManyField(AnalyticSkills, blank=True)
     marketing_skills = models.ManyToManyField(MarketingSkills, blank=True)
@@ -119,7 +119,7 @@ class Intern(models.Model):
         return str(self.name)
 
 
-
+#Manager class
 class Manager(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     
@@ -130,9 +130,9 @@ class Manager(models.Model):
 
 
 
-
+# Job class
 class Job(models.Model):
-    #user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+   
     JOB_LOCATIONS = (
         ('Newbury','Newbury'),
         ('London Paddington', 'London Paddington'),
@@ -164,9 +164,7 @@ class Job(models.Model):
     team = models.CharField(max_length=30, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    #Location and remote balance
-    #location = models.CharField(max_length = 200, null = True, choices = JOB_LOCATIONS)
-
+    
     job_location = models.ForeignKey(JobLocation, null=True, on_delete=models.SET_NULL)
 
     remote = models.CharField(max_length = 200, null = True, choices = REMOTE_CHOICES)
@@ -189,11 +187,7 @@ class Job(models.Model):
     #user progress
     progress = models.IntegerField(default=1)
     
-    #Skills
-    #coding = models.IntegerField(default = 5)
-    #project_management = models.IntegerField(default = 5)
-    #marketing1_skills = models.IntegerField(default = 5)
-    #web_skills = models.IntegerField(default = 5)
+   
 
     allocated_intern = models.ForeignKey(Intern, null=True, blank=True, on_delete=models.SET_NULL)
 
@@ -202,7 +196,7 @@ class Job(models.Model):
 
 
 
-
+#Admin class
 class Admin(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     PHASES = (

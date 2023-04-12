@@ -16,6 +16,7 @@ from geopy.geocoders import Nominatim
 import openpyxl
 
 
+#Admin internface
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 @update_phase
@@ -181,7 +182,7 @@ def admin_interface(request):
 
 
 
-
+#Admin Intern interface
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def intern_interface(request):
@@ -196,6 +197,7 @@ def intern_interface(request):
     return render(request, 'interface/interns.html', context)
 
 
+#Admin Job interface
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def job_interface(request):
@@ -384,7 +386,6 @@ def allocate_interface(request):
 
 
 #This allocates excel files 
-
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Admin'])
 def allocate_excel(request):

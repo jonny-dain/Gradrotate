@@ -1,7 +1,7 @@
 from collections import deque
 from hungarian_algorithm import algorithm
 
-#formula run here
+#formula run here to get every preference number with each job/intern
 def pref_rank(pref):
     #Need to return preference and rank
 
@@ -14,7 +14,7 @@ def pref_rank(pref):
 
     return pref_rank
     
-
+#Gale-Shapely algorithm
 def gale_allocation(*, intern_preference, job_preference):
     
     pair = {}
@@ -64,7 +64,7 @@ def gale_allocation(*, intern_preference, job_preference):
 
     return [(intern, job) for job, intern in pair.items()]
 
-
+#Hungarian algorithm
 #https://github.com/benchaplin/hungarian-algorithm
 def hungarian_algorithm(preference):
    
@@ -73,7 +73,7 @@ def hungarian_algorithm(preference):
     matches = [match[0] for match in matches_ranking]
     return matches
 
-
+#Pareto algorithm
 def pareto_optimal(intern_preferences, job_preferences):
 
     
@@ -100,7 +100,7 @@ def pareto_optimal(intern_preferences, job_preferences):
 
     return matching
 
-
+#Random Serial Dictatorship algorithm
 def random_serial_dictatorship_matching(intern_preference, job_preference):
     interns = list(intern_preference.keys())
     jobs = list(job_preference.keys())

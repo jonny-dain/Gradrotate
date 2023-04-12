@@ -102,7 +102,7 @@ def intern_preference_dictionary():
 
 
 
-
+#This method extracts preferences in an excel sheet
 def excel_preferences(preferences):
 
         preferences_dictionary = {}
@@ -130,7 +130,7 @@ def excel_set(model):
     return model_list
    
     
-
+#This method works out how many interns/jobs were allocated their numbered preference
 def spread_of_preference(allocated_pairs, intern_preference, job_preference):   
     all_jobs_count = len(job_preference)
     all_intern_count = len(intern_preference)
@@ -169,7 +169,6 @@ def spread_of_preference(allocated_pairs, intern_preference, job_preference):
 
 
 
-## HEREE
 
 def spread_of_preference_pairs(allocated_pairs, intern_preference, job_preference):
        
@@ -197,7 +196,7 @@ def spread_of_preference_pairs(allocated_pairs, intern_preference, job_preferenc
              
 
 
-
+#This method works out the percentage match
 def percentage_match(field, data):  
     max_intern_value = sum([triplet[1] for triplet in data]) ** 2
     total_value = sum([data_field[0] * data_field[field] for data_field in data if data_field[0] != 1])

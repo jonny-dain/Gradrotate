@@ -30,7 +30,7 @@ class BaseCheckFormSet(BaseFormSet):
 
 
 
-
+# Creates preferences
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 @update_progress(4)
@@ -75,7 +75,7 @@ def preference(request):
 
 
 
-
+#Sorts the jobs based on preferences
 @login_required(login_url='../../../../login')
 @allowed_users(allowed_roles=['Intern'])
 def sort(request):

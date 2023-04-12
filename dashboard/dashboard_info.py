@@ -7,6 +7,7 @@ from .forms import InternPreferenceForm
 from django.forms import inlineformset_factory, BaseFormSet
 from django.core.exceptions import ValidationError
 
+#Returns a list of all the Job's skills
 def job_skills(jobs):
 
 
@@ -32,6 +33,7 @@ def job_skills(jobs):
    
     return job_all_skills
 
+#Gets a list of Intern preferences
 def get_intern_preferences(request):
     intern_preferences = InternPreference.objects.filter(intern = request.user.intern)
     
@@ -47,6 +49,7 @@ def get_intern_preferences(request):
     
     return intern_preferences
 
+#Creates an ordered list, for the intern, of jobs based on the skills match
 def job_ordered_list(request):
     #create a preference dictionary based on the skill similarities [digital degree, TPO, Change Manager]
     
@@ -126,7 +129,7 @@ def job_ordered_list(request):
 
 
 
-
+#Creates an ordered list, for the job, of interns based on the skills match
 def job_ordered_preference_list(request):
     #create a preference dictionary based on the preferences {<Job: Digital degree>: 57, <Job: TPO>: 43, <Job: Change manager>: 29}
     

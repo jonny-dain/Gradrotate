@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from accounts.models import Admin
 
 
-
+# Triggers allowed users for a page
 def allowed_users(allowed_roles=[]):
     def decorator(view_func):
         def wrapper_func(request, *arg, **kwargs):
@@ -34,7 +34,7 @@ def allowed_users(allowed_roles=[]):
     return decorator
 
 
-
+#Automatically updates progress of user
 def update_progress(progress):
     def decorator(view_func):
         def wrapper_func(request, *arg, **kwargs):
@@ -54,7 +54,7 @@ def update_progress(progress):
 
 
 
-
+#Automatically updates the phase when datetime is used
 def update_phase(view_func):
     def wrapper_func(request, *arg, **kwargs):
         admin = Admin.objects.all().first()

@@ -7,6 +7,8 @@ It allows the Intern to identify the most suitable roles using their profile, re
 The Gale-Shapely, Hungarian, Pareto and Random Serial Dictatorship algorithms can be selected to accurately match the intern with the placement position.
 Gradrotate.uk is more effective than the former manual process as it reduces bias, in- creases accuracy and is more time efficient.
 
+This application was created for Vodafone Group's 2023 Graduate intake to streamline their assignment to the most appropriate rotational positions and has now been integrated into the Vodafone workflow for all graduates during onboarding.
+
 **Website**
 
 The code is hosted on the Website: https://gradrotate.uk/

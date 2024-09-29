@@ -1,7 +1,17 @@
-This repository was provided by the University of Birmingham to host the final year project code. 
+**Abstract**
+
+Gradrotate.uk is an online web application that was created to streamline the automatic allocation of interns into placement positions; ensuring the allocated placement is suitable for the intern whilst delivering value to the employer.
+
+It allows the Intern to identify the most suitable roles using their profile, recommending placement positions, and for the employer to identify the most suitable intern for each position so that they are productive during their placement.
+
+The Gale-Shapely, Hungarian, Pareto and Random Serial Dictatorship algorithms can be selected to accurately match the intern with the placement position.
+Gradrotate.uk is more effective than the former manual process as it reduces bias, in- creases accuracy and is more time efficient.
+
+**Website**
 
 The code is hosted on the Website: https://gradrotate.uk/
 
+**Local setup**
 
 This GitLab repository includes a Django application, with all dependencies listed on the requirements.txt. 
 
@@ -18,6 +28,7 @@ To run this software locally:
 11. Start the Django development server: ```$python manage.py runserver --settings=gradRotate.local  ``` 
 12. The development server should now be available on port 127.0.0.1:8000 on the browser
 
+**Remote setup with CI/CD**
 
 To deploy the local software to a web server:
 1. Set up a Ubuntu web server on Digital Ocean with the spec: Docker 19.03.12 on Ubuntu 20.04 (1GB / 1CPU)

@@ -1,3 +1,8 @@
+<div align="center">
+    <img src="GradrotateLogo.png" alt="Logo" />
+</div>
+
+
 **Abstract**
 
 Gradrotate.uk is an online web application that was created to streamline the automatic allocation of interns into placement positions; ensuring the allocated placement is suitable for the intern whilst delivering value to the employer.
@@ -12,6 +17,9 @@ This application was created for Vodafone Group's 2023 Graduate intake to stream
 **Website**
 
 The code is hosted on the Website: https://gradrotate.uk/
+
+![Logo](Homescreen.png)
+
 
 **Local setup**
 

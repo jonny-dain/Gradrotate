@@ -14,6 +14,10 @@ Gradrotate.uk is more effective than the former manual process as it reduces bia
 
 This application was created for Vodafone Group's 2023 Graduate intake to streamline their assignment to the most appropriate rotational positions and has now been integrated into the Vodafone workflow for all graduates during onboarding.
 
+**Write-up**
+
+Please find the Gradrotate write-up [here](https://drive.google.com/file/d/1oXguGmgDeDr4bqOxhtmlG27sQEkv5PcD/view?usp=sharing)
+
 **Website**
 
 The code is hosted on the Website: https://gradrotate.uk/
